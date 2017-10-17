@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('index');
 });
+
+Route::group(['middleware' => 'web'], function () {
+    Route::get('fileUpload', function () {
+        return view('index');
+    });
+    Route::post('fileUpload', ['as'=>'fileUpload','uses'=>'UploadController@fileUpload']);
+});

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>JS Torres Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -11,7 +11,7 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if IE]><script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="{{asset('js/excanvas.js')}}"></script><![endif]-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/fabric.js') }}"></script>
     <script type="text/javascript" src="{{asset('js/tshirtEditor.js')}}"></script>
@@ -81,7 +81,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Custom T-Shirt</a>
+            <a class="brand" href="#">JS Torres Shop</a>
             <div class="nav-collapse" id="main-menu">
                 <ul class="nav" id="main-menu-left">
                     {{--<li><a href="case.html">Phone Case</a></li>--}}
@@ -103,11 +103,18 @@
 
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1" data-toggle="tab">T-Shirt Options</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Gravatar</a></li>
+                        @if ($message = Session::get('success'))
+                            <li><a href="#tab1" data-toggle="tab">Design</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Logo</a></li>
+                            <li class="active"><a href="#tab3" data-toggle="tab">Upload</a></li>
+                        @else
+                            <li class="active"><a href="#tab1" data-toggle="tab">Design</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Logo</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Upload</a></li>
+                        @endif
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tab1">
+                        <div class="tab-pane {{$message = Session::get('success') ? "" : "active"}}" id="tab1">
                             <div class="well">
                                 <!--					      	<h3>Tee Styles</h3>-->
                                 <!--						      <p>-->
@@ -161,6 +168,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane {{$message = Session::get('success') ? "active" : ""}}" id="tab3">
+                            <div class="well" style="overflow-x: hidden;">
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @if ($message = Session::get('success'))
+                                    <div class="alert alert-success">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <strong>{{$message}}</strong>
+                                    </div>
+                                @endif
+
+                                {!! Form::open(array('route' => 'fileUpload','enctype' => 'multipart/form-data')) !!}
+                                        {!! Form::file('image', array('class' => 'image')) !!}
+
+                                        <button type="submit" class="btn btn-success">Create</button>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -205,7 +238,7 @@
                 </div>
                 <!--	EDITOR      -->
                 <div id="shirtDiv" class="page" style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255);">
-                    <img id="tshirtFacing" src="{{asset('img/crew_front.png')}}"></img>
+                    <img id="tshirtFacing" src="{{asset('img/jersey/Polo-Shirt-PNG-Clipart.png')}}"></img>
                     <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
@@ -220,32 +253,32 @@
                 <!--	/EDITOR		-->
             </div>
 
-            <div class="span3">
-                <div class="well">
-                    <h3>Total Prices</h3>
-                    <p>
-                    <table class="table">
-                        <tr>
-                            <td>Short Sleeve</td>
-                            <td align="right">$12.49</td>
-                        </tr>
-                        <tr>
-                            <td>Front Design</td>
-                            <td align="right">$4.99</td>
-                        </tr>
-                        <tr>
-                            <td>Back Design</td>
-                            <td align="right">$4.99</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total</strong></td>
-                            <td align="right"><strong>$22.47</strong></td>
-                        </tr>
-                    </table>
-                    </p>
-                    <button type="button" class="btn btn-large btn-block btn-success" name="addToTheBag" id="addToTheBag">Add to bag <i class="icon-briefcase icon-white"></i></button>
-                </div>
-            </div>
+            {{--<div class="span3">--}}
+                {{--<div class="well">--}}
+                    {{--<h3>Total Prices</h3>--}}
+                    {{--<p>--}}
+                    {{--<table class="table">--}}
+                        {{--<tr>--}}
+                            {{--<td>Short Sleeve</td>--}}
+                            {{--<td align="right">$12.49</td>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td>Front Design</td>--}}
+                            {{--<td align="right">$4.99</td>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td>Back Design</td>--}}
+                            {{--<td align="right">$4.99</td>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td><strong>Total</strong></td>--}}
+                            {{--<td align="right"><strong>$22.47</strong></td>--}}
+                        {{--</tr>--}}
+                    {{--</table>--}}
+                    {{--</p>--}}
+                    {{--<button type="button" class="btn btn-large btn-block btn-success" name="addToTheBag" id="addToTheBag">Add to bag <i class="icon-briefcase icon-white"></i></button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
         </div>
 
