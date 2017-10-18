@@ -87,27 +87,19 @@
                     {{--<li><a href="case.html">Phone Case</a></li>--}}
                 </ul>
             </div>
-            {{--<div class="dropdown" style="float:right;">--}}
-                {{--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example--}}
-                    {{--<span class="caret"></span></button>--}}
-                {{--<ul class="dropdown-menu">--}}
-                    {{--<li><a href="#">HTML</a></li>--}}
-                    {{--<li><a href="#">CSS</a></li>--}}
-                    {{--<li><a href="#">JavaScript</a></li>--}}
-                {{--</ul>--}}
-            {{--</div>--}}
-
-            <ul class="nav navbar-nav navbar-right" style="float:right">
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Products(Admin)</a></li>
-                        <li><a href="#">Order List(Admin)</a></li>
-                        <li><a href="#">Track my order(User)</a></li>
-                        <li><a href="#">My Profile (User)</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="nav-collapse" id="main-menu">
+                <ul class="nav navbar-nav navbar-right" style="float:right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Products(Admin)</a></li>
+                            <li><a href="#">Order List(Admin)</a></li>
+                            <li><a href="#">Track my order(User)</a></li>
+                            <li><a href="#">My Profile (User)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
