@@ -21,3 +21,6 @@ Route::group(['middleware' => 'web'], function () {
     });
     Route::post('fileUpload', ['as'=>'fileUpload','uses'=>'UploadController@fileUpload']);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
