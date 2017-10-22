@@ -103,7 +103,7 @@
                                 <ul class="dropdown-menu">
                                     @if(Auth::user()->isAdmin())
                                         <li><a href="{{ url('/products') }}">Products</a></li>
-                                        <li><a href="#">Order List</a></li>
+                                        <li><a href="{{ url('/orders') }}">Order List</a></li>
                                     @else
                                         <li><a href="#">Track my order</a></li>
                                         <li><a href="{{ url('/user') }}">My Profile</a></li>

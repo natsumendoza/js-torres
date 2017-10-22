@@ -58,7 +58,7 @@ class ProductController extends Controller
 
         Product::create($product);
 
-        return redirect('products')->with('success', 'Product has been added');;
+        return redirect('products')->with('success', 'Product has been added');
     }
 
     /**
@@ -129,6 +129,6 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect('products')->with('success','Product has been  deleted');
+        return redirect('products')->with('success','Product has been deleted');
     }
 }

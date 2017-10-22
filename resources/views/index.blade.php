@@ -167,32 +167,56 @@
 
             @guest
                 @else
-                    <div class="span3">
-                        <div class="well">
-                            <h3>Total Prices</h3>
-                            <p>
-                            <table class="table">
-                                <tr>
-                                    <td>Short Sleeve</td>
-                                    <td align="right">$12.49</td>
-                                </tr>
-                                <tr>
-                                    <td>Front Design</td>
-                                    <td align="right">$4.99</td>
-                                </tr>
-                                <tr>
-                                    <td>Back Design</td>
-                                    <td align="right">$4.99</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Total</strong></td>
-                                    <td align="right"><strong>$22.47</strong></td>
-                                </tr>
-                            </table>
-                            </p>
-                            <button type="button" class="btn btn-large btn-block btn-success" name="addToCart" id="addToCart">Add to cart <i class="icon-shopping-cart icon-white"></i></button>
+                    <form method="POST" action="{{url('orders')}}">
+                        {{csrf_field()}}
+                        <input id="transactionCode" type="hidden" class="hidden" name="transactionCode" value="transaction1">
+                        <input id="userId" type="hidden" class="hidden" name="userId" value="{{ Auth::user()->id }}">
+                        <input id="frontImage" type="hidden" class="hidden" name="frontImage" value="frontImage">
+                        <input id="backImage" type="hidden" class="hidden" name="backImage" value="backImage">
+                        <input id="leftImage" type="hidden" class="hidden" name="leftImage" value="leftImage">
+                        <input id="rightImage" type="hidden" class="hidden" name="rightImage" value="rightImage">
+                        <input id="status" type="hidden" class="hidden" name="status" value="pending">
+                        <div class="span3">
+                            <div class="well">
+                                <h3>Total Prices</h3>
+                                <p>
+                                <table class="table">
+                                    <tr>
+                                        <td>Short Sleeve</td>
+                                        <td align="right">$12.49</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Front Design</td>
+                                        <td align="right">$4.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Back Design</td>
+                                        <td align="right">$4.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td align="right"><strong>$22.47</strong></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Quantity</td>
+                                        <td><input id="quantity" type="number" class="form-control" name="quantity" style="width:50px" required autofocus></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Price</td>
+                                        <td><input id="totalPrice" type="number" step="0.01" class="form-control" name="totalPrice" value="1000" style="width:50px" required autofocus readonly></td>
+                                    </tr>
+                                    @if (\Session::has('cart'))
+                                        <tr>
+                                            <td class="alert alert-success" colspan="2">{{ \Session::get('cart') }}</td>
+                                        </tr>
+                                    @endif
+                                </table>
+                                </p>
+                                <button type="submit" class="btn btn-large btn-block btn-success" name="addToCart" id="addToCart">Add to cart <i class="icon-shopping-cart icon-white"></i></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     @endguest
 
 
