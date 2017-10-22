@@ -36,25 +36,50 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated_product = $this->validate($request,[
             'productName' => 'required',
             'productType' => 'required',
             'basePrice' => 'required|numeric',
-            'frontImage' => 'required',
-            'backImage' => 'required',
-            'leftImage' => 'required',
-            'rightImage' => 'required',
+            'frontImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'backImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $image = $request->file('frontImage');
+        $input['imagename'] = $validated_product['productName'].'_front.'.$image->getClientOriginalExtension();
+        $frontImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $frontImageName);
+
+        $image = $request->file('backImage');
+        $input['imagename'] = $validated_product['productName'].'_back.'.$image->getClientOriginalExtension();
+        $backImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $backImageName);
+
+        $image = $request->file('leftImage');
+        $input['imagename'] = $validated_product['productName'].'_left.'.$image->getClientOriginalExtension();
+        $leftImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $leftImageName);
+
+        $image = $request->file('rightImage');
+        $input['imagename'] = $validated_product['productName'].'_right.'.$image->getClientOriginalExtension();
+        $rightImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $rightImageName);
 
         // SETS $validate_product to $product
         $product = array();
         $product['product_name'] = $validated_product['productName'];
         $product['product_type'] = $validated_product['productType'];
         $product['base_price']   = $validated_product['basePrice'];
-        $product['front_image']  = $validated_product['frontImage'];
-        $product['back_image']   = $validated_product['backImage'];
-        $product['left_image']   = $validated_product['leftImage'];
-        $product['right_image']  = $validated_product['rightImage'];
+        $product['front_image']  = $frontImageName;
+        $product['back_image']   = $backImageName;
+        $product['left_image']   = $leftImageName;
+        $product['right_image']  = $rightImageName;
 
         Product::create($product);
 
@@ -100,20 +125,44 @@ class ProductController extends Controller
             'productName' => 'required',
             'productType' => 'required',
             'basePrice' => 'required|numeric',
-            'frontImage' => 'required',
-            'backImage' => 'required',
-            'leftImage' => 'required',
-            'rightImage' => 'required',
+            'frontImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'backImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $image = $request->file('frontImage');
+        $input['imagename'] = $validated_product['productName'].'_front.'.$image->getClientOriginalExtension();
+        $frontImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $frontImageName);
+
+        $image = $request->file('backImage');
+        $input['imagename'] = $validated_product['productName'].'_back.'.$image->getClientOriginalExtension();
+        $backImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $backImageName);
+
+        $image = $request->file('leftImage');
+        $input['imagename'] = $validated_product['productName'].'_left.'.$image->getClientOriginalExtension();
+        $leftImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $leftImageName);
+
+        $image = $request->file('rightImage');
+        $input['imagename'] = $validated_product['productName'].'_right.'.$image->getClientOriginalExtension();
+        $rightImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $rightImageName);
 
         // SETS $validate_product to $product
         $product['product_name'] = $validated_product['productName'];
         $product['product_type'] = $validated_product['productType'];
         $product['base_price']   = $validated_product['basePrice'];
-        $product['front_image']  = $validated_product['frontImage'];
-        $product['back_image']   = $validated_product['backImage'];
-        $product['left_image']   = $validated_product['leftImage'];
-        $product['right_image']  = $validated_product['rightImage'];
+        $product['front_image']  = $frontImageName;
+        $product['back_image']   = $backImageName;
+        $product['left_image']   = $leftImageName;
+        $product['right_image']  = $rightImageName;
         $product->save();
 
         return redirect('products')->with('success','Product has been updated');

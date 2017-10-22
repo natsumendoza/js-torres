@@ -58,6 +58,13 @@
         .Plaster{font-family:"Plaster";}
         .Engagement{font-family:"Engagement";}
 
+        @media (min-width: 1200px){
+            .container {
+                width: 1170px !important;
+            }
+        }
+
+
     </style>
 </head>
 
@@ -77,7 +84,12 @@
                     {{--<li><a href="case.html">Phone Case</a></li>--}}
                 </ul>
             </div>
+            <div class="nav-collapse" id="main-menu">
+                <ul class="nav navbar-nav navbar-right" style="float:right">
 
+
+                </ul>
+            </div>
 
         </div>
     </div>

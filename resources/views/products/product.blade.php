@@ -19,9 +19,11 @@
                     <div class="panel-heading">{{$header}}</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{(isset($product['id'])) ? action('ProductController@update', $id) : url('products')}}">
+                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{(isset($product['id'])) ? action('ProductController@update', $id) : url('products')}}">
                             {{ csrf_field() }}
-                            <input name="_method" type="hidden" value="PATCH">
+                            @if(isset($product['id']))
+                                <input name="_method" type="hidden" value="PATCH">
+                            @endif
                             <div class="form-group{{ $errors->has('productName') ? ' has-error' : '' }}">
                                 <label for="productName" class="col-md-4 control-label">Product Name</label>
 
@@ -71,7 +73,7 @@
                                 <label for="frontImage" class="col-md-4 control-label">Front Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="frontImage" type="text" class="form-control" name="frontImage" value="{{@$product['front_image']}}" required autofocus>
+                                    <input id="frontImage" type="file" class="form-control" name="frontImage" value="{{@$product['front_image']}}" required autofocus>
 
                                     @if ($errors->has('frontImage'))
                                         <span class="help-block">
@@ -85,7 +87,7 @@
                                 <label for="backImage" class="col-md-4 control-label">Back Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="backImage" type="text" class="form-control" name="backImage" value="{{@$product['back_image']}}" required autofocus>
+                                    <input id="backImage" type="file" class="form-control" name="backImage" value="{{@$product['back_image']}}" required autofocus>
 
                                     @if ($errors->has('backImage'))
                                         <span class="help-block">
@@ -99,7 +101,7 @@
                                 <label for="leftImage" class="col-md-4 control-label">Left Side Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="leftImage" type="text" class="form-control" name="leftImage" value="{{@$product['left_image']}}" required autofocus>
+                                    <input id="leftImage" type="file" class="form-control" name="leftImage" value="{{@$product['left_image']}}" required autofocus>
 
                                     @if ($errors->has('leftImage'))
                                         <span class="help-block">
@@ -113,7 +115,7 @@
                                 <label for="rightImage" class="col-md-4 control-label">Right Side Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="rightImage" type="text" class="form-control" name="rightImage" value="{{@$product['right_image']}}" required autofocus>
+                                    <input id="rightImage" type="file" class="form-control" name="rightImage" value="{{@$product['right_image']}}" required autofocus>
 
                                     @if ($errors->has('rightImage'))
                                         <span class="help-block">
