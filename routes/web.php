@@ -25,6 +25,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::get('/sparkpost', function () {
     Mail::send('emails.test', [], function ($message) {
         $message
@@ -35,3 +36,4 @@ Route::get('/sparkpost', function () {
 });
 
 Route::resource('user', 'UserController');
+Route::resource('products','ProductController');
