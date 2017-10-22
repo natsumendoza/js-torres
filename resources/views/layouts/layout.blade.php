@@ -92,6 +92,11 @@
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            @if(!Auth::user()->isAdmin())
+                                <li><a href="{{ route('login') }}"><i class="icon-shopping-cart icon-white"></i>({{2}})</a></li>
+                            @endif
+
+
                             <li class="dropdown">
                                 {{--{{ Auth::user()->name }}--}}
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
