@@ -94,12 +94,15 @@
                         @else
                             <li class="dropdown">
                                 {{--{{ Auth::user()->name }}--}}
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->first_name }} <b class="caret"></b></a>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Products(Admin)</a></li>
-                                    <li><a href="#">Order List(Admin)</a></li>
-                                    <li><a href="#">Track my order(User)</a></li>
-                                    <li><a href="#">My Profile (User)</a></li>
+                                    @if(Auth::user()->isAdmin())
+                                        <li><a href="#">Products</a></li>
+                                        <li><a href="#">Order List</a></li>
+                                    @else
+                                        <li><a href="#">Track my order</a></li>
+                                        <li><a href="#">My Profile</a></li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
