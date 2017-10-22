@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ env('APP_URL') == 'http://localhost' ? asset('css/app.css') : secure_asset('css/app.css') }}" rel="stylesheet">
     <!-- Le styles -->
 {{--    <link type="text/css" rel="stylesheet" href="{{asset('css/jquery.miniColors.css')}}" />--}}
-    <link href="{{secure_asset('css/bootstrap-rev.min.css')}}" rel="stylesheet">
+    <link href="{{ env('APP_URL') == 'http://localhost' ? asset('css/bootstrap-rev.min.css') : secure_asset('css/bootstrap-rev.min.css') }}" rel="stylesheet">
 {{--    <link href="{{asset('css/bootstrap-responsive.min.css')}}" rel="stylesheet">--}}
 
     <script type="text/javascript">
@@ -96,7 +96,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script src="{{secure_asset('js/bootstrap.min.js')}}"></script>
+<script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
 
 
 </body>

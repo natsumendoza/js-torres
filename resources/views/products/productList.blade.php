@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <title>Products</title>
-    <link rel="stylesheet" href="{{secure_asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{ env('APP_URL') == 'http://localhost' ? asset('css/app.css') : secure_asset('css/app.css') }}">
 </head>
 <body>
 <div class="container">
