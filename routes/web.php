@@ -11,8 +11,11 @@
 |
 */
 
+use App\Product;
+
 Route::get('/', function () {
-    return view('index');
+    $productList = Product::all()->toArray();
+    return view('index', compact('productList', $productList));
 });
 
 Route::group(['middleware' => 'web'], function () {

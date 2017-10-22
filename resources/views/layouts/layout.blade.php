@@ -142,6 +142,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- Scripts -->
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
+<script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/jstorres.js') : secure_asset('js/jstorres.js')}}"></script>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];

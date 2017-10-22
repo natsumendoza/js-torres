@@ -36,6 +36,15 @@
                                     <option value="3">Hoodies</option>
                                     <option value="4">Tank tops</option>
                                 </select>
+
+                                <div id="avatarlist">
+                                    @foreach($productList as $product)
+                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['front_image'])}}">
+                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['back_image'])}}">
+                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['left_image'])}}">
+                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['right_image'])}}">
+                                    @endforeach
+                                </div>
                                 <!--						      </p>-->
                             </div>
                             <div class="well">
