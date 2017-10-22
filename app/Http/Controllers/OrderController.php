@@ -110,6 +110,8 @@ class OrderController extends Controller
         $order = Order::find($id);
         $transactionCode = $order['transaction_code'];
         $order->delete();
+
+
         return redirect('cart/'.$transactionCode);
     }
 

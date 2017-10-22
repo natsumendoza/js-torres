@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use Session;
 
 class CartController extends Controller
 {
@@ -46,6 +47,9 @@ class CartController extends Controller
     public function show($transactionCode)
     {
         $cartItems = Order::where('transaction_code', '=', $transactionCode)->get()->toArray();
+
+        Session::put('cartSize', count($cartItems));
+
         return view('orders.orderListByTransactionCode', compact('cartItems'));
     }
 

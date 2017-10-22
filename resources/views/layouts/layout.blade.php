@@ -93,7 +93,13 @@
                         <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             @if(!Auth::user()->isAdmin())
-                                <li><a href="{{ route('login') }}"><i class="icon-shopping-cart icon-white"></i>({{2}})</a></li>
+                                @php($cartSize = 0)
+                                @if (\Session::has('cartSize'))
+                                    @php($cartSize = \Session::get('cartSize'))
+                                @endif
+
+
+                                <li><a href="{{ route('login') }}"><i class="icon-shopping-cart icon-white"></i>({{\Session::get('cartSize')}})</a></li>
                             @endif
 
 
