@@ -1,5 +1,7 @@
 <!-- productList.blade.php -->
+@extends('layouts.layout2')
 
+@section('content')
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,3 +61,4 @@
 </div>
 </body>
 </html>
+@endsection
