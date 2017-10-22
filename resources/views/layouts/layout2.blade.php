@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ env('APP_URL') == 'http://localhost' ? asset('css/app.css') : secure_asset('css/app.css') }}" rel="stylesheet">
     <!-- Le styles -->
 {{--    <link type="text/css" rel="stylesheet" href="{{asset('css/jquery.miniColors.css')}}" />--}}
-    <link href="{{asset('css/bootstrap-rev.min.css')}}" rel="stylesheet">
+    <link href="{{ env('APP_URL') == 'http://localhost' ? asset('css/bootstrap-rev.min.css') : secure_asset('css/bootstrap-rev.min.css') }}" rel="stylesheet">
 {{--    <link href="{{asset('css/bootstrap-responsive.min.css')}}" rel="stylesheet">--}}
 
     <script type="text/javascript">
@@ -58,6 +58,13 @@
         .Plaster{font-family:"Plaster";}
         .Engagement{font-family:"Engagement";}
 
+        @media (min-width: 1200px){
+            .container {
+                width: 1170px !important;
+            }
+        }
+
+
     </style>
 </head>
 
@@ -77,7 +84,12 @@
                     {{--<li><a href="case.html">Phone Case</a></li>--}}
                 </ul>
             </div>
+            <div class="nav-collapse" id="main-menu">
+                <ul class="nav navbar-nav navbar-right" style="float:right">
 
+
+                </ul>
+            </div>
 
         </div>
     </div>
@@ -96,7 +108,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
 
 
 </body>

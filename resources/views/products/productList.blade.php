@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <title>Products</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{ env('APP_URL') == 'http://localhost' ? asset('css/app.css') : secure_asset('css/app.css') }}">
 </head>
 <body>
 <div class="container">
@@ -39,13 +39,13 @@
         @foreach($productList as $product)
             <tr>
                 <td style="text-align: center;">{{$product['id']}}</td>
-                <td>{{$product['product_name']}}</td>
-                <td>{{$product['product_type']}}</td>
-                <td style="text-align: right;">{{$product['base_price']}}</td>
-                <td>{{$product['front_image']}}</td>
-                <td>{{$product['back_image']}}</td>
-                <td>{{$product['left_image']}}</td>
-                <td>{{$product['right_image']}}</td>
+                <td style="text-align: center;">{{$product['product_name']}}</td>
+                <td style="text-align: center;">{{$product['product_type']}}</td>
+                <td style="text-align: center;">{{$product['base_price']}}</td>
+                <td style="text-align: center;"><img height="50" width="50" src="{{URL::asset('/productimages/'.$product['front_image'])}}"></td>
+                <td style="text-align: center;"><img height="50" width="50" src="{{URL::asset('/productimages/'.$product['back_image'])}}"></td>
+                <td style="text-align: center;"><img height="50" width="50" src="{{URL::asset('/productimages/'.$product['left_image'])}}"></td>
+                <td style="text-align: center;"><img height="50" width="50" src="{{URL::asset('/productimages/'.$product['right_image'])}}"></td>
                 <td style="text-align: center;"><a href="{{action('ProductController@edit', $product['id'])}}" class="btn btn-warning">Edit</a></td>
                 <td style="text-align: center;">
                     <form action="{{action('ProductController@destroy', $product['id'])}}" method="post">
