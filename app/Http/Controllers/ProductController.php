@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -176,8 +177,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $destinationPath = public_path('/productimages');
         $product = Product::find($id);
         $product->delete();
+        File::delete([$destinationPath.'/'.$product['front_image'],
+            $destinationPath.'/'.$product['back_image'],
+            $destinationPath.'/'.$product['left_image'],
+            $destinationPath.'/'.$product['right_image']]);
         return redirect('products')->with('success','Product has been deleted');
     }
 }
