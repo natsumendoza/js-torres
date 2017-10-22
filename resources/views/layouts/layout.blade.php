@@ -97,7 +97,7 @@
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     @if(Auth::user()->isAdmin())
-                                        <li><a href="#">Products</a></li>
+                                        <li><a href="{{ url('/products') }}">Products</a></li>
                                         <li><a href="#">Order List</a></li>
                                     @else
                                         <li><a href="#">Track my order</a></li>
