@@ -9,10 +9,10 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if IE]><script type="text/javascript" src="{{asset('js/excanvas.js')}}"></script><![endif]-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/fabric.js') }}"></script>
     <script type="text/javascript" src="{{asset('js/tshirtEditor.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/jquery.miniColors.min.js')}}"></script>
