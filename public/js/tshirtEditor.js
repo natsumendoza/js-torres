@@ -250,7 +250,7 @@ var line4;
 	
 		//canvas.add(new fabric.fabric.Object({hasBorders:true,hasControls:false,hasRotatingPoint:false,selectable:false,type:'rect'}));
 	   $("#drawingArea").hover(
-	        function() { 	        	
+	        function() {
 	        	 canvas.add(line1);
 		         canvas.add(line2);
 		         canvas.add(line3);
@@ -272,7 +272,7 @@ var line4;
 	   });
 	   
 	   $('#flip').click(
-		   function() {			   
+		   function() {
 			   	if ($(this).attr("data-original-title") == "Show Back View") {
 			   		$(this).attr('data-original-title', 'Show Front View');			        		       
 			        $("#tshirtFacing").attr("src","img/crew_back.png");			        
