@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.layout2')
 
 @section('content')
-<div class="container">
+<div class="container2">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

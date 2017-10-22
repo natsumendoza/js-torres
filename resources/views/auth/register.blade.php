@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.layout2')
 
 @section('content')
 <div class="container">
@@ -11,15 +11,59 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                        <div class="form-group{{ $errors->has('firstName') ? ' has-error' : '' }}">
+                            <label for="firstName" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="firstName" type="text" class="form-control" name="firstName" value="{{ old('firstName') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('firstName'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('firstName') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('middleName') ? ' has-error' : '' }}">
+                            <label for="middleName" class="col-md-4 control-label">Middle Name</label>
+
+                            <div class="col-md-6">
+                                <input id="middleName" type="text" class="form-control" name="middleName" value="{{ old('middleName') }}" required autofocus>
+
+                                @if ($errors->has('middleName'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('middleName') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('lastName') ? ' has-error' : '' }}">
+                            <label for="lastName" class="col-md-4 control-label">Last Name</label>
+
+                            <div class="col-md-6">
+                                <input id="lastName" type="text" class="form-control" name="lastName" value="{{ old('lastName') }}" required autofocus>
+
+                                @if ($errors->has('lastName'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('lastName') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+                            <label for="gender" class="col-md-4 control-label">Gender</label>
+
+                            <div class="col-md-6">
+                                <select id="gender" type="text" class="form-control" name="gender" value="{{ old('gender') }}" required autofocus>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                @if ($errors->has('gender'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('gender') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -34,6 +78,34 @@
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('phoneNo') ? ' has-error' : '' }}">
+                            <label for="phoneNo" class="col-md-4 control-label">Contact No.</label>
+
+                            <div class="col-md-6">
+                                <input id="phoneNo" type="text" class="form-control" name="phoneNo" value="{{ old('phoneNo') }}" required autofocus>
+
+                                @if ($errors->has('phoneNo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('phoneNo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                            <label for="address" class="col-md-4 control-label">Address</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" required autofocus>
+
+                                @if ($errors->has('address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address') }}</strong>
                                     </span>
                                 @endif
                             </div>
