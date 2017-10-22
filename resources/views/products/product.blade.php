@@ -19,9 +19,9 @@
                     <div class="panel-heading">{{$header}}</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{(isset($product['id'])) ? action('ProductController@update', $product['id']) : url('products')}}">
+                        <form class="form-horizontal" method="POST" action="{{(isset($product['id'])) ? action('ProductController@update', $id) : url('products')}}">
                             {{ csrf_field() }}
-
+                            <input name="_method" type="hidden" value="PATCH">
                             <div class="form-group{{ $errors->has('productName') ? ' has-error' : '' }}">
                                 <label for="productName" class="col-md-4 control-label">Product Name</label>
 
@@ -41,7 +41,6 @@
 
                                 <div class="col-md-6">
                                     <select name="productType" id="productType">
-                                        <option value="">Select product type...</option>
                                         <option @if(isset($product['product_type']) AND $product['product_type'] == 'jersey') selected @endif value="jersey">Jersey</option>
                                         <option @if(isset($product['product_type']) AND $product['product_type'] == 'bag') selected @endif value="bag">Bag</option>
                                     </select>
