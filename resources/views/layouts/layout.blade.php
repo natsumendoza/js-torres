@@ -101,7 +101,7 @@
                                         <li><a href="#">Order List</a></li>
                                     @else
                                         <li><a href="#">Track my order</a></li>
-                                        <li><a href="#">My Profile</a></li>
+                                        <li><a href="{{ url('/user') }}">My Profile</a></li>
                                     @endif
                                     <li>
                                         <a href="{{ route('logout') }}"

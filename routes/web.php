@@ -24,3 +24,14 @@ Route::group(['middleware' => 'web'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/sparkpost', function () {
+    Mail::send('emails.test', [], function ($message) {
+        $message
+            ->from('admin@mutyaph.com', 'Your Name')
+      ->to('roxelrollmendoza@gmail.com', 'Receiver Name')
+      ->subject('From SparkPost with ❤');
+  });
+});
+
+Route::resource('user', 'UserController');
