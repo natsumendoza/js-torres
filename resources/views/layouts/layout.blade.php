@@ -11,15 +11,15 @@
     <!--[if lt IE 9]>
     <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if IE]><script type="text/javascript" src="{{asset('js/excanvas.js')}}"></script><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="{{secure_asset('js/excanvas.js')}}"></script><![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/fabric.js') }}"></script>
-    <script type="text/javascript" src="{{asset('js/tshirtEditor.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/jquery.miniColors.min.js')}}"></script>
+    <script type="text/javascript" src="{{ secure_asset('js/fabric.js') }}"></script>
+    <script type="text/javascript" src="{{secure_asset('js/tshirtEditor.js')}}"></script>
+    <script type="text/javascript" src="{{secure_asset('js/jquery.miniColors.min.js')}}"></script>
     <!-- Le styles -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/jquery.miniColors.css')}}" />
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/bootstrap-responsive.min.css')}}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{secure_asset('css/jquery.miniColors.css')}}" />
+    <link href="{{secure_asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{secure_asset('css/bootstrap-responsive.min.css')}}" rel="stylesheet">
 
     <script type="text/javascript">
     </script>
@@ -141,7 +141,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- Scripts -->
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{secure_asset('js/bootstrap.min.js')}}"></script>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
