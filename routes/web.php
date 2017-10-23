@@ -12,10 +12,13 @@
 */
 
 use App\Product;
+use App\Logo;
 
 Route::get('/', function () {
     $productList = Product::all()->toArray();
-    return view('index', compact('productList', $productList));
+    $logos = Logo::all()->toArray();
+    $data = array('productList' => $productList, 'logos' => $logos);
+    return view('index')->with($data);
 });
 
 Route::group(['middleware' => 'web'], function () {
