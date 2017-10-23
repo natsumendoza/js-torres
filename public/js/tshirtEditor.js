@@ -1,4 +1,5 @@
 var canvas;
+var blankCanvas;
 var tshirts = new Array(); //prototype: [{style:'x',color:'white',front:'a',back:'b',price:{tshirt:'12.95',frontPrint:'4.99',backPrint:'4.99',total:'22.47'}}]
 var a;
 var b;
@@ -13,6 +14,11 @@ var line4;
 		  selection: true,
 		  selectionBorderColor:'blue'
 		});
+        blankCanvas = new fabric.Canvas('tcanvas', {
+            hoverCursor: 'pointer',
+            selection: true,
+            selectionBorderColor:'blue'
+        });
  		canvas.on({
 			 'object:moving': function(e) {		  	
 			    e.target.opacity = 0.5;
@@ -68,7 +74,7 @@ var line4;
 	  		  hasRotatingPoint:true
 		    });		    
             canvas.add(textSample);	
-            canvas.item(canvas.item.length-1).hasRotatingPoint = true;    
+            canvas.item(canvas.item.length-1).hasRotatingPoint = true;
             $("#texteditor").css('display', 'block');
             $("#imageeditor").css('display', 'block');
 	  	};
@@ -102,7 +108,7 @@ var line4;
 		          canvas.add(image);
 		        });
 	  	});	  		  
-	  document.getElementById('remove-selected').onclick = function() {		  
+	  document.getElementById('remove-selected').onclick = function() {
 		    var activeObject = canvas.getActiveObject(),
 		        activeGroup = canvas.getActiveGroup();
 		    if (activeObject) {
@@ -117,34 +123,26 @@ var line4;
 		      });
 		    }
 	  };
-	  document.getElementById('bring-to-front').onclick = function() {		  
-		    var activeObject = canvas.getActiveObject(),
-		        activeGroup = canvas.getActiveGroup();
-		    if (activeObject) {
-		      activeObject.bringToFront();
-		    }
-		    else if (activeGroup) {
-		      var objectsInGroup = activeGroup.getObjects();
-		      canvas.discardActiveGroup();
-		      objectsInGroup.forEach(function(object) {
-		        object.bringToFront();
-		      });
-		    }
+	  document.getElementById('bring-to-left').onclick = function() {
+          var fileName = $('.img-tshirt').attr('src');
+          var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+
+          $(this).attr('data-original-title', 'Show Front View');
+          $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_left'));
+          blankCanvas.clear();
+
+
 	  };
-	  document.getElementById('send-to-back').onclick = function() {		  
-		    var activeObject = canvas.getActiveObject(),
-		        activeGroup = canvas.getActiveGroup();
-		    if (activeObject) {
-		      activeObject.sendToBack();
-		    }
-		    else if (activeGroup) {
-		      var objectsInGroup = activeGroup.getObjects();
-		      canvas.discardActiveGroup();
-		      objectsInGroup.forEach(function(object) {
-		        object.sendToBack();
-		      });
-		    }
-	  };		  
+	  document.getElementById('bring-to-right').onclick = function() {
+          var fileName = $('.img-tshirt').attr('src');
+          var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+
+          $(this).attr('data-original-title', 'Show Front View');
+          $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_right'));
+          blankCanvas.clear();
+
+
+	  };
 	  $("#text-bold").click(function() {		  
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
@@ -274,8 +272,11 @@ var line4;
 	   $('#flip').click(
 		   function() {
 			   	if ($(this).attr("data-original-title") == "Show Back View") {
-			   		$(this).attr('data-original-title', 'Show Front View');			        		       
-			        $("#tshirtFacing").attr("src","img/crew_back.png");			        
+                    var fileName = $('.img-tshirt').attr('src');
+                    var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+
+			   		$(this).attr('data-original-title', 'Show Front View');
+                    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_back'));
 			        a = JSON.stringify(canvas);
 			        canvas.clear();
 			        try
@@ -287,8 +288,10 @@ var line4;
 			        {}
 			        
 			    } else {
-			    	$(this).attr('data-original-title', 'Show Back View');			    				    	
-			    	$("#tshirtFacing").attr("src","img/crew_front.png");			    	
+                    var fileName = $('.img-tshirt').attr('src');
+                    var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+			    	$(this).attr('data-original-title', 'Show Back View');
+                    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_front'));
 			    	b = JSON.stringify(canvas);
 			    	canvas.clear();
 			    	try

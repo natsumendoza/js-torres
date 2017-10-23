@@ -38,6 +38,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
+        $userId = $request['userId'];
+
         $validated_product = $this->validate($request,[
             'productName' => 'required',
             'productType' => 'required',
@@ -49,25 +51,25 @@ class ProductController extends Controller
         ]);
 
         $image = $request->file('frontImage');
-        $input['imagename'] = $validated_product['productName'].'_front.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_front.'.$image->getClientOriginalExtension();
         $frontImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $frontImageName);
 
         $image = $request->file('backImage');
-        $input['imagename'] = $validated_product['productName'].'_back.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_back.'.$image->getClientOriginalExtension();
         $backImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $backImageName);
 
         $image = $request->file('leftImage');
-        $input['imagename'] = $validated_product['productName'].'_left.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_left.'.$image->getClientOriginalExtension();
         $leftImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $leftImageName);
 
         $image = $request->file('rightImage');
-        $input['imagename'] = $validated_product['productName'].'_right.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_right.'.$image->getClientOriginalExtension();
         $rightImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $rightImageName);
