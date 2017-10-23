@@ -215,11 +215,6 @@
                                         <td>Total Price</td>
                                         <td><input id="totalPrice" type="number" step="0.01" class="form-control" name="totalPrice" value="1000" style="width:50px" required autofocus readonly></td>
                                     </tr>
-                                    @if (\Session::has('cart'))
-                                        <tr>
-                                            <td class="alert alert-success" colspan="2">{{ \Session::get('cart') }}</td>
-                                        </tr>
-                                    @endif
                                 </table>
                                 </p>
                                 <button type="submit" class="btn btn-large btn-block btn-success" name="addToCart" id="addToCart">Add to cart <i class="icon-shopping-cart icon-white"></i></button>

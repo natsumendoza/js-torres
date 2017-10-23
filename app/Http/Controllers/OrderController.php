@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use Session;
 
 class OrderController extends Controller
 {
@@ -123,8 +124,9 @@ class OrderController extends Controller
      */
     public function destroyByTransactionCode($transactionCode)
     {
-        echo 'destroyByTransactionCode >>> ' . $transactionCode;
-        die;
+        Order::where('transaction_code', $transactionCode)->delete();
+        Session::put('cartSize', 0);
+        return redirect('/');
     }
 
 

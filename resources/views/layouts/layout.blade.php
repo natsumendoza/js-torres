@@ -99,7 +99,7 @@
                                 @endif
 
 
-                                <li><a href="{{ route('login') }}"><i class="icon-shopping-cart icon-white"></i>({{\Session::get('cartSize')}})</a></li>
+                                <li><a href="{{ url('/cart'.'/transaction1') }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
                             @endif
 
 
