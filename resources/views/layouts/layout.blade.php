@@ -99,7 +99,7 @@
                                 @endif
 
 
-                                <li><a href="{{ url('/cart'.'/transaction1') }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
+                                <li><a href="{{ url('/cart/'.\Session::get('transactionCode')) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
                             @endif
 
 
@@ -111,7 +111,7 @@
                                         <li><a href="{{ url('/products') }}">Products</a></li>
                                         <li><a href="{{ url('/orders') }}">Order List</a></li>
                                     @else
-                                        <li><a href="#">Track my order</a></li>
+                                        <li><a href="{{url('/orders/'.Auth::user()->id)}}">Track my order</a></li>
                                         <li><a href="{{ url('/user') }}">My Profile</a></li>
                                     @endif
                                     <li>

@@ -43,6 +43,7 @@ Route::get('/sparkpost', function () {
 
 Route::resource('user', 'UserController');
 Route::resource('products','ProductController');
-Route::delete('orders/{transactionCode}', 'OrderController@destroyByTransactionCode');
+Route::delete('orders/transaction/{transactionCode}', 'OrderController@destroyByTransactionCode');
+Route::get('orders/{userId}', 'OrderController@showByUserId');
 Route::resource('orders', 'OrderController');
 Route::resource('cart', 'CartController');
