@@ -31,6 +31,7 @@
         </tr>
         </thead>
         <tbody>
+        @php($transactionCode = $cartItems[0]['transaction_code'])
         @foreach($cartItems as $item)
             <tr>
                 <td style="text-align: center;">{{$item['id']}}</td>
@@ -56,7 +57,7 @@
                 <a href="{{url('')}}" class="btn btn-primary">Continue Shoping</a>
             </td>
             <td style="text-align: right;">
-                <form action="{{action('OrderController@destroyByTransactionCode', $item['transaction_code'])}}" method="post">
+                <form action="{{action('OrderController@destroyByTransactionCode', $transactionCode)}}" method="post">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="DELETE">
                     <button class="btn btn-danger" type="submit">Empty Cart</button>
