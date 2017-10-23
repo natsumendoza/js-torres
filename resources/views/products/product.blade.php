@@ -24,6 +24,7 @@
                             @if(isset($product['id']))
                                 <input name="_method" type="hidden" value="PATCH">
                             @endif
+                            <input name="userId" type="hidden" value="{{Auth::user()->id}}"  />
                             <div class="form-group{{ $errors->has('productName') ? ' has-error' : '' }}">
                                 <label for="productName" class="col-md-4 control-label">Product Name</label>
 

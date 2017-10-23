@@ -39,10 +39,7 @@
 
                                 <div id="avatarlist">
                                     @foreach($productList as $product)
-                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['front_image'])}}">
-                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['back_image'])}}">
-                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['left_image'])}}">
-                                        <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/productimages/'.$product['right_image'])}}">
+                                        <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['front_image'])}}">
                                     @endforeach
                                 </div>
                                 <!--						      </p>-->
@@ -149,16 +146,16 @@
                         </div>
                         <div class="pull-right" align="" id="imageeditor" style="display:none">
                             <div class="btn-group">
-                                <button class="btn" id="bring-to-front" title="Bring to Front"><i class="icon-fast-backward rotate" style="height:19px;"></i></button>
-                                <button class="btn" id="send-to-back" title="Send to Back"><i class="icon-fast-forward rotate" style="height:19px;"></i></button>
                                 <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>
+                                <button class="btn" id="bring-to-left" title="Show Left"><i class="icon-fast-backward" style="height:19px;"></i></button>
+                                <button class="btn" id="bring-to-right" title="Show Right"><i class="icon-fast-forward" style="height:19px;"></i></button>
                                 <button id="remove-selected" class="btn" title="Delete selected item"><i class="icon-trash" style="height:19px;"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--	EDITOR      -->
-                <div id="shirtDiv" class="page" style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255);">
+                <div id="shirtDiv" class="page" style="width: 530px; height: 530px; position: relative; background-color: rgb(255, 255, 255);">
                     <img id="tshirtFacing" src="{{asset('img/jersey/Polo-Shirt-PNG-Clipart.png')}}"></img>
                     <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
