@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use Session;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -37,8 +38,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(!(\Session::has('transactionCode'))) :
+            //SET $transactionCode
+            $transactionCode = date("dmy") . Auth::user()->id . date("siH");
+            Session::put('transactionCode', $transactionCode);
+
+        else:
+            $transactionCode = Session::get('transactionCode');
+        endif;
+
         $validated_order = $this->validate($request,[
-            'transactionCode' => 'required',
             'userId' => 'required|numeric',
             'frontImage' => 'required',
             'backImage' => 'required',
@@ -51,7 +61,7 @@ class OrderController extends Controller
 
         // SETS $validated_order to $product
         $order = array();
-        $order['transaction_code'] = $validated_order['transactionCode'];
+        $order['transaction_code'] = $transactionCode;
         $order['user_id']          = $validated_order['userId'];
         $order['front_image']      = $validated_order['frontImage'];
         $order['back_image']       = $validated_order['backImage'];
@@ -74,7 +84,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -112,7 +122,6 @@ class OrderController extends Controller
         $transactionCode = $order['transaction_code'];
         $order->delete();
 
-
         return redirect('cart/'.$transactionCode);
     }
 
@@ -129,5 +138,19 @@ class OrderController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function showByUserId($userId)
+    {
+        $orderList = Order::where('user_id', $userId)
+            ->where('status', '<>', 'pending')
+            ->get()->toArray();
+
+        return view('orders.orderListByUserId', compact('orderList'));
+    }
 
 }

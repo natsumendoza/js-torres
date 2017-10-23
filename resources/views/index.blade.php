@@ -178,7 +178,6 @@
                 @else
                     <form method="POST" action="{{url('orders')}}">
                         {{csrf_field()}}
-                        <input id="transactionCode" type="hidden" class="hidden" name="transactionCode" value="transaction1">
                         <input id="userId" type="hidden" class="hidden" name="userId" value="{{ Auth::user()->id }}">
                         <input id="frontImage" type="hidden" class="hidden" name="frontImage" value="frontImage">
                         <input id="backImage" type="hidden" class="hidden" name="backImage" value="backImage">

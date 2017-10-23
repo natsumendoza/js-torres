@@ -46,6 +46,7 @@ class CartController extends Controller
      */
     public function show($transactionCode)
     {
+
         $cartItems = Order::where('transaction_code', '=', $transactionCode)->get()->toArray();
 
         Session::put('cartSize', count($cartItems));
