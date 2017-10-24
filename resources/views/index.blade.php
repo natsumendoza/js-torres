@@ -37,12 +37,6 @@
                             <div class="well">
                                 <!--					      	<h3>Tee Styles</h3>-->
                                 <!--						      <p>-->
-                                <select id="">
-                                    <option value="1" selected="selected">Short Sleeve Shirts</option>
-                                    <option value="2">Long Sleeve Shirts</option>
-                                    <option value="3">Hoodies</option>
-                                    <option value="4">Tank tops</option>
-                                </select>
 
                                 <div id="avatarlist">
                                     @foreach($productList as $product)
@@ -51,7 +45,7 @@
                                 </div>
                                 <!--						      </p>-->
                             </div>
-                            <div class="well">
+                            <div class="well" id="colorList">
                                 <ul class="nav">
                                     <li class="color-preview" title="White" style="background-color:#ffffff;"></li>
                                     <li class="color-preview" title="Dark Heather" style="background-color:#616161;"></li>
@@ -83,7 +77,7 @@
                                     <input class="span2" id="text-string" type="text" placeholder="add text here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
                                     <hr>
                                 </div>
-                                <div id="avatarlist">
+                                <div id="avatarlist" class="logoList">
                                     @foreach($logos as $logo)
                                         @guest
                                             @if((substr($logo['logo_name'], 0, 5)) == 'admin')
@@ -181,7 +175,7 @@
                 </div>
                 <!--	EDITOR      -->
                 <div id="shirtDiv" class="page" style="width: 530px; height: 530px; position: relative; background-color: rgb(255, 255, 255);">
-                    <img id="tshirtFacing" src="{{asset('img/jersey/Polo-Shirt-PNG-Clipart.png')}}"></img>
+                    <img id="tshirtFacing" src=""></img>
                     <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
@@ -196,8 +190,7 @@
                 <!--	/EDITOR		-->
             </div>
 
-            @guest
-                @else
+            @auth
                     @if(!Auth::user()->isAdmin())
                         <form method="POST" action="{{url('orders')}}">
                             {{csrf_field()}}
@@ -244,7 +237,7 @@
                             </div>
                         </form>
                     @endif
-                    @endguest
+                    @endauth
 
 
 
