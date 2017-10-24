@@ -153,4 +153,16 @@ class OrderController extends Controller
         return view('orders.orderListByUserId', compact('orderList'));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $transactionCode
+     * @return \Illuminate\Http\Response
+     */
+    public function updateByTransactionCode($transactionCode)
+    {
+        Order::where('transaction_code', $transactionCode)->delete();
+        Session::put('cartSize', 0);
+        return redirect('/');
+    }
 }

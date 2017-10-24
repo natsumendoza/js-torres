@@ -31,10 +31,15 @@
         </thead>
         <tbody>
         @php
-            $transactionCode = $cartItems[0]['transaction_code'];
+            $transactionCode = "";
+            if(isset($cartItems) and !empty($cartItems))
+            {
+                $transactionCode = $cartItems[0]['transaction_code'];
+            }
             $totalPrice = 0.00;
 
         @endphp
+        @if(!empty($cartItems))
         @foreach($cartItems as $item)
                 @php($totalPrice = $totalPrice + $item['total_price'])
                 <tr>
@@ -72,6 +77,16 @@
                 </form>
             </td>
         </tr>
+        @else
+        <tr>
+            <td colspan="6" style="text-align: center">No item in cart</td>
+        </tr>
+        <tr>
+            <td colspan="6" style="text-align: left;">
+                <a href="{{url('')}}" class="btn btn-primary">Continue Shopping</a>
+            </td>
+        </tr>
+        @endif
         </tbody>
     </table>
 </div>
