@@ -15,6 +15,7 @@ class Order extends Model
         'right_image',
         'quantity',
         'total_price',
-        'status'
+        'status',
+        'payment_mode'
     ];
 }

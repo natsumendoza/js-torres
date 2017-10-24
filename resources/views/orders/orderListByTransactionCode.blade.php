@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <title>Orders</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -67,10 +68,14 @@
                 <a href="{{url('')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
             <td style="text-align: left;">
-                <a href="{{url('')}}" class="btn btn-success">Proceed to Checkout</a>
+                <form action="{{action('OrderController@updateByTransactionCode', $transactionCode)}}" method="POST">
+                    {{ csrf_field() }}
+                    <input name="_method" type="hidden" value="PATCH">
+                    <button class="btn btn-success" type="submit">Proceed to checkout</button>
+                </form>
             </td>
             <td style="text-align: right;" colspan="4">
-                <form action="{{action('OrderController@destroyByTransactionCode', $transactionCode)}}" method="post">
+                <form action="{{action('OrderController@destroyByTransactionCode', $transactionCode)}}" method="POST">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="DELETE">
                     <button class="btn btn-danger" type="submit">Empty Cart</button>
@@ -90,6 +95,7 @@
         </tbody>
     </table>
 </div>
+
 </body>
 </html>
 @endsection
