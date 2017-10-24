@@ -216,7 +216,7 @@
 
                                         <tr>
                                             <td>Quantity</td>
-                                            <td><input id="quantity" value="1" type="number" class="form-control" name="quantity" style="width:50px" required autofocus></td>
+                                            <td><input id="quantity" value="1" type="text" class="form-control" name="quantity" style="width:50px" required autofocus></td>
                                         </tr>
                                         <tr>
                                             <td>Total Price</td>
