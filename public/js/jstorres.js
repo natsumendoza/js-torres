@@ -3,7 +3,7 @@ $(document).ready(function() {
     checkTshirtArea();
 
     $('.img-tshirt').on('click', function() {
-        $('#tshirtFacing').attr('src', $(this).attr('src'));
+
         $("#imageeditor").css('display', 'block');
         checkTshirtArea();
     });
@@ -22,4 +22,8 @@ var checkTshirtArea = function() {
         $('#addToCart').prop('disabled', false);
         $('#colorList').show();
     }
+}
+
+var getShirtId = function(fileName) {
+    return fileName.substr(0, fileName.indexOf('_'));
 }

@@ -6,7 +6,7 @@
 <div class="container">
     <section id="typography">
         <div class="page-header">
-            <h1>Customize T-Shirt</h1>
+            <h1>Customize Jersey</h1>
         </div>
 
         <!-- Headings & Paragraph Copy -->
@@ -175,7 +175,7 @@
                 </div>
                 <!--	EDITOR      -->
                 <div id="shirtDiv" class="page" style="width: 530px; height: 530px; position: relative; background-color: rgb(255, 255, 255);">
-                    <img id="tshirtFacing" src=""></img>
+                    <img id="tshirtFacing" src=""/>
                     <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
@@ -204,31 +204,23 @@
                                 <div class="well">
                                     <h3>Total Prices</h3>
                                     <p>
-                                    <table class="table">
-                                        <tr>
-                                            <td>Short Sleeve</td>
-                                            <td align="right">$12.49</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Front Design</td>
-                                            <td align="right">$4.99</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Back Design</td>
-                                            <td align="right">$4.99</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Total</strong></td>
-                                            <td align="right"><strong>$22.47</strong></td>
-                                        </tr>
+                                    <table class="table" id="priceTable">
+                                        {{--<tr>--}}
+                                            {{--<td>Short Sleeve</td>--}}
+                                            {{--<td align="right">&#8369;12.49</td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><strong>Total</strong></td>--}}
+                                            {{--<td align="right"><strong id="totalPrice">&#8369;<span id="totalPrice">0.00</span></strong></td>--}}
+                                        {{--</tr>--}}
 
                                         <tr>
                                             <td>Quantity</td>
-                                            <td><input id="quantity" type="number" class="form-control" name="quantity" style="width:50px" required autofocus></td>
+                                            <td><input id="quantity" value="1" type="number" class="form-control" name="quantity" style="width:50px" required autofocus></td>
                                         </tr>
                                         <tr>
                                             <td>Total Price</td>
-                                            <td><input id="totalPrice" type="number" step="0.01" class="form-control" name="totalPrice" value="1000" style="width:50px" required autofocus readonly></td>
+                                            <td><input id="totalPrice" type="number" class="form-control" name="totalPrice" value="0.00" style="width:50px" required autofocus readonly></td>
                                         </tr>
                                     </table>
                                     </p>
