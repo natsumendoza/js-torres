@@ -43,7 +43,13 @@ class HomeController extends Controller
 
         $productList = Product::all()->toArray();
         $logos = Logo::all()->toArray();
-        $data = array('productList' => $productList, 'logos' => $logos);
+        $productData =array();
+        foreach($productList as $product)
+        {
+            $productData[$product['id']] = $product;
+        }
+        $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
+
         return view('index')->with($data);
     }
 }
