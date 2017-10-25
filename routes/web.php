@@ -14,12 +14,26 @@
 use App\Product;
 use App\Logo;
 
+<<<<<<< HEAD
 //Route::get('/', function () {
 //    $productList = Product::all()->toArray();
 //    $logos = Logo::all()->toArray();
 //    $data = array('productList' => $productList, 'logos' => $logos);
 //    return view('index')->with($data);
 //});
+=======
+Route::get('/', function () {
+    $productList = Product::all()->toArray();
+    $logos = Logo::all()->toArray();
+    $productData =array();
+    foreach($productList as $product)
+    {
+        $productData[$product['id']] = $product;
+    }
+    $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
+    return view('index')->with($data);
+});
+>>>>>>> ae88b45bbdb8d9d70c765a54ac3d68bf2f854cbf
 
 Route::group(['middleware' => 'web'], function () {
     Route::get('fileUpload', function () {

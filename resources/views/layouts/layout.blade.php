@@ -162,6 +162,61 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
 
+    var getShirtId = function(fileName) {
+        var start = fileName.lastIndexOf('/') + 1;
+        var end = fileName.substr(start).indexOf('_');
+        return fileName.substr(start, end);
+    };
+
+    // DATA PASSED FROM PHP
+    var productData = <?php echo json_encode($productData) ?>;
+    //console.log(productData);
+
+    $(document).ready(function() {
+        var totalPrice = 0;
+        var basePrice = 0;
+        var quantity = 0;
+        $('.img-tshirt').on('click', function() {
+            var tempId = getShirtId($('.img-tshirt').attr('src'));
+            console.log('tempId: ' + tempId);
+            if($('#tshirtFacing').attr('src') === '') {
+                $('#tshirtFacing').attr('src', $(this).attr('src'));
+                var fileName = $('#tshirtFacing').attr('src');
+                var productId = getShirtId(fileName);
+                var product = productData[productId];
+                console.log('productId: ' + productId);
+                $('#priceTable').prepend(
+                    "<tr>\n" +
+                    "<td id='productName'>"+product.product_name+"</td>\n" +
+                    "<td align=\"right\">&#8369;<span id='basePrice'>"+product.base_price+"</span></td>\n" +
+                    "</tr>"
+                );
+                basePrice = parseFloat(product.base_price);
+            } else {
+                $('#tshirtFacing').attr('src', $(this).attr('src'));
+                var fileName = $('#tshirtFacing').attr('src');
+                var productId = getShirtId(fileName);
+                var product = productData[productId];
+
+                $('#productName').text(product.product_name);
+                $('#basePrice').text(product.base_price);
+                basePrice = parseFloat(product.base_price);
+            }
+
+
+
+            quantity = parseFloat($('#quantity').val());
+            totalPrice = basePrice * quantity;
+            $('#totalPrice').val(totalPrice);
+        });
+
+        $('#quantity').change(function() {
+            quantity = parseFloat($(this).val());
+            totalPrice = basePrice * quantity;
+            $('#totalPrice').val(totalPrice);
+        });
+    });
+
 </script>
 
 </body>

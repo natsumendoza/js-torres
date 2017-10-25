@@ -6,7 +6,7 @@
 <div class="container">
     <section id="typography">
         <div class="page-header">
-            <h1>Customize T-Shirt</h1>
+            <h1>Customize Jersey</h1>
         </div>
 
         <!-- Headings & Paragraph Copy -->
@@ -18,11 +18,18 @@
                         @if ($message = Session::get('success'))
                             <li><a href="#tab1" data-toggle="tab">Design</a></li>
                             <li><a href="#tab2" data-toggle="tab">Logo</a></li>
-                            <li class="active"><a href="#tab3" data-toggle="tab">Upload Logo</a></li>
+                            @guest
+                            @else
+                                <li class="active"><a href="#tab3" data-toggle="tab">Upload Logo</a></li>
+                            @endguest
                         @else
                             <li class="active"><a href="#tab1" data-toggle="tab">Design</a></li>
                             <li><a href="#tab2" data-toggle="tab">Logo</a></li>
-                            <li><a href="#tab3" data-toggle="tab">Upload Logo</a></li>
+                            @guest
+                            @else
+                                <li><a href="#tab3" data-toggle="tab">Upload Logo</a></li>
+                             @endguest
+
                         @endif
                     </ul>
                     <div class="tab-content">
@@ -30,12 +37,6 @@
                             <div class="well">
                                 <!--					      	<h3>Tee Styles</h3>-->
                                 <!--						      <p>-->
-                                <select id="">
-                                    <option value="1" selected="selected">Short Sleeve Shirts</option>
-                                    <option value="2">Long Sleeve Shirts</option>
-                                    <option value="3">Hoodies</option>
-                                    <option value="4">Tank tops</option>
-                                </select>
 
                                 <div id="avatarlist">
                                     @foreach($productList as $product)
@@ -44,7 +45,7 @@
                                 </div>
                                 <!--						      </p>-->
                             </div>
-                            <div class="well">
+                            <div class="well" id="colorList">
                                 <ul class="nav">
                                     <li class="color-preview" title="White" style="background-color:#ffffff;"></li>
                                     <li class="color-preview" title="Dark Heather" style="background-color:#616161;"></li>
@@ -76,17 +77,24 @@
                                     <input class="span2" id="text-string" type="text" placeholder="add text here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
                                     <hr>
                                 </div>
-                                <div id="avatarlist">
+                                <div id="avatarlist" class="logoList">
                                     @foreach($logos as $logo)
+                                        @guest
+                                            @if((substr($logo['logo_name'], 0, 5)) == 'admin')
+                                                <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">
+                                            @endif
+
+                                        @endguest
+                                        @auth
+                                                @if(((substr($logo['logo_name'], 0, 5)) == 'admin') || ((substr($logo['logo_name'], 0)) == Auth::user()->id))
+                                                    <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">
+                                                @endif
+                                        @endauth
                                         {{--@if(isset(Auth::user()->id))--}}
-                                            {{--@if(stripos($logo['logo_name'], Auth::user()->id) >= 0)--}}
-                                                {{--                                            <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">--}}
-                                                {{--<img style="cursor:pointer;" height="100" width="100" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">--}}
-                                                {{--@else--}}
-                                                {{--<img style="cursor:pointer;" height="100" width="100" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">--}}
+                                            {{--@if((stripos($logo['logo_name'], Auth::user()->id) >= 0) || stripos($logo['logo_name'], 'admin') >= 0)--}}
+                                                    {{--<img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">--}}
                                             {{--@endif--}}
                                         {{--@endif--}}
-                                            <img style="cursor:pointer;" height="100" width="100" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">
                                     @endforeach
                                     {{--<img style="cursor:pointer;" class="img-polaroid" src="img/invisibleman.jpg">--}}
                                     {{--<img style="cursor:pointer;" class="img-polaroid" src="data:image/jpeg;base64,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">--}}
@@ -167,7 +175,7 @@
                 </div>
                 <!--	EDITOR      -->
                 <div id="shirtDiv" class="page" style="width: 530px; height: 530px; position: relative; background-color: rgb(255, 255, 255);">
-                    <img id="tshirtFacing" src="{{asset('img/jersey/Polo-Shirt-PNG-Clipart.png')}}"></img>
+                    <img id="tshirtFacing" src=""/>
                     <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
@@ -182,53 +190,46 @@
                 <!--	/EDITOR		-->
             </div>
 
-            @guest
-                @else
-                    <form method="POST" action="{{url('orders')}}">
-                        {{csrf_field()}}
-                        <input id="userId" type="hidden" class="hidden" name="userId" value="{{ Auth::user()->id }}">
-                        <input id="frontImage" type="hidden" class="hidden" name="frontImage" value="frontImage">
-                        <input id="backImage" type="hidden" class="hidden" name="backImage" value="backImage">
-                        <input id="leftImage" type="hidden" class="hidden" name="leftImage" value="leftImage">
-                        <input id="rightImage" type="hidden" class="hidden" name="rightImage" value="rightImage">
-                        <input id="status" type="hidden" class="hidden" name="status" value="pending">
-                        <div class="span3">
-                            <div class="well">
-                                <h3>Total Prices</h3>
-                                <p>
-                                <table class="table">
-                                    <tr>
-                                        <td>Short Sleeve</td>
-                                        <td align="right">$12.49</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Front Design</td>
-                                        <td align="right">$4.99</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Back Design</td>
-                                        <td align="right">$4.99</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Total</strong></td>
-                                        <td align="right"><strong>$22.47</strong></td>
-                                    </tr>
+            @auth
+                    @if(!Auth::user()->isAdmin())
+                        <form method="POST" action="{{url('orders')}}">
+                            {{csrf_field()}}
+                            <input id="userId" type="hidden" class="hidden" name="userId" value="{{ Auth::user()->id }}">
+                            <input id="frontImage" type="hidden" class="hidden" name="frontImage" value="frontImage">
+                            <input id="backImage" type="hidden" class="hidden" name="backImage" value="backImage">
+                            <input id="leftImage" type="hidden" class="hidden" name="leftImage" value="leftImage">
+                            <input id="rightImage" type="hidden" class="hidden" name="rightImage" value="rightImage">
+                            <input id="status" type="hidden" class="hidden" name="status" value="pending">
+                            <div class="span3">
+                                <div class="well">
+                                    <h3>Total Prices</h3>
+                                    <p>
+                                    <table class="table" id="priceTable">
+                                        {{--<tr>--}}
+                                            {{--<td>Short Sleeve</td>--}}
+                                            {{--<td align="right">&#8369;12.49</td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><strong>Total</strong></td>--}}
+                                            {{--<td align="right"><strong id="totalPrice">&#8369;<span id="totalPrice">0.00</span></strong></td>--}}
+                                        {{--</tr>--}}
 
-                                    <tr>
-                                        <td>Quantity</td>
-                                        <td><input id="quantity" type="number" class="form-control" name="quantity" style="width:50px" required autofocus></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Price</td>
-                                        <td><input id="totalPrice" type="number" step="0.01" class="form-control" name="totalPrice" value="1000" style="width:50px" required autofocus readonly></td>
-                                    </tr>
-                                </table>
-                                </p>
-                                <button type="submit" class="btn btn-large btn-block btn-success" name="addToCart" id="addToCart">Add to cart <i class="icon-shopping-cart icon-white"></i></button>
+                                        <tr>
+                                            <td>Quantity</td>
+                                            <td><input id="quantity" value="1" type="text" class="form-control" name="quantity" style="width:50px" required autofocus></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Price</td>
+                                            <td><input id="totalPrice" type="number" class="form-control" name="totalPrice" value="0.00" style="width:50px" required autofocus readonly></td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                    <button type="submit" class="btn btn-large btn-block btn-success" name="addToCart" id="addToCart">Add to cart <i class="icon-shopping-cart icon-white"></i></button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                    @endguest
+                        </form>
+                    @endif
+                    @endauth
 
 
 

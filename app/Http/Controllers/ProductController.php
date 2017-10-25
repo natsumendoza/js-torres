@@ -44,47 +44,21 @@ class ProductController extends Controller
             'productName' => 'required',
             'productType' => 'required',
             'basePrice' => 'required|numeric',
-            'frontImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'backImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        $image = $request->file('frontImage');
-        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_front.'.$image->getClientOriginalExtension();
-        $frontImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $frontImageName);
-
-        $image = $request->file('backImage');
-        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_back.'.$image->getClientOriginalExtension();
-        $backImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $backImageName);
-
-        $image = $request->file('leftImage');
-        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_left.'.$image->getClientOriginalExtension();
-        $leftImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $leftImageName);
-
-        $image = $request->file('rightImage');
-        $input['imagename'] = $validated_product['productName'].'_'.$userId.'_'.time().'_right.'.$image->getClientOriginalExtension();
-        $rightImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $rightImageName);
 
         // SETS $validate_product to $product
         $product = array();
         $product['product_name'] = $validated_product['productName'];
         $product['product_type'] = $validated_product['productType'];
         $product['base_price']   = $validated_product['basePrice'];
-        $product['front_image']  = $frontImageName;
-        $product['back_image']   = $backImageName;
-        $product['left_image']   = $leftImageName;
-        $product['right_image']  = $rightImageName;
+//        $product['front_image']  = $frontImageName;
+//        $product['back_image']   = $backImageName;
+//        $product['left_image']   = $leftImageName;
+//        $product['right_image']  = $rightImageName;
 
-        Product::create($product);
+        $insertedProduct = Product::create($product);
+
+        $this->updateProductImageName($request, $insertedProduct->id);
 
         return redirect('products')->with('success', 'Product has been added');
     }
@@ -135,25 +109,25 @@ class ProductController extends Controller
         ]);
 
         $image = $request->file('frontImage');
-        $input['imagename'] = $validated_product['productName'].'_front.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_front.'.$image->getClientOriginalExtension();
         $frontImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $frontImageName);
 
         $image = $request->file('backImage');
-        $input['imagename'] = $validated_product['productName'].'_back.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_back.'.$image->getClientOriginalExtension();
         $backImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $backImageName);
 
         $image = $request->file('leftImage');
-        $input['imagename'] = $validated_product['productName'].'_left.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
         $leftImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $leftImageName);
 
         $image = $request->file('rightImage');
-        $input['imagename'] = $validated_product['productName'].'_right.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
         $rightImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $rightImageName);
@@ -187,5 +161,48 @@ class ProductController extends Controller
             $destinationPath.'/'.$product['left_image'],
             $destinationPath.'/'.$product['right_image']]);
         return redirect('products')->with('success','Product has been deleted');
+    }
+
+    public function updateProductImageName($request, $id) {
+        $product = Product::find($id);
+
+        $validated_product = $this->validate($request,[
+            'frontImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'backImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $image = $request->file('frontImage');
+        $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_front.'.$image->getClientOriginalExtension();
+        $frontImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $frontImageName);
+
+        $image = $request->file('backImage');
+        $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_back.'.$image->getClientOriginalExtension();
+        $backImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $backImageName);
+
+        $image = $request->file('leftImage');
+        $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
+        $leftImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $leftImageName);
+
+        $image = $request->file('rightImage');
+        $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
+        $rightImageName = $input['imagename'];
+        $destinationPath = public_path('/productimages');
+        $image->move($destinationPath, $rightImageName);
+
+
+        $product['front_image']  = $frontImageName;
+        $product['back_image']   = $backImageName;
+        $product['left_image']   = $leftImageName;
+        $product['right_image']  = $rightImageName;
+        $product->save();
+
     }
 }
