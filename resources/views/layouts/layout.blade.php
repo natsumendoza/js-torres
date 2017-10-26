@@ -9,10 +9,10 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if IE]><script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/excanvas.js') : secure_asset('js/excanvas.js')}}"></script><![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/fabric.js') : secure_asset('js/fabric.js') }}"></script>
     <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
     <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/jquery.miniColors.min.js') : secure_asset('js/jquery.miniColors.min.js') }}"></script>
@@ -148,7 +148,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- Scripts -->
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
-<script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/jstorres.js') : secure_asset('js/jstorres.js')}}"></script>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -175,10 +174,21 @@
         var totalPrice = 0;
         var basePrice = 0;
         var quantity = 0;
+
+        $('.logoList').hide();
+        $('#addToCart').attr('disabled', 'disabled');
+        $('#colorList').hide();
+
         $('.img-tshirt').on('click', function() {
+            $("#imageeditor").css('display', 'block');
+
             var tempId = getShirtId($('.img-tshirt').attr('src'));
             console.log('tempId: ' + tempId);
             if($('#tshirtFacing').attr('src') === '') {
+                $('.logoList').show();
+                $('#addToCart').prop('disabled', false);
+                $('#colorList').show();
+
                 $('#tshirtFacing').attr('src', $(this).attr('src'));
                 var fileName = $('#tshirtFacing').attr('src');
                 var productId = getShirtId(fileName);

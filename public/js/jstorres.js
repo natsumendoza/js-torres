@@ -13,11 +13,12 @@ $(document).ready(function() {
 });
 
 var checkTshirtArea = function() {
-    if($('#tshirtFacing').attr('src') == '') {
+    if($('#tshirtFacing').attr('src') === '') {
         $('.logoList').hide();
         $('#addToCart').attr('disabled', 'disabled');
         $('#colorList').hide();
     } else {
+        alert('hello');
         $('.logoList').show();
         $('#addToCart').prop('disabled', false);
         $('#colorList').show();

@@ -297,7 +297,7 @@ var line4;
 			    	try
 			        {
 			           var json = JSON.parse(a);
-			           canvas.loadFromJSON(a);			           
+			           canvas.loadFromJSON(a);
 			        }
 			        catch(e)
 			        {}
