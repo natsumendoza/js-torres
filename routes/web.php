@@ -14,17 +14,6 @@
 use App\Product;
 use App\Logo;
 
-Route::get('/', function () {
-    $productList = Product::all()->toArray();
-    $logos = Logo::all()->toArray();
-    $productData =array();
-    foreach($productList as $product)
-    {
-        $productData[$product['id']] = $product;
-    }
-    $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
-    return view('index')->with($data);
-});
 
 Route::group(['middleware' => 'web'], function () {
     Route::get('fileUpload', function () {
@@ -34,7 +23,7 @@ Route::group(['middleware' => 'web'], function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
 
 
 Route::get('/sparkpost', function () {
@@ -49,7 +38,7 @@ Route::get('/sparkpost', function () {
 Route::resource('user', 'UserController');
 Route::resource('products','ProductController');
 Route::delete('orders/transaction/{transactionCode}', 'OrderController@destroyByTransactionCode');
-Route::put('orders/transaction/{transactionCode}', 'OrderController@destroyByTransactionCode');
+Route::patch('orders/transaction/{transactionCode}', 'OrderController@updateByTransactionCode');
 Route::get('orders/{userId}', 'OrderController@showByUserId');
 Route::resource('orders', 'OrderController');
 Route::resource('cart', 'CartController');

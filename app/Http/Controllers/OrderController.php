@@ -70,6 +70,7 @@ class OrderController extends Controller
         $order['quantity']         = $validated_order['quantity'];
         $order['total_price']      = $validated_order['totalPrice'];
         $order['status']           = $validated_order['status'];
+        $order['payment_mode']     = 'cart';
 
         Order::create($order);
 
@@ -84,7 +85,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-
+        $test = "aaa".$id;
+        return view('modal', compact('test'));
     }
 
     /**
@@ -161,8 +163,11 @@ class OrderController extends Controller
      */
     public function updateByTransactionCode($transactionCode)
     {
-        Order::where('transaction_code', $transactionCode)->delete();
-        Session::put('cartSize', 0);
+        Order::where('transaction_code', '=', $transactionCode)
+            ->update(['status' => 'open']);
+
+        Session::forget('cartSize');
+        Session::forget('transactionCode');
         return redirect('/');
     }
 }
