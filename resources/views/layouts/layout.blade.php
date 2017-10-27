@@ -149,6 +149,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- Scripts -->
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
+<script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/canvas2image.js') : secure_asset('js/canvas2image.js')}}"></script>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -191,26 +192,27 @@
                 $('#colorList').show();
 
                 $('#tshirtFacing').attr('src', $(this).attr('src'));
-                var fileName = $('#tshirtFacing').attr('src');
-                var productId = getShirtId(fileName);
-                var product = productData[productId];
-                console.log('productId: ' + productId);
-                $('#priceTable').prepend(
-                    "<tr>\n" +
-                    "<td id='productName'>"+product.product_name+"</td>\n" +
-                    "<td align=\"right\">&#8369;<span id='basePrice'>"+product.base_price+"</span></td>\n" +
-                    "</tr>"
-                );
-                basePrice = parseFloat(product.base_price);
+                $('#tshirtFacing').hide();
+//                var fileName = $('#tshirtFacing').attr('src');
+//                var productId = getShirtId(fileName);
+//                var product = productData[productId];
+//                console.log('productId: ' + productId);
+//                $('#priceTable').prepend(
+//                    "<tr>\n" +
+//                    "<td id='productName'>"+product.product_name+"</td>\n" +
+//                    "<td align=\"right\">&#8369;<span id='basePrice'>"+product.base_price+"</span></td>\n" +
+//                    "</tr>"
+//                );
+//                basePrice = parseFloat(product.base_price);
             } else {
-                $('#tshirtFacing').attr('src', $(this).attr('src'));
-                var fileName = $('#tshirtFacing').attr('src');
-                var productId = getShirtId(fileName);
-                var product = productData[productId];
-
-                $('#productName').text(product.product_name);
-                $('#basePrice').text(product.base_price);
-                basePrice = parseFloat(product.base_price);
+//                $('#tshirtFacing').attr('src', $(this).attr('src'));
+//                var fileName = $('#tshirtFacing').attr('src');
+//                var productId = getShirtId(fileName);
+//                var product = productData[productId];
+//
+//                $('#productName').text(product.product_name);
+//                $('#basePrice').text(product.base_price);
+//                basePrice = parseFloat(product.base_price);
             }
 
 
