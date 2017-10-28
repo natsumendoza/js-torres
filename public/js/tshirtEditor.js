@@ -1,5 +1,5 @@
 var canvas;
-var blankCanvas;
+var sideCanvas;
 var tshirts = new Array(); //prototype: [{style:'x',color:'white',front:'a',back:'b',price:{tshirt:'12.95',frontPrint:'4.99',backPrint:'4.99',total:'22.47'}}]
 var a;
 var b;
@@ -7,21 +7,43 @@ var line1;
 var line2;
 var line3;
 var line4;
+var tempColor;
+
+var frontLink;
+var backLink;
+var leftLink;
+var rightLink;
  	$(document).ready(function() {
 		//setup front side canvas 
- 		canvas = new fabric.Canvas('tcanvas', {
+ 		canvas = new fabric.Canvas('frontCanvas', {
 		  hoverCursor: 'pointer',
 		  selection: true,
 		  selectionBorderColor:'blue'
 		});
-        blankCanvas = new fabric.Canvas('tcanvas', {
+
+        backCanvas = new fabric.Canvas('backCanvas', {
+            hoverCursor: 'pointer',
+            selection: true,
+            selectionBorderColor:'blue'
+        });
+        leftCanvas = new fabric.Canvas('leftCanvas', {
+            hoverCursor: 'pointer',
+            selection: true,
+            selectionBorderColor:'blue'
+        });
+        rightCanvas = new fabric.Canvas('rightCanvas', {
             hoverCursor: 'pointer',
             selection: true,
             selectionBorderColor:'blue'
         });
  		canvas.on({
-			 'object:moving': function(e) {		  	
-			    e.target.opacity = 0.5;
+			 'object:moving': function(e) {
+                 canvas.renderAll();
+                 if ($('#flip').attr("data-original-title") == "Show Back View") {
+                     backLink = canvas.toDataURL('image/png');
+                 } else {
+                     frontLink = canvas.toDataURL('image/png');
+                 }
 			  },
 			  'object:modified': function(e) {		  	
 			    e.target.opacity = 1;
@@ -29,6 +51,8 @@ var line4;
 			 'object:selected':onObjectSelected,
 			 'selection:cleared':onSelectedCleared
 		 });
+
+
 		// piggyback on `canvas.findTarget`, to fire "object:over" and "object:out" events
  		canvas.findTarget = (function(originalFn) {
 		  return function() {
@@ -77,6 +101,14 @@ var line4;
             canvas.item(canvas.item.length-1).hasRotatingPoint = true;
             $("#texteditor").css('display', 'block');
             $("#imageeditor").css('display', 'block');
+
+            canvas.renderAll();
+
+            if ($('#flip').attr("data-original-title") == "Show Back View") {
+                backLink = canvas.toDataURL('image/png');
+            } else {
+                frontLink = canvas.toDataURL('image/png');
+            }
 	  	};
 	  	$("#text-string").keyup(function(){	  		
 	  		var activeObject = canvas.getActiveObject();
@@ -105,9 +137,54 @@ var line4;
 	      	  		hasRotatingPoint:true
 		          });
 		          //image.scale(getRandomNum(0.1, 0.25)).setCoords();
+				console.log('here')
 		          canvas.add(image);
+                 canvas.renderAll();
+
+				if ($('#flip').attr("data-original-title") == "Show Back View") {
+                    backLink = canvas.toDataURL('image/png');
+				} else {
+                    frontLink = canvas.toDataURL('image/png');
+				}
+
+
 		        });
-	  	});	  		  
+	  	});
+        $(".img-tshirt").click(function(e){
+            $('#frontDrawingArea').show();
+            $('#backDrawingArea').hide();
+            $('#leftDrawingArea').hide();
+            $('#rightDrawingArea').hide();
+            canvas.clear();
+            var el = e.target;
+            /*temp code*/
+            var offset = 50;
+            // var left = fabric.util.getRandomInt(0 + offset, 200 - offset);
+            // var top = fabric.util.getRandomInt(0 + offset, 400 - offset);
+            // var angle = fabric.util.getRandomInt(-20, 40);
+            // var width = fabric.util.getRandomInt(30, 50);
+            // var opacity = (function(min, max){ return Math.random() * (max - min) + min; })(0.5, 1);
+
+            fabric.Image.fromURL(el.src, function(image) {
+                image.set({
+                    left: 100,
+                    top: 200,
+                    angle: 0,
+                    padding: 10,
+                    cornersize: 10,
+                    scaleX: 450 / image.width,
+                    scaleY: 450 / image.height,
+                    hasRotatingPoint:true
+                });
+                canvas.add(image);
+                //image.scale(getRandomNum(0.1, 0.25)).setCoords();
+                console.log('here')
+                canvas.backgroundColor = '#ffffff';
+                canvas.renderAll();
+
+                frontLink = canvas.toDataURL('image/png');
+            });
+        });
 	  document.getElementById('remove-selected').onclick = function() {
 		    var activeObject = canvas.getActiveObject(),
 		        activeGroup = canvas.getActiveGroup();
@@ -126,20 +203,64 @@ var line4;
 	  document.getElementById('bring-to-left').onclick = function() {
           var fileName = $('.img-tshirt').attr('src');
           var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
-
+          $('#frontDrawingArea').hide();
+          $('#backDrawingArea').hide();
+          $('#leftDrawingArea').show();
+          $('#rightDrawingArea').hide();
           $(this).attr('data-original-title', 'Show Front View');
           $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_left'));
-          blankCanvas.clear();
+          leftCanvas.clear();
+
+          fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
+              image.set({
+                  left: 100,
+                  top: 200,
+                  angle: 0,
+                  padding: 10,
+                  cornersize: 10,
+                  scaleX: 450 / image.width,
+                  scaleY: 450 / image.height,
+                  hasRotatingPoint:true
+              });
+              leftCanvas.add(image);
+              //image.scale(getRandomNum(0.1, 0.25)).setCoords();
+              console.log('here')
+
+              leftCanvas.backgroundColor = tempColor;
+              leftLink = leftCanvas.toDataURL('image/png');
+          });
 
 
 	  };
 	  document.getElementById('bring-to-right').onclick = function() {
           var fileName = $('.img-tshirt').attr('src');
           var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
-
+          $('#frontDrawingArea').hide();
+          $('#backDrawingArea').hide();
+          $('#leftDrawingArea').hide();
+          $('#rightDrawingArea').show();
           $(this).attr('data-original-title', 'Show Front View');
           $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_right'));
-          blankCanvas.clear();
+          rightCanvas.clear();
+
+          fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
+              image.set({
+                  left: 100,
+                  top: 200,
+                  angle: 0,
+                  padding: 10,
+                  cornersize: 10,
+                  scaleX: 450 / image.width,
+                  scaleY: 450 / image.height,
+                  hasRotatingPoint:true
+              });
+              rightCanvas.add(image);
+              //image.scale(getRandomNum(0.1, 0.25)).setCoords();
+              console.log('here')
+              rightCanvas.backgroundColor = tempColor;
+
+              rightLink = rightCanvas.toDataURL('image/png');
+          });
 
 
 	  };
@@ -252,10 +373,11 @@ var line4;
 	        	 canvas.add(line1);
 		         canvas.add(line2);
 		         canvas.add(line3);
-		         canvas.add(line4); 
+		         canvas.add(line4);
 		         canvas.renderAll();
-	        },
-	        function() {	        	
+	        }
+	        ,
+	        function() {
 	        	 canvas.remove(line1);
 		         canvas.remove(line2);
 		         canvas.remove(line3);
@@ -266,43 +388,94 @@ var line4;
 	   
 	   $('.color-preview').click(function(){
 		   var color = $(this).css("background-color");
-		   document.getElementById("shirtDiv").style.backgroundColor = color;		   
+		   // document.getElementById("shirtDiv").style.backgroundColor = color;
+		   canvas.backgroundColor = color;
+           tempColor = color;
+           canvas.renderAll();
 	   });
 	   
 	   $('#flip').click(
 		   function() {
+               $('#frontDrawingArea').hide();
+               $('#backDrawingArea').show();
+               $('#leftDrawingArea').hide();
+               $('#rightDrawingArea').hide();
 			   	if ($(this).attr("data-original-title") == "Show Back View") {
                     var fileName = $('.img-tshirt').attr('src');
                     var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
 
 			   		$(this).attr('data-original-title', 'Show Front View');
-                    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_back'));
+                     $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_back'));
+                    fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
+                        image.set({
+                            left: 100,
+                            top: 200,
+                            angle: 0,
+                            padding: 10,
+                            cornersize: 10,
+                            scaleX: 450 / image.width,
+                            scaleY: 450 / image.height,
+                            hasRotatingPoint: true
+                        });
+
+                        backCanvas.add(image);
+                        backCanvas.backgroundColor = tempColor;
+                        console.log('end start');
+                        console.log(canvas.toDataURL('image/png'));
+                        console.log('end end');
+                    });
+
 			        a = JSON.stringify(canvas);
-			        canvas.clear();
+                    backCanvas.clear();
 			        try
 			        {
 			           var json = JSON.parse(b);
-			           canvas.loadFromJSON(b);
+                        backCanvas.loadFromJSON(b);
+                        backCanvas.renderAll();
 			        }
 			        catch(e)
 			        {}
 			        
 			    } else {
+                    $('#frontDrawingArea').show();
+                    $('#backDrawingArea').hide();
+                    $('#leftDrawingArea').hide();
+                    $('#rightDrawingArea').hide();
                     var fileName = $('.img-tshirt').attr('src');
                     var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
 			    	$(this).attr('data-original-title', 'Show Back View');
                     $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_front'));
+                    fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
+                        image.set({
+                            left: 100,
+                            top: 200,
+                            angle: 0,
+                            padding: 10,
+                            cornersize: 10,
+                            scaleX: 450 / image.width,
+                            scaleY: 450 / image.height,
+                            hasRotatingPoint: true
+                        });
+
+                        canvas.add(image);
+                        canvas.backgroundColor = tempColor;
+                        console.log('front start');
+                        console.log(canvas.toDataURL('image/png'));
+                        console.log('front end');
+                    });
+
 			    	b = JSON.stringify(canvas);
 			    	canvas.clear();
+
 			    	try
 			        {
 			           var json = JSON.parse(a);
 			           canvas.loadFromJSON(a);
+
 			        }
 			        catch(e)
 			        {}
-			    }		
-			   	canvas.renderAll();
+			    }
 			   	setTimeout(function() {
 			   		canvas.calcOffset();
 			    },200);			   	
@@ -312,7 +485,12 @@ var line4;
 	   line2 = new fabric.Line([199,0,200,399], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 	   line3 = new fabric.Line([0,0,0,400], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 	   line4 = new fabric.Line([0,400,200,399], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-	 });//doc ready
+
+
+        $('#download').click(function() {
+            downloadCanvas(this, canvas, 'test.png');
+        });
+ 	});//doc ready
 	 
 	 
 	 function getRandomNum(min, max) {
@@ -356,3 +534,10 @@ var line4;
 			  activeObject.applyFilters(canvas.renderAll.bind(canvas));
 		  }	        
 	 }
+
+
+
+function downloadCanvas(link, canvas, filename) {
+    link.href = canvas.toDataURL('image/png');
+    link.download = filename;
+}
