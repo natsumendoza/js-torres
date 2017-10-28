@@ -168,7 +168,7 @@
     };
 
     // DATA PASSED FROM PHP
-    var productData = <?php echo json_encode($productData) ?>;
+    var productData = <?php echo json_encode(@$productData) ?>;
     //console.log(productData);
 
     $(document).ready(function() {

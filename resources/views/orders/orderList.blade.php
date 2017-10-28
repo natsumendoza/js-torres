@@ -26,18 +26,67 @@
             <th style="text-align: center">Product (Link of image)</th>
             <th style="text-align: center">Quantity</th>
             <th style="text-align: center">Total Price</th>
-            <th style="text-align: center">Status</th>
+            <th style="text-align: center" colspan="2">Status</th>
         </tr>
         </thead>
         <tbody>
         @foreach($orderList as $order)
             <tr>
+                <td>
                 <td style="text-align: center;">{{$order['id']}}</td>
                 <td>{{$order['transaction_code']}}</td>
                 <td>Link Modal</td>
                 <td>{{$order['quantity']}}</td>
                 <td style="text-align: center;">{{$order['total_price']}}</td>
-                <td style="text-align: center;"><a href="{{action('OrderController@edit', $order['id'])}}" class="btn btn-warning">Edit</a></td>
+
+                @if( $order['status'] == config('constants.ORDER_STATUS_OPEN') )
+
+                <td style="text-align: center;">
+                    <form action="{{action('OrderController@update', $order['id'])}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="status" id="status" value="{{config('constants.ORDER_STATUS_APPROVED')}}">
+                        <input name="_method" type="hidden" value="PATCH">
+                        <button class="btn btn-success" type="submit">Approve</button>
+                    </form>
+                </td>
+
+                @elseif( $order['status'] == config('constants.ORDER_STATUS_APPROVED') )
+                    <td style="text-align: center;">
+                        <form action="{{action('OrderController@update', $order['id'])}}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="status" id="status" value="{{config('constants.ORDER_STATUS_SHIPPED')}}">
+                            <input name="_method" type="hidden" value="PATCH">
+                            <button class="btn btn-warning" type="submit">Ship</button>
+                        </form>
+                    </td>
+                @elseif( $order['status'] == config('constants.ORDER_STATUS_SHIPPED') )
+                    <td style="text-align: center;">
+                        <form action="{{action('OrderController@update', $order['id'])}}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="status" id="status" value="{{config('constants.ORDER_STATUS_DELIVERED')}}">
+                            <input name="_method" type="hidden" value="PATCH">
+                            <button class="btn btn-primary" type="submit">Delivered</button>
+                        </form>
+                    </td>
+                @elseif( $order['status'] == config('constants.ORDER_STATUS_DELIVERED') )
+                    <td style="text-align: center; color: green;">
+                        Delivered
+                    </td>
+                @endif
+
+                @if( $order['status'] == config('constants.ORDER_STATUS_OPEN') )
+                    <td style="text-align: center;">
+                        <form action="{{action('OrderController@update', $order['id'])}}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="status" id="status" value="{{config('constants.ORDER_STATUS_CANCELLED')}}">
+                            <input name="_method" type="hidden" value="PATCH">
+                            <button class="btn btn-danger" type="submit">Cancel</button>
+                        </form>
+                    </td>
+                @elseif( $order['status'] == config('constants.ORDER_STATUS_CANCELLED') )
+                    <td style="text-align: center; color: red;">Cancelled</td>
+
+                @endif
             </tr>
         @endforeach
         <tr>

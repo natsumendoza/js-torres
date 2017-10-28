@@ -55,8 +55,7 @@ class OrderController extends Controller
             'leftImage' => 'required',
             'rightImage' => 'required',
             'quantity' => 'required|numeric',
-            'totalPrice' => 'required|numeric',
-            'status'    => 'required'
+            'totalPrice' => 'required|numeric'
         ]);
 
         // SETS $validated_order to $product
@@ -69,8 +68,8 @@ class OrderController extends Controller
         $order['right_image']      = $validated_order['rightImage'];
         $order['quantity']         = $validated_order['quantity'];
         $order['total_price']      = $validated_order['totalPrice'];
-        $order['status']           = $validated_order['status'];
-        $order['payment_mode']     = 'cart';
+        $order['status']           = config('constants.ORDER_STATUS_PENDING');
+        $order['payment_mode']     = 'CART';
 
         Order::create($order);
 
@@ -109,7 +108,10 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Order::where('id', $id)
+            ->update(['status' => $request->get('status')]);
+
+        return redirect('orders')->with('success','Order status has been updated to ' . $request->get('status'));
     }
 
     /**
@@ -158,13 +160,20 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  string  $transactionCode
      * @return \Illuminate\Http\Response
      */
-    public function updateByTransactionCode($transactionCode)
+    public function updateByTransactionCode(Request $request, $transactionCode)
     {
-        Order::where('transaction_code', '=', $transactionCode)
-            ->update(['status' => 'open']);
+
+        $data = array(
+            'status' => config('constants.ORDER_STATUS_OPEN'),
+            'payment_mode' => $request->get('payment_mode')
+        );
+
+        Order::where('transaction_code', $transactionCode)
+            ->update($data);
 
         Session::forget('cartSize');
         Session::forget('transactionCode');

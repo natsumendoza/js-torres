@@ -199,7 +199,7 @@
                             <input id="backImage" type="hidden" class="hidden" name="backImage" value="backImage">
                             <input id="leftImage" type="hidden" class="hidden" name="leftImage" value="leftImage">
                             <input id="rightImage" type="hidden" class="hidden" name="rightImage" value="rightImage">
-                            <input id="status" type="hidden" class="hidden" name="status" value="pending">
+
                             <div class="span3">
                                 <div class="well">
                                     <h3>Total Prices</h3>

@@ -2,12 +2,19 @@
 @extends('layouts.layout')
 
 @section('content')
-        <!DOCTYPE html>
-<html>
+
+@php
+    $transactionCode = "";
+    if(isset($cartItems) and !empty($cartItems))
+    {
+        $transactionCode = $cartItems[0]['transaction_code'];
+    }
+    $totalPrice = 0.00;
+
+@endphp
 <head>
     <meta charset="utf-8">
     <title>Orders</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
@@ -18,6 +25,36 @@
             <p>{{ \Session::get('success') }}</p>
         </div><br />
     @endif
+
+    <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <form action="{{action('OrderController@updateByTransactionCode', $transactionCode)}}" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Choose mode of payment: </h4>
+                    </div>
+                    <div class="modal-body">
+
+                            <label><input type="radio" name="payment_mode" value="COD">Cash on delivery</label>
+                            <label><input type="radio" name="payment_mode" value="BDO"><img src="{{URL::asset('/img/bdo_logo.png')}}" height="70" width="70"></label>
+
+                    </div>
+                        {{ csrf_field() }}
+                        <input name="_method" type="hidden" value="PATCH">
+                        <button class="btn btn-success" type="submit">Checkout</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
 
     <table class="table table-striped">
         <thead>
@@ -31,15 +68,6 @@
         </tr>
         </thead>
         <tbody>
-        @php
-            $transactionCode = "";
-            if(isset($cartItems) and !empty($cartItems))
-            {
-                $transactionCode = $cartItems[0]['transaction_code'];
-            }
-            $totalPrice = 0.00;
-
-        @endphp
         @if(!empty($cartItems))
         @foreach($cartItems as $item)
                 @php($totalPrice = $totalPrice + $item['total_price'])
@@ -68,11 +96,7 @@
                 <a href="{{url('')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
             <td style="text-align: left;">
-                <form action="{{action('OrderController@updateByTransactionCode', $transactionCode)}}" method="POST">
-                    {{ csrf_field() }}
-                    <input name="_method" type="hidden" value="PATCH">
-                    <button class="btn btn-success" type="submit">Proceed to checkout</button>
-                </form>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Proceed to checkout</button>
             </td>
             <td style="text-align: right;" colspan="4">
                 <form action="{{action('OrderController@destroyByTransactionCode', $transactionCode)}}" method="POST">

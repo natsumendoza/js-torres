@@ -11,10 +11,6 @@
 |
 */
 
-use App\Product;
-use App\Logo;
-
-
 Route::group(['middleware' => 'web'], function () {
     Route::get('fileUpload', function () {
         return view('index');
