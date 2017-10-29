@@ -172,21 +172,9 @@
     var productData = <?php echo json_encode(@$productData) ?>;
     //console.log(productData);
 
-    var redrawPriceTable = function () {
-        $('#priceTable').empty();
-        $('#priceTable').append(
-            "<tr>\n" +
-            "                                            <td>Quantity</td>\n" +
-            "                                            <td><input id=\"quantity\" value=\"1\" type=\"text\" class=\"form-control\" name=\"quantity\" style=\"width:50px\" required autofocus></td>\n" +
-            "                                        </tr>\n" +
-            "                                        <tr>\n" +
-            "                                            <td>Total Price</td>\n" +
-            "                                            <td><input id=\"totalPrice\" type=\"number\" class=\"form-control\" name=\"totalPrice\" value=\"0\" style=\"width:58px\" required autofocus readonly></td>\n" +
-            "                                        </tr>"
-        );
-    };
 
     var drawProductPriceRow = function (productName, productPrice) {
+        $('#priceTable').empty();
         $('#priceTable').prepend(
             "<tr>\n" +
             "<td id='productName'>"+productName+"</td>\n" +
@@ -198,14 +186,15 @@
     $(document).ready(function() {
         var totalPrice = 0;
         var basePrice = 0;
-        var quantity = 0;
+        var quantity = 1;
 
         $('.logoList').hide();
         $('#addToCart').attr('disabled', 'disabled');
         $('#colorList').hide();
 
-        $('.img-tshirt').on('click', function() {
 
+        $('.img-tshirt').on('click', function() {
+            $('#quantity').val(1);
             $("#imageeditor").css('display', 'block');
 
             var tempId = getShirtId($('.img-tshirt').attr('src'));
@@ -233,32 +222,28 @@
                 var product = productData[productId];
 
                 if(tempId !== productId) {
-                    redrawPriceTable();
                     drawProductPriceRow(product.product_name, product.base_price);
-                    total = 0;
+                    basePrice = parseFloat(product.base_price);
                 } else {
-                    redrawPriceTable();
                     drawProductPriceRow(product.product_name, product.base_price);
                     $('#productName').text(product.product_name);
                     $('#basePrice').text(product.base_price);
                     basePrice = parseFloat(product.base_price);
-                    total = 0;
                 }
 
 
             }
 
 
-
-            quantity = parseFloat($('#quantity').val());
-            totalPrice = total + (basePrice * quantity);
-            $('#totalPrice').val(totalPrice.toFixed(2));
+//            quantity = parseFloat($('#quantity').val());
+//            totalPrice = total + (basePrice * quantity);
+            $('#totalPrice').val(basePrice.toFixed(2));
         });
 
         $('#quantity').change(function() {
-            var total = parseFloat($('#totalPrice').val())
+            var total = parseFloat($('#totalPrice').val());
             quantity = parseFloat($(this).val());
-            totalPrice = total + (basePrice * quantity);
+            totalPrice = (basePrice * quantity);
             $('#totalPrice').val(totalPrice.toFixed(2));
         });
 

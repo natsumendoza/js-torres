@@ -227,6 +227,9 @@
                                             {{--<td align="right"><strong id="totalPrice">&#8369;<span id="totalPrice">0.00</span></strong></td>--}}
                                         {{--</tr>--}}
 
+
+                                    </table>
+                                    <table class="table">
                                         <tr>
                                             <td>Quantity</td>
                                             <td><input id="quantity" value="1" type="text" class="form-control" name="quantity" style="width:50px" required autofocus></td>
