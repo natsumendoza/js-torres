@@ -14,7 +14,7 @@
     <!--[if IE]><script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/excanvas.js') : secure_asset('js/excanvas.js')}}"></script><![endif]-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/fabric.js') : secure_asset('js/fabric.js') }}"></script>
-    <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
+
     <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/jquery.miniColors.min.js') : secure_asset('js/jquery.miniColors.min.js') }}"></script>
     <!-- Le styles -->
     <link type="text/css" rel="stylesheet" href="{{ env('APP_URL') == 'http://localhost' ? asset('css/jquery.miniColors.css') : secure_asset('css/jquery.miniColors.css') }}" />
@@ -172,6 +172,29 @@
     var productData = <?php echo json_encode(@$productData) ?>;
     //console.log(productData);
 
+    var redrawPriceTable = function () {
+        $('#priceTable').empty();
+        $('#priceTable').append(
+            "<tr>\n" +
+            "                                            <td>Quantity</td>\n" +
+            "                                            <td><input id=\"quantity\" value=\"1\" type=\"text\" class=\"form-control\" name=\"quantity\" style=\"width:50px\" required autofocus></td>\n" +
+            "                                        </tr>\n" +
+            "                                        <tr>\n" +
+            "                                            <td>Total Price</td>\n" +
+            "                                            <td><input id=\"totalPrice\" type=\"number\" class=\"form-control\" name=\"totalPrice\" value=\"0\" style=\"width:58px\" required autofocus readonly></td>\n" +
+            "                                        </tr>"
+        );
+    };
+
+    var drawProductPriceRow = function (productName, productPrice) {
+        $('#priceTable').prepend(
+            "<tr>\n" +
+            "<td id='productName'>"+productName+"</td>\n" +
+            "<td align=\"right\">&#8369;<span id='basePrice'>"+productPrice+"</span></td>\n" +
+            "</tr>"
+        );
+    }
+
     $(document).ready(function() {
         var totalPrice = 0;
         var basePrice = 0;
@@ -182,54 +205,67 @@
         $('#colorList').hide();
 
         $('.img-tshirt').on('click', function() {
+
             $("#imageeditor").css('display', 'block');
 
             var tempId = getShirtId($('.img-tshirt').attr('src'));
             console.log('tempId: ' + tempId);
+
+            var total = parseFloat($('#totalPrice').val())
             if($('#tshirtFacing').attr('src') === '') {
+                $('#tshirtFacing').attr('src', $(this).attr('src'));
+
                 $('.logoList').show();
                 $('#addToCart').prop('disabled', false);
                 $('#colorList').show();
-
-                $('#tshirtFacing').attr('src', $(this).attr('src'));
                 $('#tshirtFacing').hide();
-//                var fileName = $('#tshirtFacing').attr('src');
-//                var productId = getShirtId(fileName);
-//                var product = productData[productId];
-//                console.log('productId: ' + productId);
-//                $('#priceTable').prepend(
-//                    "<tr>\n" +
-//                    "<td id='productName'>"+product.product_name+"</td>\n" +
-//                    "<td align=\"right\">&#8369;<span id='basePrice'>"+product.base_price+"</span></td>\n" +
-//                    "</tr>"
-//                );
-//                basePrice = parseFloat(product.base_price);
+
+                var fileName = $('#tshirtFacing').attr('src');
+                var productId = getShirtId(fileName);
+                var product = productData[productId];
+                console.log('productId: ' + productId);
+                drawProductPriceRow(product.product_name, product.base_price);
+                basePrice = parseFloat(product.base_price);
             } else {
-//                $('#tshirtFacing').attr('src', $(this).attr('src'));
-//                var fileName = $('#tshirtFacing').attr('src');
-//                var productId = getShirtId(fileName);
-//                var product = productData[productId];
-//
-//                $('#productName').text(product.product_name);
-//                $('#basePrice').text(product.base_price);
-//                basePrice = parseFloat(product.base_price);
+                $('#tshirtFacing').attr('src', $(this).attr('src'));
+                var fileName = $('#tshirtFacing').attr('src');
+                var productId = getShirtId(fileName);
+                var product = productData[productId];
+
+                if(tempId !== productId) {
+                    redrawPriceTable();
+                    drawProductPriceRow(product.product_name, product.base_price);
+                    total = 0;
+                } else {
+                    redrawPriceTable();
+                    drawProductPriceRow(product.product_name, product.base_price);
+                    $('#productName').text(product.product_name);
+                    $('#basePrice').text(product.base_price);
+                    basePrice = parseFloat(product.base_price);
+                    total = 0;
+                }
+
+
             }
 
 
 
             quantity = parseFloat($('#quantity').val());
-            totalPrice = basePrice * quantity;
-            $('#totalPrice').val(totalPrice);
+            totalPrice = total + (basePrice * quantity);
+            $('#totalPrice').val(totalPrice.toFixed(2));
         });
 
         $('#quantity').change(function() {
+            var total = parseFloat($('#totalPrice').val())
             quantity = parseFloat($(this).val());
-            totalPrice = basePrice * quantity;
-            $('#totalPrice').val(totalPrice);
+            totalPrice = total + (basePrice * quantity);
+            $('#totalPrice').val(totalPrice.toFixed(2));
         });
+
     });
 
 </script>
+<script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
 
 </body>
 </html>

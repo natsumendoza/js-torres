@@ -48,6 +48,7 @@ class HomeController extends Controller
         {
             $productData[$product['id']] = $product;
         }
+
         $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
 
         return view('index')->with($data);

@@ -188,7 +188,10 @@
                     <div id="rightDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="rightCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
-                    <a id="download">Download as image</a>
+                    {{--<a id="frontDownload">Download front image</a>--}}
+                    {{--<a id="backDownload">Download back image</a>--}}
+                    {{--<a id="leftDownload">Download left image</a>--}}
+                    {{--<a id="rightDownload">Download right image</a>--}}
                 </div>
                 <!--					<div id="shirtBack" class="page" style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255); display:none;">-->
                 <!--						<img src="img/crew_back.png"></img>-->
@@ -230,7 +233,7 @@
                                         </tr>
                                         <tr>
                                             <td>Total Price</td>
-                                            <td><input id="totalPrice" type="number" class="form-control" name="totalPrice" value="0.00" style="width:50px" required autofocus readonly></td>
+                                            <td><input id="totalPrice" type="number" class="form-control" name="totalPrice" value="0" style="width:58px" required autofocus readonly></td>
                                         </tr>
                                     </table>
                                     </p>

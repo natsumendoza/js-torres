@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Order;
 use Session;
 use Auth;
+//use Intervention\Image\Facades\Image as Image;
+use Intervention\Image\ImageManager as Image;
 
 class OrderController extends Controller
 {
@@ -50,28 +52,52 @@ class OrderController extends Controller
 
         $validated_order = $this->validate($request,[
             'userId' => 'required|numeric',
-            'frontImage' => 'required',
-            'backImage' => 'required',
-            'leftImage' => 'required',
-            'rightImage' => 'required',
             'quantity' => 'required|numeric',
             'totalPrice' => 'required|numeric'
         ]);
+
+        // CONVERTION FROM BASE64 TO IMAGE
+        $userId = $request['userId'];
+        $imageManager = new Image();
+
+        $frontFileName = $userId."_".time()."_front.png";
+        $frontPath = public_path("orderimages/".$frontFileName);
+        $frontImage = $imageManager->make($request['frontImage'])->encode('png');
+        file_put_contents($frontPath, $frontImage);
+
+        $backFileName = $userId."_".time()."_back.png";
+        $backPath = public_path("orderimages/".$backFileName);
+        $backImage = $imageManager->make($request['backImage'])->encode('png');
+        file_put_contents($backPath, $backImage);
+
+        $leftFileName = $userId."_".time()."_left.png";
+        $leftPath = public_path("orderimages/".$leftFileName);
+        $leftImage = $imageManager->make($request['leftImage'])->encode('png');
+        file_put_contents($leftPath, $leftImage);
+
+        $rightFileName = $userId."_".time()."_right.png";
+        $rightPath = public_path("orderimages/".$rightFileName);
+        $rightImage = $imageManager->make($request['rightImage'])->encode('png');
+        file_put_contents($rightPath, $rightImage);
+        // END
+
 
         // SETS $validated_order to $product
         $order = array();
         $order['transaction_code'] = $transactionCode;
         $order['user_id']          = $validated_order['userId'];
-        $order['front_image']      = $validated_order['frontImage'];
-        $order['back_image']       = $validated_order['backImage'];
-        $order['left_image']       = $validated_order['leftImage'];
-        $order['right_image']      = $validated_order['rightImage'];
+        $order['front_image']      = $frontFileName;
+        $order['back_image']       = $backFileName;
+        $order['left_image']       = $leftFileName;
+        $order['right_image']      = $rightFileName;
         $order['quantity']         = $validated_order['quantity'];
         $order['total_price']      = $validated_order['totalPrice'];
         $order['status']           = config('constants.ORDER_STATUS_PENDING');
         $order['payment_mode']     = 'CART';
 
         Order::create($order);
+
+
 
         return redirect('cart/'.$order['transaction_code']);
     }
