@@ -18,7 +18,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orderList = Order::all()->toArray();
+        $orderList = Order::where('status', '<>', config('constants.ORDER_STATUS_PENDING'))
+            ->get()->toArray();;
         return view('orders.orderList', compact('orderList'));
     }
 
@@ -177,7 +178,7 @@ class OrderController extends Controller
     public function showByUserId($userId)
     {
         $orderList = Order::where('user_id', $userId)
-            ->where('status', '<>', 'pending')
+            ->where('status', '<>', config('constants.ORDER_STATUS_PENDING'))
             ->get()->toArray();
 
         return view('orders.orderListByUserId', compact('orderList'));
