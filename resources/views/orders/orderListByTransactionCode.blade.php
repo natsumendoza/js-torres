@@ -39,10 +39,16 @@
                         <h4 class="modal-title">Choose mode of payment: </h4>
                     </div>
                     <div class="modal-body">
-
-                            <label><input type="radio" name="payment_mode" value="COD">Cash on delivery</label>
-                            <label><input type="radio" name="payment_mode" value="BDO"><img src="{{URL::asset('/img/bdo_logo.png')}}" height="70" width="70"></label>
-
+                        <table>
+                            <tr>
+                                <td>
+                                    <label><input type="radio" name="payment_mode" value="COD">Cash on delivery</label>
+                                </td>
+                                <td>
+                                    <label><input type="radio" name="payment_mode" value="BDO"><img src="{{URL::asset('/img/bdo_logo.png')}}" height="70" width="70"></label>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                         {{ csrf_field() }}
                         <input name="_method" type="hidden" value="PATCH">
