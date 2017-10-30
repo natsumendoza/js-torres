@@ -43,9 +43,10 @@
                 @if( $order['status'] == config('constants.ORDER_STATUS_OPEN') )
 
                 <td style="text-align: center;">
-                    <form action="{{action('OrderController@update', $order['id'])}}" method="POST">
+                    <form action="{{action('OrderController@update', base64_encode($order['id']))}}" method="POST">
                         {{ csrf_field() }}
-                        <input type="hidden" name="status" id="status" value="{{config('constants.ORDER_STATUS_APPROVED')}}">
+                        <input type="hidden" name="status" id="status" value="{{base64_encode(config('constants.ORDER_STATUS_APPROVED'))}}">
+                        <input type="hidden" name="userId" id="userId" value="{{base64_encode($order['user_id'])}}">
                         <input name="_method" type="hidden" value="PATCH">
                         <button class="btn btn-success" type="submit">Approve</button>
                     </form>
@@ -53,20 +54,22 @@
 
                 @elseif( $order['status'] == config('constants.ORDER_STATUS_APPROVED') )
                     <td style="text-align: center;">
-                        <form action="{{action('OrderController@update', $order['id'])}}" method="POST">
+                        <form action="{{action('OrderController@update', base64_encode($order['id']))}}" method="POST">
                             {{ csrf_field() }}
-                            <input type="hidden" name="status" id="status" value="{{config('constants.ORDER_STATUS_SHIPPED')}}">
+                            <input type="hidden" name="status" id="status" value="{{base64_encode(config('constants.ORDER_STATUS_SHIPPED'))}}">
+                            <input type="hidden" name="userId" id="userId" value="{{base64_encode($order['user_id'])}}">
                             <input name="_method" type="hidden" value="PATCH">
                             <button class="btn btn-warning" type="submit">Ship</button>
                         </form>
                     </td>
                 @elseif( $order['status'] == config('constants.ORDER_STATUS_SHIPPED') )
                     <td style="text-align: center;">
-                        <form action="{{action('OrderController@update', $order['id'])}}" method="POST">
+                        <form action="{{action('OrderController@update', base64_encode($order['id']))}}" method="POST">
                             {{ csrf_field() }}
-                            <input type="hidden" name="status" id="status" value="{{config('constants.ORDER_STATUS_DELIVERED')}}">
+                            <input type="hidden" name="status" id="status" value="{{base64_encode(config('constants.ORDER_STATUS_DELIVERED'))}}">
+                            <input type="hidden" name="userId" id="userId" value="{{base64_encode($order['user_id'])}}">
                             <input name="_method" type="hidden" value="PATCH">
-                            <button class="btn btn-primary" type="submit">Delivered</button>
+                            <button class="btn btn-primary" type="submit">Deliver</button>
                         </form>
                     </td>
                 @elseif( $order['status'] == config('constants.ORDER_STATUS_DELIVERED') )
