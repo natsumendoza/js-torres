@@ -8,6 +8,7 @@ class Logo extends Model
 {
     protected $fillable = [
         'logo_name',
+        'logo_type',
         'base_price',
     ];
 }

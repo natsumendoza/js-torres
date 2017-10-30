@@ -109,6 +109,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
+<script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/jstorres.js') : secure_asset('js/jstorres.js')}}"></script>
 
 
 </body>

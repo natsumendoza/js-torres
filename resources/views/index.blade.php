@@ -126,7 +126,7 @@
 
                                 {!! Form::open(array('route' => 'fileUpload','enctype' => 'multipart/form-data')) !!}
                                         {!! Form::file('image', array('class' => 'image')) !!}
-
+                                        <input type="hidden" name="logoType" value="jersey" />
                                         <button type="submit" class="btn btn-success">Save</button>
                                 {!! Form::close() !!}
                             </div>
@@ -168,7 +168,7 @@
                                 <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>
                                 <button class="btn" id="bring-to-left" title="Show Left"><i class="icon-fast-backward" style="height:19px;"></i></button>
                                 <button class="btn" id="bring-to-right" title="Show Right"><i class="icon-fast-forward" style="height:19px;"></i></button>
-                                <button id="remove-selected" class="btn" title="Delete selected item"><i class="icon-trash" style="height:19px;"></i></button>
+                                <button id="remove-selected" class="btn" title="Delete selected item" style="display: none;"><i class="icon-trash" style="height:19px;"></i></button>
                             </div>
                         </div>
                     </div>
@@ -208,6 +208,7 @@
                         <form method="POST" action="{{url('orders')}}">
                             {{csrf_field()}}
                             <input id="userId" type="hidden" class="hidden" name="userId" value="{{ Auth::user()->id }}">
+                            <input id="orderType" type="hidden" class="hidden" name="orderType" value="jersey">
                             <input id="frontImage" type="hidden" class="hidden" name="frontImage" value="frontImage">
                             <input id="backImage" type="hidden" class="hidden" name="backImage" value="backImage">
                             <input id="leftImage" type="hidden" class="hidden" name="leftImage" value="leftImage">
