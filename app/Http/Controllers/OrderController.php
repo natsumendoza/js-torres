@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers;
 use Illuminate\Http\Request;
 use App\Order;
-use Session;
-use Auth;
+use App\User;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 //use Intervention\Image\Facades\Image as Image;
 use Intervention\Image\ImageManager as Image;
 
@@ -111,8 +113,6 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $test = "aaa".$id;
-        return view('modal', compact('test'));
     }
 
     /**
@@ -135,9 +135,26 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Order::where('id', $id)
-            ->update(['status' => $request->get('status')]);
 
+        $orderId    = base64_decode($id);
+        $status     = $request->get('status');
+
+
+        $order  = Order::find($orderId);
+        $user   = User::find(base64_decode($request->get('userId')));
+
+        $data                       = array();
+        $data['orderId']            = $order['id'];
+        $data['transactionCode']    = $order['transaction_code'];
+        $data['name']               = $user['first_name'];
+        $data['status']             = $order['status'];
+        $data['email']              = $user['email'];
+
+        Helpers::sendEmail($data);
+
+        Order::where('id', $orderId)
+            ->update(['status' => $status]);
+        
         return redirect('orders')->with('success','Order status has been updated to ' . $request->get('status'));
     }
 
