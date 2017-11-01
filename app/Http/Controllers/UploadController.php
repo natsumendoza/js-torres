@@ -14,6 +14,7 @@ class UploadController extends Controller
 
     public function fileUpload(Request $request)
     {
+
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -25,6 +26,7 @@ class UploadController extends Controller
 
         $logo = array();
         $logo['logo_name'] = $input['imagename'];
+        $logo['logo_type'] = $request['logoType'];
         $logo['base_price'] = 150.00;
 //        $this->postImage->add($input);
         Logo::create($logo);

@@ -271,8 +271,12 @@ var rightLink;
                     });
                 }
 			}
-          removeLogoToTable(logoCount);
-          logoCount--;
+
+			if (logoCount > 0) {
+                removeLogoToTable(logoCount);
+                logoCount--;
+            }
+
 	  };
 	  document.getElementById('bring-to-left').onclick = function() {
           $('.logoList').hide();
@@ -624,7 +628,8 @@ var rightLink;
 	    return Math.random() * (max - min) + min;
 	 }
 	 
-	 function onObjectSelected(e) {	 
+	 function onObjectSelected(e) {
+        $('#remove-selected').show();
 	    var selectedObject = e.target;
 	    $("#text-string").val("");
 	    selectedObject.hasRotatingPoint = true
@@ -643,6 +648,7 @@ var rightLink;
 	    }
 	  }
 	 function onSelectedCleared(e){
+         $('#remove-selected').hide();
 		 $("#texteditor").css('display', 'none');
 		 $("#text-string").val("");
 	 }

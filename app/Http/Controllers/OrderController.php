@@ -44,6 +44,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+        $orderType = $request['orderType'];
         if(!(\Session::has('transactionCode'))) :
             //SET $transactionCode
             $transactionCode = date("dmy") . Auth::user()->id . date("siH");
@@ -73,15 +74,22 @@ class OrderController extends Controller
         $backImage = $imageManager->make($request['backImage'])->encode('png');
         file_put_contents($backPath, $backImage);
 
-        $leftFileName = $userId."_".time()."_left.png";
-        $leftPath = public_path("orderimages/".$leftFileName);
-        $leftImage = $imageManager->make($request['leftImage'])->encode('png');
-        file_put_contents($leftPath, $leftImage);
+        $leftFileName = '';
+        $rightFileName = '';
 
-        $rightFileName = $userId."_".time()."_right.png";
-        $rightPath = public_path("orderimages/".$rightFileName);
-        $rightImage = $imageManager->make($request['rightImage'])->encode('png');
-        file_put_contents($rightPath, $rightImage);
+        if($orderType == 'jersey') {
+            $leftFileName = $userId."_".time()."_left.png";
+            $leftPath = public_path("orderimages/".$leftFileName);
+            $leftImage = $imageManager->make($request['leftImage'])->encode('png');
+            file_put_contents($leftPath, $leftImage);
+
+            $rightFileName = $userId."_".time()."_right.png";
+            $rightPath = public_path("orderimages/".$rightFileName);
+            $rightImage = $imageManager->make($request['rightImage'])->encode('png');
+            file_put_contents($rightPath, $rightImage);
+        }
+
+
         // END
 
 

@@ -98,11 +98,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('leftImage') ? ' has-error' : '' }}">
+                            <div id="leftImageForm" class="form-group{{ $errors->has('leftImage') ? ' has-error' : '' }}">
                                 <label for="leftImage" class="col-md-4 control-label">Left Side Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="leftImage" type="file" class="form-control" name="leftImage" value="{{@$product['left_image']}}" required autofocus>
+                                    <input id="leftImage" type="file" class="form-control" name="leftImage" value="{{@$product['left_image']}}">
 
                                     @if ($errors->has('leftImage'))
                                         <span class="help-block">
@@ -112,11 +112,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('rightImage') ? ' has-error' : '' }}">
+                            <div id="rightImageForm" class="form-group{{ $errors->has('rightImage') ? ' has-error' : '' }}">
                                 <label for="rightImage" class="col-md-4 control-label">Right Side Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="rightImage" type="file" class="form-control" name="rightImage" value="{{@$product['right_image']}}" required autofocus>
+                                    <input id="rightImage" type="file" class="form-control" name="rightImage" value="{{@$product['right_image']}}">
 
                                     @if ($errors->has('rightImage'))
                                         <span class="help-block">

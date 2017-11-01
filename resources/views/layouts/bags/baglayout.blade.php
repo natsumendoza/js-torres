@@ -111,7 +111,6 @@
                                     @if(Auth::user()->isAdmin())
                                         <li><a href="{{ url('/products') }}">Products</a></li>
                                         <li><a href="{{ url('/orders') }}">Order List</a></li>
-                                        <li><a href="{{ url('/reports') }}">Sales Report</a></li>
                                     @else
                                         <li><a href="{{url('/orders/'.Auth::user()->id)}}">Track my order</a></li>
                                         <li><a href="{{ url('/user') }}">My Profile</a></li>
@@ -251,7 +250,7 @@
     });
 
 </script>
-<script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
+<script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bagEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
 
 </body>
 </html>

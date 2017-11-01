@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/bags', 'BagController@index');
 
 Route::get('/sparkpost', function () {
     Mail::send('emails.test', [], function ($message) {
