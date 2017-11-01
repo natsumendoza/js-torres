@@ -16,7 +16,7 @@ class Helpers
     {
         Mail::send('emails.email', $data, function($message) use ($data){
             $message->to($data['email'], $data['name'])
-                ->subject('Transaction code: ' . $data['transactionCode'] . ' Order id: ' . $data['orderId'] . ' ' . $data['status']);
+                ->subject('Transaction code: ' . $data['transactionCode'] . ' Order ID: ' . $data['orderId'] . ' ' . $data['status']);
 
         });
     }

@@ -37,5 +37,6 @@ Route::resource('products','ProductController');
 Route::delete('orders/transaction/{transactionCode}', 'OrderController@destroyByTransactionCode');
 Route::patch('orders/transaction/{transactionCode}', 'OrderController@updateByTransactionCode');
 Route::get('orders/{userId}', 'OrderController@showByUserId');
+Route::get('orders/images/{orderId}', 'OrderController@modal');
 Route::resource('orders', 'OrderController');
 Route::resource('cart', 'CartController');

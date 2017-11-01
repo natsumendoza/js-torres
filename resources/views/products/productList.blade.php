@@ -36,6 +36,7 @@
         </tr>
         </thead>
         <tbody>
+        @if(count($productList)>0)
         @foreach($productList as $product)
             <tr>
                 <td style="text-align: center;">{{$product['id']}}</td>
@@ -56,6 +57,18 @@
                 </td>
             </tr>
         @endforeach
+        @else
+            <tr>
+                <td style="text-align: center;" colspan="10">
+                    There is no product.
+                </td>
+            </tr>
+        @endif
+        <tr>
+            <td style="text-align: right;" colspan="10">
+                <a href="{{url('')}}" class="btn btn-default">Close</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

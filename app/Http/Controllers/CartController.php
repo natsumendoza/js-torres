@@ -15,6 +15,10 @@ class CartController extends Controller
      */
     public function index()
     {
+        $cartItems = 0;
+        Session::put('cartSize', 0);
+
+        return view('orders.orderListByTransactionCode', compact('cartItems'));
     }
 
     /**

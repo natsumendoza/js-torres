@@ -1,17 +1,16 @@
 <!-- orderListByTransactionCode.blade.php -->
 @extends('layouts.layout')
-
 @section('content')
-
 @php
     $transactionCode = "";
     if(isset($cartItems) and !empty($cartItems))
     {
-        $transactionCode = $cartItems[0]['transaction_code'];
+        $transactionCode = base64_encode($cartItems[0]['transaction_code']);
     }
     $totalPrice = 0.00;
 
 @endphp
+@include('modals.paymentModal', ['transactionCode'=>$transactionCode])
 <head>
     <meta charset="utf-8">
     <title>Orders</title>
@@ -25,51 +24,6 @@
             <p>{{ \Session::get('success') }}</p>
         </div><br />
     @endif
-
-    <div class="container">
-        <!-- Modal -->
-        <div class="modal fade" id="paymentModal" role="dialog">
-            <div class="modal-dialog modal-sm">
-
-                <!-- Modal content-->
-                <form action="{{action('OrderController@updateByTransactionCode', $transactionCode)}}" method="POST">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Choose mode of payment: </h4>
-                    </div>
-                    <table width="95%">
-                        <tr>
-                            <td colspan="3">&nbsp;<!-- spacer --></td>
-                        </tr>
-                        <tr>
-                            <td width="20px;">&nbsp;</td>
-                            <td>
-                                <label><input type="radio" name="payment_mode" value="COD" checked><span style="font-size: 20px;"><b>Cash on delivery</b></span></label>
-                            </td>
-                            <td>
-                                <label><input type="radio" name="payment_mode" value="BDO"><img src="{{URL::asset('/img/bdo_logo.png')}}" height="70" width="70"></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">&nbsp;<!-- spacer --></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="text-align: right">
-                            {{ csrf_field() }}
-                            <input name="_method" type="hidden" value="PATCH">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button class="btn btn-success" type="submit">Checkout</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                </form>
-            </div>
-        </div>
-
-    </div>
-
     <table class="table table-striped">
         <thead>
         <tr>
@@ -88,7 +42,9 @@
                 <tr>
                 <td style="text-align: center;">{{$item['id']}}</td>
                 <td>{{$item['transaction_code']}}</td>
-                <td>Link Modal</td>
+                <td style="text-align: center;">
+                    <a data-toggle="modal" data-target="#paymentModal">View Image</a>
+                </td>
                 <td>{{$item['quantity']}}</td>
                 <td style="text-align: right;">{{number_format($item['total_price'], 2)}}</td>
                 <td style="text-align: center;">
@@ -132,6 +88,7 @@
         @endif
         </tbody>
     </table>
+
 </div>
 
 </body>

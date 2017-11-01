@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 //use Intervention\Image\Facades\Image as Image;
 use Intervention\Image\ImageManager as Image;
+use Mockery\Exception;
 
 class OrderController extends Controller
 {
@@ -162,7 +163,7 @@ class OrderController extends Controller
         Order::where('id', $orderId)
             ->update(['status' => $status]);
         
-        return redirect('orders')->with('success','Order status has been updated to ' . $request->get('status'));
+        return redirect('orders')->with('success','Order with ID ' . $orderId . ' status has been updated to ' . $status);
     }
 
     /**
@@ -201,7 +202,7 @@ class OrderController extends Controller
      */
     public function showByUserId($userId)
     {
-        $orderList = Order::where('user_id', $userId)
+        $orderList = Order::where('user_id', base64_decode($userId))
             ->where('status', '<>', config('constants.ORDER_STATUS_PENDING'))
             ->get()->toArray();
 
@@ -217,6 +218,25 @@ class OrderController extends Controller
      */
     public function updateByTransactionCode(Request $request, $transactionCode)
     {
+        try
+        {
+        $transactionCode = base64_decode($transactionCode);
+
+        $orderList  = Order::where('transaction_code', '=', $transactionCode)->get()->toArray();
+        $user       = User::find(Auth::user()->id);
+
+        $emailData                      = array();
+        $emailData['transactionCode']   = $transactionCode;
+        $emailData['name']              = $user['first_name'];
+        $emailData['status']            = 'RECEIVED';
+        $emailData['email']             = $user['email'];
+
+        // SEND EMAIL FOR EVERY ITEM
+        foreach ($orderList as $order)
+        {
+            $emailData['orderId']        = $order['id'];
+            Helpers::sendEmail($emailData);
+        }
 
         $data = array(
             'status' => config('constants.ORDER_STATUS_OPEN'),
@@ -229,5 +249,12 @@ class OrderController extends Controller
         Session::forget('cartSize');
         Session::forget('transactionCode');
         return redirect('/');
+
+        }
+        catch (Exception $e)
+        {
+            return "error";
+        }
     }
+
 }
