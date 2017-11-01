@@ -137,8 +137,7 @@ class OrderController extends Controller
     {
 
         $orderId    = base64_decode($id);
-        $status     = $request->get('status');
-
+        $status     = base64_decode($request->get('status'));
 
         $order  = Order::find($orderId);
         $user   = User::find(base64_decode($request->get('userId')));
@@ -147,7 +146,7 @@ class OrderController extends Controller
         $data['orderId']            = $order['id'];
         $data['transactionCode']    = $order['transaction_code'];
         $data['name']               = $user['first_name'];
-        $data['status']             = $order['status'];
+        $data['status']             = $status;
         $data['email']              = $user['email'];
 
         Helpers::sendEmail($data);

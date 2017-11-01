@@ -15,7 +15,7 @@ class Helpers
     public static function sendEmail($data)
     {
         Mail::send('emails.email', $data, function($message) use ($data){
-            $message->to($data['email'], 'JS Torres Admin')
+            $message->to($data['email'], $data['name'])
                 ->subject('Transaction code: ' . $data['transactionCode'] . ' Order id: ' . $data['orderId'] . ' ' . $data['status']);
 
         });
