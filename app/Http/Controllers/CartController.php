@@ -50,7 +50,7 @@ class CartController extends Controller
      */
     public function show($transactionCode)
     {
-
+        $transactionCode = base64_decode($transactionCode);
         $cartItemsTemp = Order::where('transaction_code', '=', $transactionCode)->get()->toArray();
 
         $cartItems = array();

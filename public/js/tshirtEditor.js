@@ -127,7 +127,7 @@ var rightLink;
             //e.target.setFill('green');
             //canvas.renderAll();
         });
-		 		 	 
+
 		document.getElementById('add-text').onclick = function() {
 			var text = $("#text-string").val();
 		    var textSample = new fabric.Text(text, {
