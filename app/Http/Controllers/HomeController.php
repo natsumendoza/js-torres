@@ -11,6 +11,8 @@ use Auth;
 
 class HomeController extends Controller
 {
+
+//    protected $redirectTo = '/';
     /**
      * Create a new controller instance.
      *
@@ -18,7 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -28,16 +30,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cartItems = Order::where('user_id', Auth::user()->id)
-        ->where('status', 'pending')
-        ->get()->toArray();
+        if (!Auth::guest()) {
+            $cartItems = Order::where('user_id', Auth::user()->id)
+                ->where('status', 'pending')
+                ->get()->toArray();
 
-        if(!empty($cartItems))
-        {
-            Session::put('cartSize', count($cartItems));
-            if(!(\Session::has('transactionCode')))
+            if(!empty($cartItems))
             {
-                Session::put('transactionCode', $cartItems[0]['transaction_code']);
+                Session::put('cartSize', count($cartItems));
+                if(!(\Session::has('transactionCode')))
+                {
+                    Session::put('transactionCode', $cartItems[0]['transaction_code']);
+                }
             }
         }
 
