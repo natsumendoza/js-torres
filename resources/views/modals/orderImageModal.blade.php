@@ -14,16 +14,16 @@
                         <td>Back Image:</td>
                     </tr>
                     <tr>
-                        <td style="text-align: center"><a id="frontAchor" href="#" target="_blank"><img id="frontImgSrc" height="50" width="50" src="{{URL::asset('/orderimages/'.@$frontImage)}}"></a></td>
-                        <td style="text-align: center"><a id="backAchor"href="{{URL::asset('/orderimages/'.@$backImage)}}" target="_blank"><img id="backImgSrc" height="50" width="50" src="{{URL::asset('/orderimages/'.@$backImage)}}"></a></td>
+                        <td style="text-align: center"><a id="frontAnchor" href="" target="_blank"><img id="frontImgSrc" height="50" width="50" src=""></a></td>
+                        <td style="text-align: center"><a id="backAnchor" href="" target="_blank"><img id="backImgSrc" height="50" width="50" src=""></a></td>
                     </tr>
                     <tr>
                         <td>Left Side Image:</td>
                         <td>Right Side Image:</td>
                     </tr>
                     <tr>
-                        <td style="text-align: center"><a id="leftAchor" href="{{URL::asset('/orderimages/'.@$leftImage)}}" target="_blank"><img id="leftImgSrc" height="50" width="50" src="{{URL::asset('/orderimages/'.@$leftImage)}}"></a></td>
-                        <td style="text-align: center"><a id="rightAchor" href="{{URL::asset('/orderimages/'.@$rightImage)}}" target="_blank"><img id="rightImgSrc" height="50" width="50" src="{{URL::asset('/orderimages/'.@$rightImage)}}"></a></td>
+                        <td style="text-align: center"><a id="leftAnchor" href="" target="_blank"><img id="leftImgSrc" height="50" width="50" src=""></a></td>
+                        <td style="text-align: center"><a id="rightAnchor" href="{{URL::asset('/orderimages/'.@$rightImage)}}" target="_blank"><img id="rightImgSrc" height="50" width="50" src=""></a></td>
                     </tr>
 
                 </table>
