@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Order Images</h4>
+                <h4 class="modal-title">Product Images</h4>
                 <h6>(Click Image for larger view)</h6>
             </div>
             <div class="modal-body">
@@ -15,16 +15,16 @@
                         <td>Back Image:</td>
                     </tr>
                     <tr>
-                        <td style="text-align: center"><a id="frontAnchorOrder" href="" target="_blank"><img id="frontImgSrcOrder" height="50" width="50" src=""></a></td>
-                        <td style="text-align: center"><a id="backAnchorOrder" href="" target="_blank"><img id="backImgSrcOrder" height="50" width="50" src=""></a></td>
+                        <td style="text-align: center"><a id="frontAnchorProduct" href="" target="_blank"><img id="frontImgSrcProduct" height="50" width="50" src=""></a></td>
+                        <td style="text-align: center"><a id="backAnchorProduct" href="" target="_blank"><img id="backImgSrcProduct" height="50" width="50" src=""></a></td>
                     </tr>
                     <tr>
                         <td>Left Side Image:</td>
                         <td>Right Side Image:</td>
                     </tr>
                     <tr>
-                        <td style="text-align: center"><a id="leftAnchorOrder" href="" target="_blank"><img id="leftImgSrcOrder" height="50" width="50" src=""></a></td>
-                        <td style="text-align: center"><a id="rightAnchorOrder" href="" target="_blank"><img id="rightImgSrcOrder" height="50" width="50" src=""></a></td>
+                        <td style="text-align: center"><a id="leftAnchorProduct" href="" target="_blank"><img id="leftImgSrcProduct" height="50" width="50" src=""></a></td>
+                        <td style="text-align: center"><a id="rightAnchorProduct" href="" target="_blank"><img id="rightImgSrcProduct" height="50" width="50" src=""></a></td>
                     </tr>
 
                 </table>
