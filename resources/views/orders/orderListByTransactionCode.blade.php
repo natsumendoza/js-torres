@@ -5,16 +5,20 @@
     $transactionCode = "";
     if(isset($cartItems) and !empty($cartItems))
     {
-        $transactionCode = base64_encode($cartItems[0]['transaction_code']);
+        $cartItem = reset($cartItems);
+        $transactionCode = base64_encode($cartItem['transaction_code']);
     }
     $totalPrice = 0.00;
 
 @endphp
 @include('modals.paymentModal', ['transactionCode'=>$transactionCode])
+@include('modals.orderImageModal')
 <head>
     <meta charset="utf-8">
     <title>Orders</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+    </script>
 </head>
 <body>
 <div class="container">
@@ -43,7 +47,7 @@
                 <td style="text-align: center;">{{$item['id']}}</td>
                 <td>{{$item['transaction_code']}}</td>
                 <td style="text-align: center;">
-                    <a data-toggle="modal" data-target="#paymentModal">View Image</a>
+                    <a class="viewImage" value="{{$item['id']}}" onclick="test();" data-toggle="modal" data-target="#orderImageModal">View Images</a>
                 </td>
                 <td>{{$item['quantity']}}</td>
                 <td style="text-align: right;">{{number_format($item['total_price'], 2)}}</td>
@@ -66,7 +70,7 @@
                 <a href="{{url('')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
             <td style="text-align: left;">
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#paymentModal">Proceed to checkout</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#paymentModal">Proceed to checkout</button>
             </td>
             <td style="text-align: right;" colspan="4">
                 <form action="{{action('OrderController@destroyByTransactionCode', $transactionCode)}}" method="POST">

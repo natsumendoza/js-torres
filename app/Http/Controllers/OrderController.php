@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 //use Intervention\Image\Facades\Image as Image;
 use Intervention\Image\ImageManager as Image;
 use Mockery\Exception;
+use App\Exceptions\CustomException;
 
 class OrderController extends Controller
 {
@@ -218,8 +219,6 @@ class OrderController extends Controller
      */
     public function updateByTransactionCode(Request $request, $transactionCode)
     {
-        try
-        {
         $transactionCode = base64_decode($transactionCode);
 
         $orderList  = Order::where('transaction_code', '=', $transactionCode)->get()->toArray();
@@ -249,12 +248,6 @@ class OrderController extends Controller
         Session::forget('cartSize');
         Session::forget('transactionCode');
         return redirect('/');
-
-        }
-        catch (Exception $e)
-        {
-            return "error";
-        }
     }
 
 }

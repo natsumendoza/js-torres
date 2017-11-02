@@ -1,5 +1,5 @@
 <!-- orderListListByUserId.blade.php -->
-@extends('layouts.layout2')
+@extends('layouts.layout')
 
 @section('content')
         <!DOCTYPE html>
@@ -7,7 +7,8 @@
 <head>
     <meta charset="utf-8">
     <title>Orders</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -34,7 +35,11 @@
             <tr>
                 <td style="text-align: center;">{{$order['id']}}</td>
                 <td>{{$order['transaction_code']}}</td>
-                <td>Link Modal</td>
+                <td style="text-align: center;">
+                    <a data-toggle="modal" data-target="#orderImageModal">View Images</a>
+                    @php($orderImage = ['frontImage'=>$order['front_image'], 'backImage'=>$order['back_image'], 'leftImage'=>$order['left_image'],'rightImage'=>$order['right_image']])
+                    @include('modals.orderImageModal', $orderImage)
+                </td>
                 <td>{{$order['quantity']}}</td>
                 <td style="text-align: center;">{{$order['total_price']}}</td>
                 <td style="text-align: center;">{{$order['status']}}</td>

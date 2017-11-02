@@ -1,9 +1,8 @@
 <!-- Modal -->
 <div class="modal fade" id="paymentModal" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <form action="{{action('OrderController@updateByTransactionCode', $transactionCode)}}" method="POST">
-            <p>{{$transactionCode}}</p>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
