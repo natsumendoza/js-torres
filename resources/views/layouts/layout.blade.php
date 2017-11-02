@@ -197,6 +197,7 @@
         $('.img-tshirt').on('click', function() {
             $('#quantity').val(1);
             $("#imageeditor").css('display', 'block');
+            $("#selectItem").css('display', 'none');
 
             var tempId = getShirtId($('.img-tshirt').attr('src'));
             console.log('tempId: ' + tempId);

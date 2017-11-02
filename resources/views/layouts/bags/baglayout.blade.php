@@ -101,7 +101,7 @@
                                 @endif
 
 
-                                <li><a href="{{(url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
+                                <li><a href="{{(url('/cart/'.\base64_encode(Session::get('transactionCode')))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
                             @endif
 
 
@@ -197,6 +197,7 @@
         $('.img-tshirt').on('click', function() {
             $('#quantity').val(1);
             $("#imageeditor").css('display', 'block');
+            $("#selectItem").css('display', 'none');
 
             var tempId = getShirtId($('.img-tshirt').attr('src'));
             console.log('tempId: ' + tempId);

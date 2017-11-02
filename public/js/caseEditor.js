@@ -320,7 +320,7 @@ var line4;
 	    else if (selectedObject && selectedObject.type === 'image'){
 	    	//display image editor
 	    	$("#texteditor").css('display', 'none');	
-	    	$("#imageeditor").css('display', 'block');	    	
+	    	$("#imageeditor").css('display', 'block');
 	    }
 	  }
 	 function onSelectedCleared(e){
