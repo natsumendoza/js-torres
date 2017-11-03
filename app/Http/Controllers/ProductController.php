@@ -15,7 +15,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productList = Product::all()->toArray();
+        $productListTemp = Product::all()->toArray();
+
+        $productList = array();
+        foreach ($productListTemp as $product)
+        {
+            $productList[$product['id']] = $product;
+        }
+
         return view('products.productList', compact('productList'));
     }
 

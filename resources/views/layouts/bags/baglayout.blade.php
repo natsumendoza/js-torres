@@ -82,6 +82,7 @@
             <a class="brand" href="{{ url('/') }}">JS Torres Shop</a>
             <div class="nav-collapse" id="main-menu">
                 <ul class="nav" id="main-menu-left">
+                    <li><a href="{{ url('') }}">Jerseys</a></li>
                     <li><a href="{{ url('/bags') }}">Bags</a></li>
                 </ul>
             </div>
@@ -100,13 +101,13 @@
                                 @endif
 
 
-                                <li><a href="{{ url('/cart/'.\Session::get('transactionCode')) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
+                                <li><a href="{{(url('/cart/'.\base64_encode(Session::get('transactionCode')))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
                             @endif
 
 
                             <li class="dropdown">
                                 {{--{{ Auth::user()->name }}--}}
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
+                                <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     @if(Auth::user()->isAdmin())
                                         <li><a href="{{ url('/products') }}">Products</a></li>
@@ -196,6 +197,7 @@
         $('.img-tshirt').on('click', function() {
             $('#quantity').val(1);
             $("#imageeditor").css('display', 'block');
+            $("#selectItem").css('display', 'none');
 
             var tempId = getShirtId($('.img-tshirt').attr('src'));
             console.log('tempId: ' + tempId);

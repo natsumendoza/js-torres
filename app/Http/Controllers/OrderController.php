@@ -22,8 +22,15 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orderList = Order::where('status', '<>', config('constants.ORDER_STATUS_PENDING'))
+        $orderListTemp = Order::where('status', '<>', config('constants.ORDER_STATUS_PENDING'))
             ->get()->toArray();;
+
+        $orderList = array();
+        foreach ($orderListTemp as $order)
+        {
+            $orderList[$order['id']] = $order;
+        }
+
         return view('orders.orderList', compact('orderList'));
     }
 
@@ -203,9 +210,15 @@ class OrderController extends Controller
      */
     public function showByUserId($userId)
     {
-        $orderList = Order::where('user_id', base64_decode($userId))
+        $orderListTemp = Order::where('user_id', base64_decode($userId))
             ->where('status', '<>', config('constants.ORDER_STATUS_PENDING'))
             ->get()->toArray();
+
+        $orderList = array();
+        foreach ($orderListTemp as $order)
+        {
+            $orderList[$order['id']] = $order;
+        }
 
         return view('orders.orderListByUserId', compact('orderList'));
     }

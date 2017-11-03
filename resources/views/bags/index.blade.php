@@ -173,6 +173,9 @@
                     </div>
                     <!--	EDITOR      -->
                     <div id="shirtDiv" class="page" style="width: 530px; height: 530px; position: relative; background-color: rgb(255, 255, 255);">
+                        <div id="selectItem" style="text-align: center">
+                            Please select product to start.
+                        </div>
                         <img id="tshirtFacing" src=""/>
                         <div id="frontDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                             <canvas id="frontCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>

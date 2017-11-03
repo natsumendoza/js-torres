@@ -150,10 +150,11 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
+                                <div class="col-md-6 col-md-offset-4" >
+                                    <button type="submit" class="btn btn-success" style="float: right;margin-left:15px;">
                                         Save
                                     </button>
+                                    <a href="{{url('')}}" class="btn btn-default" style="float: right">Close</a>
                                 </div>
                             </div>
                         </form>
