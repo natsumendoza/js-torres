@@ -117,8 +117,6 @@ class OrderController extends Controller
 
         Order::create($order);
 
-
-
         return redirect('cart/'.base64_encode($order['transaction_code']));
     }
 
