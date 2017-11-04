@@ -21,7 +21,7 @@ class CartController extends Controller
         return view('orders.orderListByTransactionCode', compact('cartItems'));
     }
 
-    /**
+    /**`
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

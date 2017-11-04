@@ -195,7 +195,7 @@ class OrderController extends Controller
      */
     public function destroyByTransactionCode($transactionCode)
     {
-        Order::where('transaction_code', $transactionCode)->delete();
+        Order::where('transaction_code', base64_decode($transactionCode))->delete();
         Session::put('cartSize', 0);
         return redirect('/');
     }
