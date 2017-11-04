@@ -184,7 +184,7 @@ class OrderController extends Controller
         $transactionCode = $order['transaction_code'];
         $order->delete();
 
-        return redirect('cart/'.$transactionCode);
+        return redirect('cart/'.base64_encode($transactionCode));
     }
 
     /**
