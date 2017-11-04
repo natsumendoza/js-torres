@@ -56,7 +56,7 @@ class OrderController extends Controller
         $orderType = $request['orderType'];
         if(!(\Session::has('transactionCode'))) :
             //SET $transactionCode
-            $transactionCode = date("dmy") . Auth::user()->id . date("siH");
+                $transactionCode = date("dmy") . Auth::user()->id . date("siH");
             Session::put('transactionCode', $transactionCode);
 
         else:
@@ -69,7 +69,7 @@ class OrderController extends Controller
             'totalPrice' => 'required|numeric'
         ]);
 
-        // CONVERTION FROM BASE64 TO IMAGE
+        // CONVERSION FROM BASE64 TO IMAGE
         $userId = $request['userId'];
         $imageManager = new Image();
 
@@ -119,7 +119,7 @@ class OrderController extends Controller
 
 
 
-        return redirect('cart/'.$order['transaction_code']);
+        return redirect('cart/'.base64_encode($order['transaction_code']));
     }
 
     /**
