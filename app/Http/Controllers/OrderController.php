@@ -77,7 +77,9 @@ class OrderController extends Controller
         $userId = $request['userId'];
         $imageManager = new Image();
 
-
+        echo '<pre>';
+        echo $request;
+        die;
 
         $frontFileName = $userId."_".time()."_front.png";
         $frontPath = public_path("orderimages/".$frontFileName);
@@ -92,9 +94,7 @@ class OrderController extends Controller
         $leftFileName = '';
         $rightFileName = '';
 
-        echo '<pre>';
-        echo $request;
-        die;
+
 
         if($orderType == 'jersey') {
             $leftFileName = $userId."_".time()."_left.png";
