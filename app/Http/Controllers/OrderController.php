@@ -65,6 +65,10 @@ class OrderController extends Controller
             $transactionCode = Session::get('transactionCode');
         endif;
 
+        echo '<pre>';
+        echo $request;
+        die;
+
         $validated_order = $this->validate($request,[
             'userId' => 'required|numeric',
             'quantity' => 'required|numeric',
@@ -103,9 +107,7 @@ class OrderController extends Controller
 
         // END
 
-        echo '<pre>';
-        echo $request;
-        die;
+
 
 
         // SETS $validated_order to $product
