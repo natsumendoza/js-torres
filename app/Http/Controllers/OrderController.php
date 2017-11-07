@@ -77,7 +77,7 @@ class OrderController extends Controller
         $userId = $request['userId'];
         $imageManager = new Image();
 
-        echo public_path("orderimages/");
+        echo base_path("orderimages/");
         die;
 
         $frontFileName = $userId."_".time()."_front.png";
