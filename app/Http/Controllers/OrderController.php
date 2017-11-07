@@ -80,12 +80,14 @@ class OrderController extends Controller
         $frontFileName = $userId."_".time()."_front.png";
         $frontPath = public_path("orderimages/".$frontFileName);
         $frontImage = $imageManager->make($request['frontImage'])->encode('png');
-        file_put_contents($frontPath, $frontImage);
+//        file_put_contents($frontPath, $frontImage);
+        $frontImage->save($frontPath);
 
         $backFileName = $userId."_".time()."_back.png";
         $backPath = public_path("orderimages/".$backFileName);
         $backImage = $imageManager->make($request['backImage'])->encode('png');
-        file_put_contents($backPath, $backImage);
+//        file_put_contents($backPath, $backImage);
+        $backImage->save($backPath);
 
         $leftFileName = '';
         $rightFileName = '';
@@ -96,12 +98,14 @@ class OrderController extends Controller
             $leftFileName = $userId."_".time()."_left.png";
             $leftPath = public_path("orderimages/".$leftFileName);
             $leftImage = $imageManager->make($request['leftImage'])->encode('png');
-            file_put_contents($leftPath, $leftImage);
+//            file_put_contents($leftPath, $leftImage);
+            $leftImage->save($leftPath);
 
             $rightFileName = $userId."_".time()."_right.png";
             $rightPath = public_path("orderimages/".$rightFileName);
             $rightImage = $imageManager->make($request['rightImage'])->encode('png');
-            file_put_contents($rightPath, $rightImage);
+//            file_put_contents($rightPath, $rightImage);
+            $rightImage->save($rightPath);
         }
 
 
