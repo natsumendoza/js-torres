@@ -99,8 +99,7 @@
     $(document).ready(function() {
         var items = <?php echo json_encode(@$cartItems); ?>;
         {{--var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;--}}
-        var orderImagePath = <?php echo json_encode(public_path("orderimages/")); ?>;
-        alert(orderImagePath);
+        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;
 
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;

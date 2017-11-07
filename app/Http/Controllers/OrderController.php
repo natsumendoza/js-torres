@@ -92,15 +92,17 @@ class OrderController extends Controller
         $base64_str_front = substr($request['frontImage'], strpos($request['frontImage'], ",")+1);
         $image = base64_decode($base64_str_front);
         Storage::disk('public')->put($frontFileName, $image);
-        $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+        $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+        echo $storagePath;
+        die;
 //        file_put_contents($frontPath.$frontFileName, $image);
 
         $backFileName = $userId."_".time()."_back.png";
         $backPath = public_path("orderimages/".$backFileName);
         $base64_str_back = substr($request['frontImage'], strpos($request['frontImage'], ",")+1);
         $image = base64_decode($base64_str_back);
-        Storage::disk('public')->put($frontFileName, $image);
-        $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+//        Storage::disk('public')->put($backFileName, $image);
+//        $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
 //        file_put_contents($backPath.$frontFileName, $image);
 
 
@@ -125,16 +127,16 @@ class OrderController extends Controller
             $leftPath = public_path("orderimages/".$leftFileName);
             $base64_str_left = substr($request['leftImage'], strpos($request['leftImage'], ",")+1);
             $image = base64_decode($base64_str_left);
-            Storage::disk('public')->put($leftFileName, $image);
-            $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
-//            file_put_contents($leftPath.$leftFileName, $image);
+//            Storage::disk('public')->put($leftFileName, $image);
+//            $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+            file_put_contents($leftPath.$leftFileName, $image);
 
             $rightFileName = $userId."_".time()."_right.png";
             $rightPath = public_path("orderimages/".$backFileName);
             $base64_str_right = substr($request['rightImage'], strpos($request['rightImage'], ",")+1);
             $image = base64_decode($base64_str_right);
-            Storage::disk('public')->put($rightFileName, $image);
-            $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+//            Storage::disk('public')->put($rightFileName, $image);
+//            $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
 //            file_put_contents($rightPath.$rightFileName, $image);
 
 //            $leftFileName = $userId."_".time()."_left.png";
