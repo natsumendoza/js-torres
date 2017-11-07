@@ -56,7 +56,7 @@ class OrderController extends Controller
         $orderType = $request['orderType'];
         if(!(\Session::has('transactionCode'))) :
             //SET $transactionCode
-            $transactionCode = date("dmy") . Auth::user()->id . date("siH");
+                $transactionCode = date("dmy") . Auth::user()->id . date("siH");
             Session::put('transactionCode', $transactionCode);
 
         else:
@@ -69,7 +69,7 @@ class OrderController extends Controller
             'totalPrice' => 'required|numeric'
         ]);
 
-        // CONVERTION FROM BASE64 TO IMAGE
+        // CONVERSION FROM BASE64 TO IMAGE
         $userId = $request['userId'];
         $imageManager = new Image();
 
@@ -117,9 +117,7 @@ class OrderController extends Controller
 
         Order::create($order);
 
-
-
-        return redirect('cart/'.$order['transaction_code']);
+        return redirect('cart/'.base64_encode($order['transaction_code']));
     }
 
     /**
@@ -186,7 +184,7 @@ class OrderController extends Controller
         $transactionCode = $order['transaction_code'];
         $order->delete();
 
-        return redirect('cart/'.$transactionCode);
+        return redirect('cart/'.base64_encode($transactionCode));
     }
 
     /**
@@ -197,7 +195,7 @@ class OrderController extends Controller
      */
     public function destroyByTransactionCode($transactionCode)
     {
-        Order::where('transaction_code', $transactionCode)->delete();
+        Order::where('transaction_code', base64_decode($transactionCode))->delete();
         Session::put('cartSize', 0);
         return redirect('/');
     }
