@@ -53,6 +53,9 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+
+        echo $request;
+        die;
         $orderType = $request['orderType'];
         if(!(\Session::has('transactionCode'))) :
             //SET $transactionCode
