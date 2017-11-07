@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 //use Intervention\Image\Facades\Image as Image;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager as Image;
 use Mockery\Exception;
 use App\Exceptions\CustomException;
@@ -77,15 +78,41 @@ class OrderController extends Controller
         $userId = $request['userId'];
         $imageManager = new Image();
 
+
+//        $base64_str_front = substr($request['frontImage'], strpos($request['frontImage'], ",")+1);
+//        $image = base64_decode($base64_str_front);
+//        Storage::disk('public')->put('image.png', $image);
+//        $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+//        file_put_contents($storagePath.'image.png', $image);
+//
+//        die;
+
         $frontFileName = $userId."_".time()."_front.png";
         $frontPath = public_path("orderimages/".$frontFileName);
-        $frontImage = $imageManager->make($request['frontImage'])->encode('png');
-        file_put_contents($frontPath, $frontImage);
+        $base64_str_front = substr($request['frontImage'], strpos($request['frontImage'], ",")+1);
+        $image = base64_decode($base64_str_front);
+        Storage::disk('public')->put($frontFileName, $image);
+        $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+//        file_put_contents($frontPath.$frontFileName, $image);
 
         $backFileName = $userId."_".time()."_back.png";
         $backPath = public_path("orderimages/".$backFileName);
-        $backImage = $imageManager->make($request['backImage'])->encode('png');
-        file_put_contents($backPath, $backImage);
+        $base64_str_back = substr($request['frontImage'], strpos($request['frontImage'], ",")+1);
+        $image = base64_decode($base64_str_back);
+        Storage::disk('public')->put($frontFileName, $image);
+        $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+//        file_put_contents($backPath.$frontFileName, $image);
+
+
+//        $frontFileName = $userId."_".time()."_front.png";
+//        $frontPath = public_path("orderimages/".$frontFileName);
+//        $frontImage = $imageManager->make($request['frontImage'])->encode('png');
+//        file_put_contents($frontPath, $frontImage);
+//
+//        $backFileName = $userId."_".time()."_back.png";
+//        $backPath = public_path("orderimages/".$backFileName);
+//        $backImage = $imageManager->make($request['backImage'])->encode('png');
+//        file_put_contents($backPath, $backImage);
 
         $leftFileName = '';
         $rightFileName = '';
@@ -93,15 +120,32 @@ class OrderController extends Controller
 
 
         if($orderType == 'jersey') {
+
             $leftFileName = $userId."_".time()."_left.png";
             $leftPath = public_path("orderimages/".$leftFileName);
-            $leftImage = $imageManager->make($request['leftImage'])->encode('png');
-            file_put_contents($leftPath, $leftImage);
+            $base64_str_left = substr($request['leftImage'], strpos($request['leftImage'], ",")+1);
+            $image = base64_decode($base64_str_left);
+            Storage::disk('public')->put($leftFileName, $image);
+            $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+//            file_put_contents($leftPath.$leftFileName, $image);
 
             $rightFileName = $userId."_".time()."_right.png";
-            $rightPath = public_path("orderimages/".$rightFileName);
-            $rightImage = $imageManager->make($request['rightImage'])->encode('png');
-            file_put_contents($rightPath, $rightImage);
+            $rightPath = public_path("orderimages/".$backFileName);
+            $base64_str_right = substr($request['rightImage'], strpos($request['rightImage'], ",")+1);
+            $image = base64_decode($base64_str_right);
+            Storage::disk('public')->put($rightFileName, $image);
+            $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
+//            file_put_contents($rightPath.$rightFileName, $image);
+
+//            $leftFileName = $userId."_".time()."_left.png";
+//            $leftPath = public_path("orderimages/".$leftFileName);
+//            $leftImage = $imageManager->make($request['leftImage'])->encode('png');
+//            file_put_contents($leftPath, $leftImage);
+//
+//            $rightFileName = $userId."_".time()."_right.png";
+//            $rightPath = public_path("orderimages/".$rightFileName);
+//            $rightImage = $imageManager->make($request['rightImage'])->encode('png');
+//            file_put_contents($rightPath, $rightImage);
         }
 
 
