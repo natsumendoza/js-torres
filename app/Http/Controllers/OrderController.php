@@ -54,8 +54,7 @@ class OrderController extends Controller
     {
 
 
-        echo $request;
-        die;
+
         $orderType = $request['orderType'];
         if(!(\Session::has('transactionCode'))) :
             //SET $transactionCode
@@ -103,6 +102,10 @@ class OrderController extends Controller
 
 
         // END
+
+        echo '<pre>';
+        echo $request;
+        die;
 
 
         // SETS $validated_order to $product
