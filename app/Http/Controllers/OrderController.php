@@ -65,9 +65,7 @@ class OrderController extends Controller
             $transactionCode = Session::get('transactionCode');
         endif;
 
-        echo '<pre>';
-        echo $request;
-        die;
+
 
         $validated_order = $this->validate($request,[
             'userId' => 'required|numeric',
@@ -78,6 +76,8 @@ class OrderController extends Controller
         // CONVERSION FROM BASE64 TO IMAGE
         $userId = $request['userId'];
         $imageManager = new Image();
+
+
 
         $frontFileName = $userId."_".time()."_front.png";
         $frontPath = public_path("orderimages/".$frontFileName);
@@ -91,6 +91,10 @@ class OrderController extends Controller
 
         $leftFileName = '';
         $rightFileName = '';
+
+        echo '<pre>';
+        echo $request;
+        die;
 
         if($orderType == 'jersey') {
             $leftFileName = $userId."_".time()."_left.png";
