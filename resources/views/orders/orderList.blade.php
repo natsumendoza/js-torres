@@ -110,7 +110,7 @@
             $('#backImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['back_image']);
             $('#leftImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['left_image']);
             $('#rightImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['right_image']);
-        });*/
+        });
 
     });
 </script>
