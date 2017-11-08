@@ -89,10 +89,11 @@
 </body>
 <script>
     $(document).ready(function() {
+        alert();
         var orders = <?php echo json_encode(@$orderList); ?>;
         {{--var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;--}}
         var orderImagePath = <?php echo base_path('public/orderimages'); ?>;
-
+        alert(orderImagePath);
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;
 

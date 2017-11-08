@@ -97,6 +97,7 @@
 </body>
 <script>
     $(document).ready(function() {
+        alert();
         var items = <?php echo json_encode(@$cartItems); ?>;
         var orderImagePath = <?php echo base_path('public/orderimages'); ?>;
         alert(orderImagePath);
