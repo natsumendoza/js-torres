@@ -90,27 +90,6 @@
 <script>
     $(document).ready(function() {
         alert("orderlist");
-        var orders = <?php echo json_encode(@$orderList); ?>;
-        alert("orderlist2");
-        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages')); ?>;
-        alert("orderlis3");
-        alert(orderImagePath + " >>>>");
-
-        $('.viewOrderImage').on('click',function (e) {
-            var id = e.target.id;
-
-            // FOR ANCHOR <a> TAG
-            $('#frontAnchorOrder').attr("href", orderImagePath + '/' + orders[id]['front_image']);
-            $('#backAnchorOrder').attr("href", orderImagePath + '/' + orders[id]['back_image']);
-            $('#leftAnchorOrder').attr("href", orderImagePath + '/' + orders[id]['left_image']);
-            $('#rightAnchorOrder').attr("href", orderImagePath + '/' + orders[id]['right_image']);
-
-            // FOR IMAGE src
-            $('#frontImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['front_image']);
-            $('#backImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['back_image']);
-            $('#leftImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['left_image']);
-            $('#rightImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['right_image']);
-        });
 
     });
 </script>
