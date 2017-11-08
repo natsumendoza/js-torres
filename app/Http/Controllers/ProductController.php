@@ -119,9 +119,9 @@ class ProductController extends Controller
         $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_front.'.$image->getClientOriginalExtension();
         $frontImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
-        echo $destinationPath;
-        die;
-        
+//        echo $destinationPath;
+//        die;
+
         $image->move($destinationPath, $frontImageName);
 
         $image = $request->file('backImage');
