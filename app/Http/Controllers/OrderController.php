@@ -91,7 +91,7 @@ class OrderController extends Controller
         $frontPath = public_path("orderimages/".$frontFileName);
         $base64_str_front = substr($request['frontImage'], strpos($request['frontImage'], ",")+1);
         $image = base64_decode($base64_str_front);
-        Storage::disk('public')->put($frontFileName, $image);
+        Storage::disk('local')->put($frontFileName, $image);
         $storagePath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
         echo $storagePath;
         die;
