@@ -55,7 +55,7 @@
 <script>
     $(document).ready(function() {
         var orders = <?php echo json_encode(@$orderList); ?>;
-        var orderImagePath = <?php echo json_encode(base_path('public/orderimages')); ?>;
+        var orderImagePath = <?php echo base_path('public/orderimages'); ?>;
 
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;
