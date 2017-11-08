@@ -90,8 +90,9 @@
 <script>
     $(document).ready(function() {
         alert("orderlist");
-        var orders = '<?php echo json_encode(@$orderList); ?>';
-        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages')); ?>;
+        var orders = <?php echo json_encode(@$orderList); ?>;
+        alert("orderlist2");
+       /* var orderImagePath = <?php echo json_encode(URL::asset('/orderimages')); ?>;
         {{--var orderImagePath = '<?php echo json_encode(base_path('public/orderimages')); ?>';--}}
 
         $('.viewOrderImage').on('click',function (e) {
@@ -108,7 +109,7 @@
             $('#backImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['back_image']);
             $('#leftImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['left_image']);
             $('#rightImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['right_image']);
-        });
+        });*/
 
     });
 </script>
