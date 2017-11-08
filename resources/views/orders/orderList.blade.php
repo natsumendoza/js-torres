@@ -8,6 +8,7 @@
 <head>
     <meta charset="utf-8">
     <title>Orders</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -88,11 +89,10 @@
 </body>
 <script>
     $(document).ready(function() {
-        alert();
         var orders = <?php echo json_encode(@$orderList); ?>;
         {{--var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;--}}
-        var orderImagePath = <?php echo base_path('public/orderimages'); ?>;
-        alert(orderImagePath);
+        var orderImagePath = <?php echo json_encode(base_path('public/orderimages')); ?>;
+
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;
 

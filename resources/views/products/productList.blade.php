@@ -72,6 +72,7 @@
 </body>
 <script>
     $(document).ready(function() {
+        alert();
         var products = <?php echo json_encode(@$productList); ?>;
         var productImagePath = <?php echo json_encode(URL::asset('/productimages/')); ?>;
 
