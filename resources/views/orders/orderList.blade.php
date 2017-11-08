@@ -95,7 +95,6 @@
         var orderImagePath = <?php echo json_encode(URL::asset('/orderimages')); ?>;
         alert("orderlis3");
         alert(orderImagePath + " >>>>");
-        {{--var orderImagePath = '<?php echo json_encode(base_path('public/orderimages')); ?>';--}}
 
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;
