@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Support\Facades\File;
+
 class ProductController extends Controller
 {
     /**
@@ -13,13 +16,16 @@ class ProductController extends Controller
     public function index()
     {
         $productListTemp = Product::all()->toArray();
+
         $productList = array();
         foreach ($productListTemp as $product)
         {
             $productList[$product['id']] = $product;
         }
+
         return view('products.productList', compact('productList'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -29,6 +35,7 @@ class ProductController extends Controller
     {
         return view('products.product');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -37,12 +44,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $userId = $request['userId'];
+
         $validated_product = $this->validate($request,[
             'productName' => 'required',
             'productType' => 'required',
             'basePrice' => 'required|numeric',
         ]);
+
         // SETS $validate_product to $product
         $product = array();
         $product['product_name'] = $validated_product['productName'];
@@ -52,10 +62,14 @@ class ProductController extends Controller
 //        $product['back_image']   = $backImageName;
 //        $product['left_image']   = $leftImageName;
 //        $product['right_image']  = $rightImageName;
+
         $insertedProduct = Product::create($product);
+
         $this->updateProductImageName($request, $insertedProduct->id);
+
         return redirect('products')->with('success', 'Product has been added');
     }
+
     /**
      * Display the specified resource.
      *
@@ -66,6 +80,7 @@ class ProductController extends Controller
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -77,6 +92,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         return view('products.product',compact('product','id'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -86,7 +102,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $product = Product::find($id);
+
         $validated_product = $this->validate($request,[
             'productName' => 'required',
             'productType' => 'required',
@@ -96,32 +114,38 @@ class ProductController extends Controller
 //            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+
+
         $image = $request->file('frontImage');
         $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_front.'.$image->getClientOriginalExtension();
         $frontImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
-//        echo $destinationPath;
-//        die;
         $image->move($destinationPath, $frontImageName);
+
         $image = $request->file('backImage');
         $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_back.'.$image->getClientOriginalExtension();
         $backImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $backImageName);
+
         $leftImageName = '';
         $rightImageName = '';
+
         if ($request['productType'] == 'jersey') {
             $image = $request->file('leftImage');
             $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
             $leftImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $leftImageName);
+
             $image = $request->file('rightImage');
             $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
             $rightImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $rightImageName);
         }
+
         // SETS $validate_product to $product
         $product['product_name'] = $validated_product['productName'];
         $product['product_type'] = $validated_product['productType'];
@@ -131,8 +155,10 @@ class ProductController extends Controller
         $product['left_image']   = $leftImageName;
         $product['right_image']  = $rightImageName;
         $product->save();
+
         return redirect('products')->with('success','Product has been updated');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -150,42 +176,52 @@ class ProductController extends Controller
             $destinationPath.'/'.$product['right_image']]);
         return redirect('products')->with('success','Product has been deleted');
     }
+
     public function updateProductImageName($request, $id) {
         $product = Product::find($id);
+
         $validated_product = $this->validate($request,[
             'frontImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'backImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
         $image = $request->file('frontImage');
         $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_front.'.$image->getClientOriginalExtension();
         $frontImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $frontImageName);
+
         $image = $request->file('backImage');
         $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_back.'.$image->getClientOriginalExtension();
         $backImageName = $input['imagename'];
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $backImageName);
+
         $leftImageName = '';
         $rightImageName = '';
+
         if ($request['productType'] == 'jersey') {
             $image = $request->file('leftImage');
             $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
             $leftImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $leftImageName);
+
             $image = $request->file('rightImage');
             $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
             $rightImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $rightImageName);
         }
+
+
         $product['front_image']  = $frontImageName;
         $product['back_image']   = $backImageName;
         $product['left_image']   = $leftImageName;
         $product['right_image']  = $rightImageName;
         $product->save();
+
     }
 }
