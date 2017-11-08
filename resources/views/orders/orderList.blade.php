@@ -92,7 +92,9 @@
         alert("orderlist");
         var orders = <?php echo json_encode(@$orderList); ?>;
         alert("orderlist2");
-       /* var orderImagePath = <?php echo json_encode(URL::asset('/orderimages')); ?>;
+        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages')); ?>;
+        alert("orderlis3");
+        alert(orderImagePath + " >>>>");
         {{--var orderImagePath = '<?php echo json_encode(base_path('public/orderimages')); ?>';--}}
 
         $('.viewOrderImage').on('click',function (e) {
