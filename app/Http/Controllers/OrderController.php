@@ -127,7 +127,7 @@ class OrderController extends Controller
             $image = base64_decode($base64_str_left);
             Storage::disk('prod')->put($leftFileName, $image);
             $storagePath = Storage::disk('prod')->getDriver()->getAdapter()->getPathPrefix();
-            echo $storagePath;
+            echo base_path('public/orderimages');
             die;
 //            file_put_contents($leftPath.$leftFileName, $image);
 
