@@ -90,9 +90,9 @@
 <script>
     $(document).ready(function() {
         alert("orderlist");
-        var orders = <?php echo json_encode(@$orderList); ?>;
-        {{--var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;--}}
-        var orderImagePath = '<?php echo json_encode(base_path('public/orderimages')); ?>';
+        var orders = '<?php echo json_encode(@$orderList); ?>';
+        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages')); ?>;
+        {{--var orderImagePath = '<?php echo json_encode(base_path('public/orderimages')); ?>';--}}
 
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;
