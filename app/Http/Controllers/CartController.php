@@ -15,9 +15,13 @@ class CartController extends Controller
      */
     public function index()
     {
+        $cartItems = 0;
+        Session::put('cartSize', 0);
+
+        return view('orders.orderListByTransactionCode', compact('cartItems'));
     }
 
-    /**
+    /**`
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -46,8 +50,14 @@ class CartController extends Controller
      */
     public function show($transactionCode)
     {
+        $transactionCode = base64_decode($transactionCode);
+        $cartItemsTemp = Order::where('transaction_code', '=', $transactionCode)->get()->toArray();
 
-        $cartItems = Order::where('transaction_code', '=', $transactionCode)->get()->toArray();
+        $cartItems = array();
+        foreach ($cartItemsTemp as $item)
+        {
+            $cartItems[$item['id']] = $item;
+        }
 
         Session::put('cartSize', count($cartItems));
 

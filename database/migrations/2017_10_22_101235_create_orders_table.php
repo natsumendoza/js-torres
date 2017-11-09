@@ -19,8 +19,8 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id');
             $table->string('front_image');
             $table->string('back_image');
-            $table->string('left_image');
-            $table->string('right_image');
+            $table->string('left_image')->nullable();
+            $table->string('right_image')->nullable();
             $table->integer('quantity');
             $table->decimal('total_price', 10,2);
             $table->string('status');

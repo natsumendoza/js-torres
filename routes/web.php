@@ -11,10 +11,6 @@
 |
 */
 
-use App\Product;
-use App\Logo;
-
-
 Route::group(['middleware' => 'web'], function () {
     Route::get('fileUpload', function () {
         return view('index');
@@ -25,6 +21,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/bags', 'BagController@index');
 
 Route::get('/sparkpost', function () {
     Mail::send('emails.test', [], function ($message) {
@@ -35,10 +32,19 @@ Route::get('/sparkpost', function () {
   });
 });
 
-Route::resource('user', 'UserController');
-Route::resource('products','ProductController');
-Route::delete('orders/transaction/{transactionCode}', 'OrderController@destroyByTransactionCode');
-Route::patch('orders/transaction/{transactionCode}', 'OrderController@updateByTransactionCode');
-Route::get('orders/{userId}', 'OrderController@showByUserId');
-Route::resource('orders', 'OrderController');
-Route::resource('cart', 'CartController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('user', 'UserController');
+    Route::resource('products','ProductController');
+    Route::delete('orders/transaction/{transactionCode}', 'OrderController@destroyByTransactionCode');
+    Route::patch('orders/transaction/{transactionCode}', 'OrderController@updateByTransactionCode');
+    Route::get('orders/{userId}', 'OrderController@showByUserId');
+    Route::get('orders/images/{orderId}', 'OrderController@modal');
+    Route::resource('orders', 'OrderController');
+    Route::resource('cart', 'CartController');
+    Route::get('error', function ()
+    {
+        return view('customException');
+    });
+});
+
+

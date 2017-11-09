@@ -11,15 +11,15 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if IE]><script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/excanvas.js') : secure_asset('js/excanvas.js')}}"></script><![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/fabric.js') : secure_asset('js/fabric.js') }}"></script>
+    <!--[if IE]><script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/excanvas.js') : secure_asset('js/excanvas.js')}}"></script><![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/fabric.js') : secure_asset('js/fabric.js') }}"></script>
 
-    <script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/jquery.miniColors.min.js') : secure_asset('js/jquery.miniColors.min.js') }}"></script>
+    <script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/jquery.miniColors.min.js') : secure_asset('js/jquery.miniColors.min.js') }}"></script>
     <!-- Le styles -->
-    <link type="text/css" rel="stylesheet" href="{{ env('APP_ENV') == 'local' ? asset('css/jquery.miniColors.css') : secure_asset('css/jquery.miniColors.css') }}" />
-    <link href="{{ env('APP_ENV') == 'local' ? asset('css/bootstrap.min.css') : secure_asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ env('APP_ENV') == 'local' ? asset('css/bootstrap-responsive.min.css') : secure_asset('css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ env('APP_URL') == 'http://localhost' ? asset('css/jquery.miniColors.css') : secure_asset('css/jquery.miniColors.css') }}" />
+    <link href="{{ env('APP_URL') == 'http://localhost' ? asset('css/bootstrap.min.css') : secure_asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ env('APP_URL') == 'http://localhost' ? asset('css/bootstrap-responsive.min.css') : secure_asset('css/bootstrap-responsive.min.css') }}" rel="stylesheet">
 
     <script type="text/javascript">
     </script>
@@ -101,7 +101,7 @@
                                 @endif
 
 
-                                <li><a href="{{ url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
+                                <li><a href="{{(url('/cart/'.\base64_encode(Session::get('transactionCode')))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
                             @endif
 
 
@@ -113,7 +113,7 @@
                                         <li><a href="{{ url('/products') }}">Products</a></li>
                                         <li><a href="{{ url('/orders') }}">Order List</a></li>
                                     @else
-                                        <li><a href="{{url('/orders/'.base64_encode(Auth::user()->id))}}">Track my order</a></li>
+                                        <li><a href="{{url('/orders/'.Auth::user()->id)}}">Track my order</a></li>
                                         <li><a href="{{ url('/user') }}">My Profile</a></li>
                                     @endif
                                     <li>
@@ -252,7 +252,7 @@
     });
 
 </script>
-<script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
+<script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bagEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
 
 </body>
 </html>

@@ -15,7 +15,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productList = Product::all()->toArray();
+        $productListTemp = Product::all()->toArray();
+
+        $productList = array();
+        foreach ($productListTemp as $product)
+        {
+            $productList[$product['id']] = $product;
+        }
+
         return view('products.productList', compact('productList'));
     }
 
@@ -104,9 +111,11 @@ class ProductController extends Controller
             'basePrice' => 'required|numeric',
             'frontImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'backImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+
 
         $image = $request->file('frontImage');
         $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_front.'.$image->getClientOriginalExtension();
@@ -120,17 +129,22 @@ class ProductController extends Controller
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $backImageName);
 
-        $image = $request->file('leftImage');
-        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
-        $leftImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $leftImageName);
+        $leftImageName = '';
+        $rightImageName = '';
 
-        $image = $request->file('rightImage');
-        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
-        $rightImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $rightImageName);
+        if ($request['productType'] == 'jersey') {
+            $image = $request->file('leftImage');
+            $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
+            $leftImageName = $input['imagename'];
+            $destinationPath = public_path('/productimages');
+            $image->move($destinationPath, $leftImageName);
+
+            $image = $request->file('rightImage');
+            $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
+            $rightImageName = $input['imagename'];
+            $destinationPath = public_path('/productimages');
+            $image->move($destinationPath, $rightImageName);
+        }
 
         // SETS $validate_product to $product
         $product['product_name'] = $validated_product['productName'];
@@ -169,8 +183,8 @@ class ProductController extends Controller
         $validated_product = $this->validate($request,[
             'frontImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'backImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'leftImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'rightImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $image = $request->file('frontImage');
@@ -185,17 +199,22 @@ class ProductController extends Controller
         $destinationPath = public_path('/productimages');
         $image->move($destinationPath, $backImageName);
 
-        $image = $request->file('leftImage');
-        $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
-        $leftImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $leftImageName);
+        $leftImageName = '';
+        $rightImageName = '';
 
-        $image = $request->file('rightImage');
-        $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
-        $rightImageName = $input['imagename'];
-        $destinationPath = public_path('/productimages');
-        $image->move($destinationPath, $rightImageName);
+        if ($request['productType'] == 'jersey') {
+            $image = $request->file('leftImage');
+            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_left.'.$image->getClientOriginalExtension();
+            $leftImageName = $input['imagename'];
+            $destinationPath = public_path('/productimages');
+            $image->move($destinationPath, $leftImageName);
+
+            $image = $request->file('rightImage');
+            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_right.'.$image->getClientOriginalExtension();
+            $rightImageName = $input['imagename'];
+            $destinationPath = public_path('/productimages');
+            $image->move($destinationPath, $rightImageName);
+        }
 
 
         $product['front_image']  = $frontImageName;

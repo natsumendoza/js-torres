@@ -1,13 +1,23 @@
 <!-- orderListByTransactionCode.blade.php -->
 @extends('layouts.layout')
-
 @section('content')
-        <!DOCTYPE html>
+@php
+    $transactionCode = "";
+    if(isset($cartItems) and !empty($cartItems))
+    {
+        $cartItem = reset($cartItems);
+        $transactionCode = base64_encode($cartItem['transaction_code']);
+    }
+    $totalPrice = 0.00;
+
+@endphp
+@include('modals.paymentModal', ['transactionCode'=>$transactionCode])
+@include('modals.orderImageModal')
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Orders</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
@@ -18,36 +28,28 @@
             <p>{{ \Session::get('success') }}</p>
         </div><br />
     @endif
-
     <table class="table table-striped">
         <thead>
         <tr>
             <th style="text-align: center">ID</th>
             <th style="text-align: center">Transaction Code</th>
-            <th style="text-align: center">Product (Link of image)</th>
+            <th style="text-align: center">Order Images</th>
             <th style="text-align: center">Quantity</th>
             <th style="text-align: center">Total Price</th>
             <th style="text-align: center">Action</th>
         </tr>
         </thead>
         <tbody>
-        @php
-            $transactionCode = "";
-            if(isset($cartItems) and !empty($cartItems))
-            {
-                $transactionCode = $cartItems[0]['transaction_code'];
-            }
-            $totalPrice = 0.00;
-
-        @endphp
         @if(!empty($cartItems))
         @foreach($cartItems as $item)
                 @php($totalPrice = $totalPrice + $item['total_price'])
                 <tr>
                 <td style="text-align: center;">{{$item['id']}}</td>
                 <td>{{$item['transaction_code']}}</td>
-                <td>Link Modal</td>
-                <td>{{$item['quantity']}}</td>
+                <td style="text-align: center;">
+                    <a class="viewOrderImage" id="{{$item['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>
+                </td>
+                <td style="text-align: center;">{{$item['quantity']}}</td>
                 <td style="text-align: right;">{{number_format($item['total_price'], 2)}}</td>
                 <td style="text-align: center;">
                     <form action="{{action('OrderController@destroy', $item['id'])}}" method="post">
@@ -68,11 +70,7 @@
                 <a href="{{url('')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
             <td style="text-align: left;">
-                <form action="{{action('OrderController@updateByTransactionCode', $transactionCode)}}" method="POST">
-                    {{ csrf_field() }}
-                    <input name="_method" type="hidden" value="PATCH">
-                    <button class="btn btn-success" type="submit">Proceed to checkout</button>
-                </form>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#paymentModal">Proceed to checkout</button>
             </td>
             <td style="text-align: right;" colspan="4">
                 <form action="{{action('OrderController@destroyByTransactionCode', $transactionCode)}}" method="POST">
@@ -94,8 +92,14 @@
         @endif
         </tbody>
     </table>
-</div>
 
+</div>
 </body>
+<script>
+    $(document).ready(function() {
+        alert("orderlistByTransaction");
+
+    });
+</script>
 </html>
 @endsection

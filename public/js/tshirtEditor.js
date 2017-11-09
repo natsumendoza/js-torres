@@ -9,6 +9,11 @@ var line3;
 var line4;
 var tempColor;
 
+var logoCount = 0;
+var logoPrice = 150;
+
+var defaultColor = '#ffffff';
+
 var frontLink;
 var backLink;
 var leftLink;
@@ -39,18 +44,26 @@ var rightLink;
  		canvas.on({
 			 'object:moving': function(e) {
                  canvas.renderAll();
-                 if ($('#flip').attr("data-original-title") == "Show Back View") {
-                     backLink = canvas.toDataURL('image/png');
-                 } else {
-                     frontLink = canvas.toDataURL('image/png');
-                 }
+
 			  },
-			  'object:modified': function(e) {		  	
+			  'object:modified': function(e) {
 			    e.target.opacity = 1;
 			  },
 			 'object:selected':onObjectSelected,
 			 'selection:cleared':onSelectedCleared
 		 });
+        backCanvas.on({
+            'object:moving': function(e) {
+                backCanvas.renderAll();
+
+            },
+            'object:modified': function(e) {
+                e.target.opacity = 1;
+            },
+            'object:selected':onObjectSelected,
+            'selection:cleared':onSelectedCleared
+        });
+
 
 
 		// piggyback on `canvas.findTarget`, to fire "object:over" and "object:out" events
@@ -74,6 +87,27 @@ var rightLink;
 		  };
 		})(canvas.findTarget);
 
+        // piggyback on `canvas.findTarget`, to fire "object:over" and "object:out" events
+        backCanvas.findTarget = (function(originalFn) {
+            return function() {
+                var target = originalFn.apply(this, arguments);
+                if (target) {
+                    if (this._hoveredTarget !== target) {
+                        backCanvas.fire('object:over', { target: target });
+                        if (this._hoveredTarget) {
+                            backCanvas.fire('object:out', { target: this._hoveredTarget });
+                        }
+                        this._hoveredTarget = target;
+                    }
+                }
+                else if (this._hoveredTarget) {
+                    backCanvas.fire('object:out', { target: this._hoveredTarget });
+                    this._hoveredTarget = null;
+                }
+                return target;
+            };
+        })(backCanvas.findTarget);
+
  		canvas.on('object:over', function(e) {		
 		  //e.target.setFill('red');
 		  //canvas.renderAll();
@@ -83,7 +117,17 @@ var rightLink;
 		  //e.target.setFill('green');
 		  //canvas.renderAll();
 		});
-		 		 	 
+
+        backCanvas.on('object:over', function(e) {
+            //e.target.setFill('red');
+            //canvas.renderAll();
+        });
+
+        backCanvas.on('object:out', function(e) {
+            //e.target.setFill('green');
+            //canvas.renderAll();
+        });
+
 		document.getElementById('add-text').onclick = function() {
 			var text = $("#text-string").val();
 		    var textSample = new fabric.Text(text, {
@@ -96,19 +140,26 @@ var rightLink;
 		      scaleY: 0.5,
 		      fontWeight: '',
 	  		  hasRotatingPoint:true
-		    });		    
-            canvas.add(textSample);	
-            canvas.item(canvas.item.length-1).hasRotatingPoint = true;
-            $("#texteditor").css('display', 'block');
-            $("#imageeditor").css('display', 'block');
-
-            canvas.renderAll();
+		    });
 
             if ($('#flip').attr("data-original-title") == "Show Back View") {
-                backLink = canvas.toDataURL('image/png');
+                canvas.add(textSample);
+                canvas.item(canvas.item.length-1).hasRotatingPoint = true;
+                $("#texteditor").css('display', 'block');
+                $("#imageeditor").css('display', 'block');
+
+                canvas.renderAll();
+
             } else {
-                frontLink = canvas.toDataURL('image/png');
+                backCanvas.add(textSample);
+                backCanvas.item(backCanvas.item.length-1).hasRotatingPoint = true;
+                $("#texteditor").css('display', 'block');
+                $("#imageeditor").css('display', 'block');
+
+                backCanvas.renderAll();
             }
+            logoCount++;
+            addLogoToTable(logoCount);
 	  	};
 	  	$("#text-string").keyup(function(){	  		
 	  		var activeObject = canvas.getActiveObject();
@@ -138,17 +189,20 @@ var rightLink;
 		          });
 		          //image.scale(getRandomNum(0.1, 0.25)).setCoords();
 				console.log('here')
-		          canvas.add(image);
-                 canvas.renderAll();
+
 
 				if ($('#flip').attr("data-original-title") == "Show Back View") {
-                    backLink = canvas.toDataURL('image/png');
+                    canvas.add(image);
+                    canvas.renderAll();
 				} else {
-                    frontLink = canvas.toDataURL('image/png');
+                    backCanvas.add(image);
+                    backCanvas.renderAll();
 				}
 
 
 		        });
+	  		logoCount++;
+            addLogoToTable(logoCount);
 	  	});
         $(".img-tshirt").click(function(e){
             $('#frontDrawingArea').show();
@@ -178,155 +232,216 @@ var rightLink;
                 });
                 canvas.add(image);
                 //image.scale(getRandomNum(0.1, 0.25)).setCoords();
-                console.log('here')
-                canvas.backgroundColor = '#ffffff';
                 canvas.renderAll();
 
                 frontLink = canvas.toDataURL('image/png');
             });
+
+            renderBackCanvas();
+            renderLeftCanvas();
+            renderRightCanvas();
         });
 	  document.getElementById('remove-selected').onclick = function() {
-		    var activeObject = canvas.getActiveObject(),
-		        activeGroup = canvas.getActiveGroup();
-		    if (activeObject) {
-		      canvas.remove(activeObject);
-		      $("#text-string").val("");
-		    }
-		    else if (activeGroup) {
-		      var objectsInGroup = activeGroup.getObjects();
-		      canvas.discardActiveGroup();
-		      objectsInGroup.forEach(function(object) {
-		        canvas.remove(object);
-		      });
-		    }
+	  		if($('#flip').attr("data-original-title") == "Show Back View") {
+                var activeObject = canvas.getActiveObject(),
+                    activeGroup = canvas.getActiveGroup();
+                if (activeObject) {
+                    canvas.remove(activeObject);
+                    $("#text-string").val("");
+                }
+                else if (activeGroup) {
+                    var objectsInGroup = activeGroup.getObjects();
+                    canvas.discardActiveGroup();
+                    objectsInGroup.forEach(function(object) {
+                        canvas.remove(object);
+                    });
+                }
+			} else {
+                var activeObject = backCanvas.getActiveObject(),
+                    activeGroup = backCanvas.getActiveGroup();
+                if (activeObject) {
+                    backCanvas.remove(activeObject);
+                    $("#text-string").val("");
+                }
+                else if (activeGroup) {
+                    var objectsInGroup = activeGroup.getObjects();
+                    backCanvas.discardActiveGroup();
+                    objectsInGroup.forEach(function(object) {
+                        backCanvas.remove(object);
+                    });
+                }
+			}
+
+			if (logoCount > 0) {
+                removeLogoToTable(logoCount);
+                logoCount--;
+            }
+
 	  };
 	  document.getElementById('bring-to-left').onclick = function() {
-          var fileName = $('.img-tshirt').attr('src');
-          var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+          $('.logoList').hide();
           $('#frontDrawingArea').hide();
           $('#backDrawingArea').hide();
           $('#leftDrawingArea').show();
           $('#rightDrawingArea').hide();
-          $(this).attr('data-original-title', 'Show Front View');
-          $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_left'));
-          leftCanvas.clear();
-
-          fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
-              image.set({
-                  left: 100,
-                  top: 200,
-                  angle: 0,
-                  padding: 10,
-                  cornersize: 10,
-                  scaleX: 450 / image.width,
-                  scaleY: 450 / image.height,
-                  hasRotatingPoint:true
-              });
-              leftCanvas.add(image);
-              //image.scale(getRandomNum(0.1, 0.25)).setCoords();
-              console.log('here')
-
-              leftCanvas.backgroundColor = tempColor;
-              leftLink = leftCanvas.toDataURL('image/png');
-          });
+          renderLeftCanvas();
 
 
 	  };
 	  document.getElementById('bring-to-right').onclick = function() {
-          var fileName = $('.img-tshirt').attr('src');
-          var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+          $('.logoList').hide();
           $('#frontDrawingArea').hide();
           $('#backDrawingArea').hide();
           $('#leftDrawingArea').hide();
           $('#rightDrawingArea').show();
-          $(this).attr('data-original-title', 'Show Front View');
-          $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_right'));
-          rightCanvas.clear();
-
-          fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
-              image.set({
-                  left: 100,
-                  top: 200,
-                  angle: 0,
-                  padding: 10,
-                  cornersize: 10,
-                  scaleX: 450 / image.width,
-                  scaleY: 450 / image.height,
-                  hasRotatingPoint:true
-              });
-              rightCanvas.add(image);
-              //image.scale(getRandomNum(0.1, 0.25)).setCoords();
-              console.log('here')
-              rightCanvas.backgroundColor = tempColor;
-
-              rightLink = rightCanvas.toDataURL('image/png');
-          });
+          renderRightCanvas();
 
 
 	  };
-	  $("#text-bold").click(function() {		  
-		  var activeObject = canvas.getActiveObject();
-		  if (activeObject && activeObject.type === 'text') {
-		    activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');		    
-		    canvas.renderAll();
+	  $("#text-bold").click(function() {
+		  if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');
+                  canvas.renderAll();
+              }
+		  } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');
+                  backCanvas.renderAll();
+              }
 		  }
+
 		});
-	  $("#text-italic").click(function() {		 
-		  var activeObject = canvas.getActiveObject();
-		  if (activeObject && activeObject.type === 'text') {
-			  activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');		    
-		    canvas.renderAll();
-		  }
+	  $("#text-italic").click(function() {
+          if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');
+                  canvas.renderAll();
+              }
+          } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');
+                  backCanvas.renderAll();
+              }
+          }
+
 		});
-	  $("#text-strike").click(function() {		  
-		  var activeObject = canvas.getActiveObject();
-		  if (activeObject && activeObject.type === 'text') {
-			  activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
-		    canvas.renderAll();
-		  }
+	  $("#text-strike").click(function() {
+          if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
+                  canvas.renderAll();
+              }
+          } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
+                  backCanvas.renderAll();
+              }
+          }
+
 		});
-	  $("#text-underline").click(function() {		  
-		  var activeObject = canvas.getActiveObject();
-		  if (activeObject && activeObject.type === 'text') {
-			  activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
-		    canvas.renderAll();
-		  }
+	  $("#text-underline").click(function() {
+          if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
+                  canvas.renderAll();
+              }
+          } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
+                  backCanvas.renderAll();
+              }
+          }
+
 		});
-	  $("#text-left").click(function() {		  
-		  var activeObject = canvas.getActiveObject();
-		  if (activeObject && activeObject.type === 'text') {
-			  activeObject.textAlign = 'left';
-		    canvas.renderAll();
-		  }
+	  $("#text-left").click(function() {
+          if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textAlign = 'left';
+                  canvas.renderAll();
+              }
+          } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textAlign = 'left';
+                  backCanvas.renderAll();
+              }
+          }
+
 		});
-	  $("#text-center").click(function() {		  
-		  var activeObject = canvas.getActiveObject();
-		  if (activeObject && activeObject.type === 'text') {
-			  activeObject.textAlign = 'center';		    
-		    canvas.renderAll();
-		  }
+	  $("#text-center").click(function() {
+          if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textAlign = 'center';
+                  canvas.renderAll();
+              }
+          } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textAlign = 'center';
+                  backCanvas.renderAll();
+              }
+          }
+
 		});
-	  $("#text-right").click(function() {		  
-		  var activeObject = canvas.getActiveObject();
-		  if (activeObject && activeObject.type === 'text') {
-			  activeObject.textAlign = 'right';		    
-		    canvas.renderAll();
-		  }
+	  $("#text-right").click(function() {
+          if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textAlign = 'right';
+                  canvas.renderAll();
+              }
+          } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.textAlign = 'right';
+                  backCanvas.renderAll();
+              }
+          }
+
 		});	  
 	  $("#font-family").change(function() {
-	      var activeObject = canvas.getActiveObject();
-	      if (activeObject && activeObject.type === 'text') {
-	        activeObject.fontFamily = this.value;
-	        canvas.renderAll();
-	      }
+          if($('#flip').attr("data-original-title") == "Show Back View") {
+              var activeObject = canvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.fontFamily = this.value;
+                  canvas.renderAll();
+              }
+          } else {
+              var activeObject = backCanvas.getActiveObject();
+              if (activeObject && activeObject.type === 'text') {
+                  activeObject.fontFamily = this.value;
+                  backCanvas.renderAll();
+              }
+          }
+
 	    });	  
 		$('#text-bgcolor').miniColors({
 			change: function(hex, rgb) {
-			  var activeObject = canvas.getActiveObject();
-		      if (activeObject && activeObject.type === 'text') {
-		    	  activeObject.backgroundColor = this.value;
-		        canvas.renderAll();
-		      }
+                if($('#flip').attr("data-original-title") == "Show Back View") {
+                    var activeObject = canvas.getActiveObject();
+                    if (activeObject && activeObject.type === 'text') {
+                        activeObject.backgroundColor = this.value;
+                        canvas.renderAll();
+                    }
+                } else {
+                    var activeObject = backCanvas.getActiveObject();
+                    if (activeObject && activeObject.type === 'text') {
+                        activeObject.backgroundColor = this.value;
+                        backCanvas.renderAll();
+                    }
+                }
+
 			},
 			open: function(hex, rgb) {
 				//
@@ -337,11 +452,20 @@ var rightLink;
 		});		
 		$('#text-fontcolor').miniColors({
 			change: function(hex, rgb) {
-			  var activeObject = canvas.getActiveObject();
-		      if (activeObject && activeObject.type === 'text') {
-		    	  activeObject.fill = this.value;
-		    	  canvas.renderAll();
-		      }
+                if($('#flip').attr("data-original-title") == "Show Back View") {
+                    var activeObject = canvas.getActiveObject();
+                    if (activeObject && activeObject.type === 'text') {
+                        activeObject.fill = this.value;
+                        canvas.renderAll();
+                    }
+                } else {
+                    var activeObject = backCanvas.getActiveObject();
+                    if (activeObject && activeObject.type === 'text') {
+                        activeObject.fill = this.value;
+                        backCanvas.renderAll();
+                    }
+                }
+
 			},
 			open: function(hex, rgb) {
 				//
@@ -353,11 +477,20 @@ var rightLink;
 		
 		$('#text-strokecolor').miniColors({
 			change: function(hex, rgb) {
-			  var activeObject = canvas.getActiveObject();
-		      if (activeObject && activeObject.type === 'text') {
-		    	  activeObject.strokeStyle = this.value;
-		    	  canvas.renderAll();
-		      }
+                if($('#flip').attr("data-original-title") == "Show Back View") {
+                    var activeObject = canvas.getActiveObject();
+                    if (activeObject && activeObject.type === 'text') {
+                        activeObject.strokeStyle = this.value;
+                        canvas.renderAll();
+                    }
+                } else {
+                    var activeObject = backCanvas.getActiveObject();
+                    if (activeObject && activeObject.type === 'text') {
+                        activeObject.strokeStyle = this.value;
+                        backCanvas.renderAll();
+                    }
+                }
+
 			},
 			open: function(hex, rgb) {
 				//
@@ -368,73 +501,57 @@ var rightLink;
 		});
 	
 		//canvas.add(new fabric.fabric.Object({hasBorders:true,hasControls:false,hasRotatingPoint:false,selectable:false,type:'rect'}));
-	   $("#drawingArea").hover(
-	        function() {
-	        	 canvas.add(line1);
-		         canvas.add(line2);
-		         canvas.add(line3);
-		         canvas.add(line4);
-		         canvas.renderAll();
-	        }
-	        ,
-	        function() {
-	        	 canvas.remove(line1);
-		         canvas.remove(line2);
-		         canvas.remove(line3);
-		         canvas.remove(line4);
-		         canvas.renderAll();
-	        }
-	    );
+	   // $("#drawingArea").hover(
+	   //      function() {
+	   //      	 canvas.add(line1);
+		//          canvas.add(line2);
+		//          canvas.add(line3);
+		//          canvas.add(line4);
+		//          canvas.renderAll();
+	   //      }
+	   //      ,
+	   //      function() {
+	   //      	 canvas.remove(line1);
+		//          canvas.remove(line2);
+		//          canvas.remove(line3);
+		//          canvas.remove(line4);
+		//          canvas.renderAll();
+	   //      }
+	   //  );
 	   
 	   $('.color-preview').click(function(){
 		   var color = $(this).css("background-color");
 		   // document.getElementById("shirtDiv").style.backgroundColor = color;
 		   canvas.backgroundColor = color;
+           backCanvas.backgroundColor = color;
+           leftCanvas.backgroundColor = color;
+           rightCanvas.backgroundColor = color;
            tempColor = color;
            canvas.renderAll();
 	   });
 	   
 	   $('#flip').click(
 		   function() {
+               $('.logoList').show();
+               $("#texteditor").css('display', 'none');
                $('#frontDrawingArea').hide();
                $('#backDrawingArea').show();
                $('#leftDrawingArea').hide();
                $('#rightDrawingArea').hide();
 			   	if ($(this).attr("data-original-title") == "Show Back View") {
-                    var fileName = $('.img-tshirt').attr('src');
-                    var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
-
-			   		$(this).attr('data-original-title', 'Show Front View');
-                     $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_back'));
-                    fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
-                        image.set({
-                            left: 100,
-                            top: 200,
-                            angle: 0,
-                            padding: 10,
-                            cornersize: 10,
-                            scaleX: 450 / image.width,
-                            scaleY: 450 / image.height,
-                            hasRotatingPoint: true
-                        });
-
-                        backCanvas.add(image);
-                        backCanvas.backgroundColor = tempColor;
-                        console.log('end start');
-                        console.log(canvas.toDataURL('image/png'));
-                        console.log('end end');
-                    });
-
-			        a = JSON.stringify(canvas);
+                    $(this).attr('data-original-title', 'Show Front View');
+			   		renderBackCanvas();
+                    a = JSON.stringify(backCanvas);
                     backCanvas.clear();
-			        try
-			        {
-			           var json = JSON.parse(b);
-                        backCanvas.loadFromJSON(b);
-                        backCanvas.renderAll();
-			        }
-			        catch(e)
-			        {}
+                    try
+                    {
+                        var json = JSON.parse(b);
+                        backCanvas.loadFromJSON(a);
+                        // backCanvas.renderAll();
+                    }
+                    catch(e)
+                    {}
+
 			        
 			    } else {
                     $('#frontDrawingArea').show();
@@ -459,22 +576,21 @@ var rightLink;
 
                         canvas.add(image);
                         canvas.backgroundColor = tempColor;
-                        console.log('front start');
-                        console.log(canvas.toDataURL('image/png'));
-                        console.log('front end');
                     });
+                    b = JSON.stringify(canvas);
+                    canvas.clear();
 
-			    	b = JSON.stringify(canvas);
-			    	canvas.clear();
+                    try
+                    {
+                       var json = JSON.parse(a);
+                       canvas.loadFromJSON(b);
+                        // backCanvas.renderAll();
 
-			    	try
-			        {
-			           var json = JSON.parse(a);
-			           canvas.loadFromJSON(a);
+                    }
+                    catch(e)
+                    {}
 
-			        }
-			        catch(e)
-			        {}
+                    //
 			    }
 			   	setTimeout(function() {
 			   		canvas.calcOffset();
@@ -487,8 +603,23 @@ var rightLink;
 	   line4 = new fabric.Line([0,400,200,399], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 
 
-        $('#download').click(function() {
-            downloadCanvas(this, canvas, 'test.png');
+        $('#frontDownload').click(function() {
+            downloadCanvas(this, canvas, 'testfront.png');
+        });
+        $('#backDownload').click(function() {
+            downloadCanvas(this, backCanvas, 'testback.png');
+        });
+        $('#leftDownload').click(function() {
+            downloadCanvas(this, leftCanvas, 'testleft.png');
+        });
+        $('#rightDownload').click(function() {
+            downloadCanvas(this, rightCanvas, 'testright.png');
+        });
+        $('#addToCart').click(function () {
+            $('#frontImage').val(canvas.toDataURL('image/png'));
+            $('#backImage').val(backCanvas.toDataURL('image/png'));
+            $('#leftImage').val(leftCanvas.toDataURL('image/png'));
+            $('#rightImage').val(rightCanvas.toDataURL('image/png'));
         });
  	});//doc ready
 	 
@@ -497,7 +628,8 @@ var rightLink;
 	    return Math.random() * (max - min) + min;
 	 }
 	 
-	 function onObjectSelected(e) {	 
+	 function onObjectSelected(e) {
+        $('#remove-selected').show();
 	    var selectedObject = e.target;
 	    $("#text-string").val("");
 	    selectedObject.hasRotatingPoint = true
@@ -516,16 +648,25 @@ var rightLink;
 	    }
 	  }
 	 function onSelectedCleared(e){
+         $('#remove-selected').hide();
 		 $("#texteditor").css('display', 'none');
 		 $("#text-string").val("");
-		 $("#imageeditor").css('display', 'none');
 	 }
 	 function setFont(font){
-		  var activeObject = canvas.getActiveObject();
-	      if (activeObject && activeObject.type === 'text') {
-	        activeObject.fontFamily = font;
-	        canvas.renderAll();
-	      }
+		 if($('#flip').attr("data-original-title") == "Show Back View") {
+             var activeObject = canvas.getActiveObject();
+             if (activeObject && activeObject.type === 'text') {
+                 activeObject.fontFamily = font;
+                 canvas.renderAll();
+             }
+		 } else {
+             var activeObject = backCanvas.getActiveObject();
+             if (activeObject && activeObject.type === 'text') {
+                 activeObject.fontFamily = font;
+                 backCanvas.renderAll();
+             }
+		 }
+
 	  }
 	 function removeWhite(){
 		  var activeObject = canvas.getActiveObject();
@@ -537,7 +678,112 @@ var rightLink;
 
 
 
-function downloadCanvas(link, canvas, filename) {
-    link.href = canvas.toDataURL('image/png');
+function downloadCanvas(link, canvasObj, filename) {
+	console.log(canvasObj.toDataURL('image/png'));
+    link.href = canvasObj.toDataURL('image/png');
     link.download = filename;
+}
+
+function renderLeftCanvas () {
+    var fileName = $('.img-tshirt').attr('src');
+    var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+
+    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_left'));
+    leftCanvas.clear();
+
+    fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
+        image.set({
+            left: 100,
+            top: 200,
+            angle: 0,
+            padding: 10,
+            cornersize: 10,
+            scaleX: 450 / image.width,
+            scaleY: 450 / image.height,
+            hasRotatingPoint:true
+        });
+        leftCanvas.add(image);
+        leftCanvas.renderAll();
+        //image.scale(getRandomNum(0.1, 0.25)).setCoords();
+        // console.log('here')
+        //
+        // leftCanvas.backgroundColor = tempColor;
+        // leftLink = leftCanvas.toDataURL('image/png');
+    });
+}
+
+function renderRightCanvas () {
+    var fileName = $('.img-tshirt').attr('src');
+    var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+
+    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_right'));
+    rightCanvas.clear();
+
+    fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
+        image.set({
+            left: 100,
+            top: 200,
+            angle: 0,
+            padding: 10,
+            cornersize: 10,
+            scaleX: 450 / image.width,
+            scaleY: 450 / image.height,
+            hasRotatingPoint:true
+        });
+        rightCanvas.add(image);
+        rightCanvas.renderAll();
+        // //image.scale(getRandomNum(0.1, 0.25)).setCoords();
+        // console.log('here')
+        //
+        // rightLink = rightCanvas.toDataURL('image/png');
+    });
+}
+
+function renderBackCanvas() {
+    var fileName = $('.img-tshirt').attr('src');
+    var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+
+
+    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_back'));
+    fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
+        image.set({
+            left: 100,
+            top: 200,
+            angle: 0,
+            padding: 10,
+            cornersize: 10,
+            scaleX: 450 / image.width,
+            scaleY: 450 / image.height,
+            hasRotatingPoint: true
+        });
+
+        backCanvas.add(image);
+    });
+
+
+}
+
+function addToTotal(price) {
+    var total = parseFloat($('#totalPrice').val());
+    $('#totalPrice').val((total + price).toFixed(2));
+}
+
+function removeToTotal(price) {
+    var total = parseFloat($('#totalPrice').val())
+    $('#totalPrice').val((total - price).toFixed(2));
+}
+
+function addLogoToTable(id) {
+    $('#priceTable').prepend(
+        "<tr id='"+id+"'>\n" +
+        "<td>Logo</td>\n" +
+        "<td align=\"right\">&#8369;<span id='logoPrice'>"+logoPrice.toFixed(2)+"</span></td>\n" +
+        "</tr>"
+    );
+    addToTotal(logoPrice);
+}
+
+function removeLogoToTable(id) {
+	$('#' + id).remove();
+    removeToTotal(logoPrice);
 }
