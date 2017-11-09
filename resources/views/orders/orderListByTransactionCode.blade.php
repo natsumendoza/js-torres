@@ -97,8 +97,22 @@
 </body>
 <script>
     $(document).ready(function() {
-        alert("orderlistByTransaction");
+        var items = <?php echo json_encode(@$cartItems); ?>;
+        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;
 
+        $('.viewOrderImage').on('click',function (e) {
+            var id = e.target.id;
+            // FOR ANCHOR <a> TAG
+            $('#frontAnchorOrder').attr("href", orderImagePath + '/' + items[id]['front_image']);
+            $('#backAnchorOrder').attr("href", orderImagePath + '/' + items[id]['back_image']);
+            $('#leftAnchorOrder').attr("href", orderImagePath + '/' + items[id]['left_image']);
+            $('#rightAnchorOrder').attr("href", orderImagePath + '/' + items[id]['right_image']);
+            // FOR IMAGE src
+            $('#frontImgSrcOrder').attr("src", orderImagePath + '/' + items[id]['front_image']);
+            $('#backImgSrcOrder').attr("src", orderImagePath + '/' + items[id]['back_image']);
+            $('#leftImgSrcOrder').attr("src", orderImagePath + '/' + items[id]['left_image']);
+            $('#rightImgSrcOrder').attr("src", orderImagePath + '/' + items[id]['right_image']);
+        });
     });
 </script>
 </html>
