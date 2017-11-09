@@ -296,11 +296,16 @@ class OrderController extends Controller
         $emailData['email']             = $user['email'];
 
         // SEND EMAIL FOR EVERY ITEM
+
+        $orderIds = array();
         foreach ($orderList as $order)
         {
-            $emailData['orderId']        = $order['id'];
-            Helpers::sendEmail($emailData);
+            $orderIds[] = $order['id'];
+
         }
+
+        $emailData['orderId']        = "[ " . implode(', ', $orderIds) . " ]";
+        Helpers::sendEmail($emailData);
 
         $data = array(
             'status' => config('constants.ORDER_STATUS_OPEN'),

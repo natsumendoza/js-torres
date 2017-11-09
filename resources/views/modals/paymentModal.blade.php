@@ -29,7 +29,7 @@
                             {{ csrf_field() }}
                             <input name="_method" type="hidden" value="PATCH">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button class="btn btn-success" type="submit">Checkout</button>
+                            <button class="btn btn-success" type="submit">Place Order</button>
                         </td>
                     </tr>
                 </table>
