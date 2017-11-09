@@ -97,7 +97,7 @@ class OrderController extends Controller
 
         $backFileName = $userId."_".time()."_back.png";
         $backPath = public_path("orderimages/".$backFileName);
-        $base64_str_back = substr($request['frontImage'], strpos($request['frontImage'], ",")+1);
+        $base64_str_back = substr($request['backImage'], strpos($request['backImage'], ",")+1);
         $image = base64_decode($base64_str_back);
         Storage::disk('prod')->put($backFileName, $image);
 //        $storagePath = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
