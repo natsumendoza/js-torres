@@ -181,7 +181,7 @@
                             <canvas id="frontCanvas" width=390 height="410" class="hover" style="-webkit-user-select: none;"></canvas>
                         </div>
                         <div id="backDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
-                            <canvas id="backCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
+                            <canvas id="backCanvas" width=390 height="410" class="hover" style="-webkit-user-select: none;"></canvas>
                         </div>
                         {{--<a id="frontDownload">Download front image</a>--}}
                         {{--<a id="backDownload">Download back image</a>--}}

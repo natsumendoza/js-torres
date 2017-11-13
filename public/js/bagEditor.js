@@ -525,8 +525,8 @@ $(document).ready(function() {
                 $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_front'));
                 fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
                     image.set({
-                        left: 100,
-                        top: 200,
+                        left: 170,
+                        top: 210,
                         angle: 0,
                         padding: 10,
                         cornersize: 10,
@@ -706,8 +706,8 @@ function renderBackCanvas() {
     $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_back'));
     fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
         image.set({
-            left: 100,
-            top: 200,
+            left: 170,
+            top: 210,
             angle: 0,
             padding: 10,
             cornersize: 10,
