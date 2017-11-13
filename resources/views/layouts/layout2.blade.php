@@ -109,13 +109,13 @@
                         @endif
 
 
-                        <li><a href="{{ url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
+                        <a style="float: right;" class="brand" href="{{ url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a>
                     @endif
 
 
                     <li class="dropdown">
                         {{--{{ Auth::user()->name }}--}}
-                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
+                        <a style="float: right;" class="brand" href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             @if(Auth::user()->isAdmin())
                                 <li><a href="{{ url('/products') }}">Products</a></li>

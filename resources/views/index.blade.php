@@ -16,15 +16,15 @@
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs">
                         @if ($message = Session::get('success'))
-                            <li><a href="#tab1" data-toggle="tab">Design</a></li>
-                            <li><a href="#tab2" data-toggle="tab">Logo</a></li>
+                            <li><a href="#tab1" data-toggle="tab">Jersey</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Design</a></li>
                             @guest
                             @else
                                 <li class="active"><a href="#tab3" data-toggle="tab">Upload Logo</a></li>
                             @endguest
                         @else
-                            <li class="active"><a href="#tab1" data-toggle="tab">Design</a></li>
-                            <li><a href="#tab2" data-toggle="tab">Logo</a></li>
+                            <li class="active"><a href="#tab1" data-toggle="tab">Jersey</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Design</a></li>
                             @guest
                             @else
                                 <li><a href="#tab3" data-toggle="tab">Upload Logo</a></li>
