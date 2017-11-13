@@ -98,46 +98,7 @@
                 <span class="icon-bar"></span>
             </a>
             <a class="brand" href="{{url('/')}}">JS Torres Shop</a>
-            @guest
-                <a style="float: right;" class="brand" href="{{ route('login') }}">Login</a>
-                <a style="float: right;" class="brand" href="{{ route('register') }}">Register</a>
-                @else
-                    @if(!Auth::user()->isAdmin())
-                        @php($cartSize = 0)
-                        @if (\Session::has('cartSize'))
-                            @php($cartSize = \Session::get('cartSize'))
-                        @endif
 
-
-                        <a style="float: right;" class="brand" href="{{ url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a>
-                    @endif
-
-
-                    <li class="dropdown">
-                        {{--{{ Auth::user()->name }}--}}
-                        <a style="float: right;" class="brand" href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            @if(Auth::user()->isAdmin())
-                                <li><a href="{{ url('/products') }}">Products</a></li>
-                                <li><a href="{{ url('/orders') }}">Order List</a></li>
-                            @else
-                                <li><a href="{{url('/orders/'.base64_encode(Auth::user()->id))}}">Track my order</a></li>
-                                <li><a href="{{ url('/user') }}">My Profile</a></li>
-                            @endif
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    @endguest
 
         </div>
     </div>
