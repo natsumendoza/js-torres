@@ -79,7 +79,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="{{ url('/home') }}">JS Torres Shop</a>
+            <a class="brand" href="{{ url('/') }}">JS Torres Shop</a>
             <div class="nav-collapse" id="main-menu">
                 <ul class="nav" id="main-menu-left">
                     <li><a href="{{ url('') }}">Jerseys</a></li>

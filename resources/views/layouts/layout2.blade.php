@@ -64,6 +64,25 @@
             }
         }
 
+        .dropdown2 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content2 {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        .dropdown2:hover .dropdown-content2 {
+            display: block;
+        }
+
 
     </style>
 </head>
@@ -79,17 +98,46 @@
                 <span class="icon-bar"></span>
             </a>
             <a class="brand" href="{{url('/')}}">JS Torres Shop</a>
-            <div class="nav-collapse" id="main-menu">
-                <ul class="nav" id="main-menu-left">
-                    {{--<li><a href="case.html">Phone Case</a></li>--}}
-                </ul>
-            </div>
-            <div class="nav-collapse" id="main-menu">
-                <ul class="nav navbar-nav navbar-right" style="float:right">
+            @guest
+                <a style="float: right;" class="brand" href="{{ route('login') }}">Login</a>
+                <a style="float: right;" class="brand" href="{{ route('register') }}">Register</a>
+                @else
+                    @if(!Auth::user()->isAdmin())
+                        @php($cartSize = 0)
+                        @if (\Session::has('cartSize'))
+                            @php($cartSize = \Session::get('cartSize'))
+                        @endif
 
 
-                </ul>
-            </div>
+                        <li><a href="{{ url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
+                    @endif
+
+
+                    <li class="dropdown">
+                        {{--{{ Auth::user()->name }}--}}
+                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            @if(Auth::user()->isAdmin())
+                                <li><a href="{{ url('/products') }}">Products</a></li>
+                                <li><a href="{{ url('/orders') }}">Order List</a></li>
+                            @else
+                                <li><a href="{{url('/orders/'.base64_encode(Auth::user()->id))}}">Track my order</a></li>
+                                <li><a href="{{ url('/user') }}">My Profile</a></li>
+                            @endif
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    @endguest
 
         </div>
     </div>
