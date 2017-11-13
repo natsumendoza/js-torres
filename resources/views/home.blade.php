@@ -11,7 +11,7 @@
                    {{----}}
                 {{--</div>--}}
             {{--</div>--}}
-            <img src="{{asset('images/jst_logo.png')}}">
+            <img src="{{asset('images/jstlogo.png')}}">
         </div>
     </div>
     <div class="row " style="margin-top: 40px; margin-bottom: 400px;">
