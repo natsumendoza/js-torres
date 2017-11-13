@@ -253,7 +253,7 @@
 
 </script>
 
-<script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bagEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
+<script type="text/javascript" src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bagEditor.js') : secure_asset('js/bagEditor.js') }}"></script>
 
 </body>
 </html>
