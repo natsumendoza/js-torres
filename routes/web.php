@@ -19,9 +19,13 @@ Route::group(['middleware' => 'web'], function () {
 });
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
 Route::get('/bags', 'BagController@index');
+
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::get('/sparkpost', function () {
     Mail::send('emails.test', [], function ($message) {
