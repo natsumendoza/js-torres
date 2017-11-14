@@ -18,20 +18,20 @@
         <div class="col-md-3 text-center">
         </div>
         <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
-            <a style="text-decoration: none" href="{{url('/home')}}"><h2>Customize</h2></a>
+            <a style="text-decoration: none" href="{{url('/home')}}"><h2 class="h2-mod">Customize</h2></a>
             <div class="dropdown-content2">
                 <p>Click here to continue</p>
             </div>
 
         </div>
         <div  class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
-            <h2>About Us</h2>
+            <h2 class="h2-mod">About Us</h2>
             <div class="dropdown-content2">
                 <p>JS Torres Shop was established in the year 2010. It is located at San Roque Tarlac City</p>
             </div>
         </div>
         <div class="col-md-2 text-center dropdown2">
-            <h2>Contact Us</h2>
+            <h2 class="h2-mod">Contact Us</h2>
             <div class="dropdown-content2">
                 <p>Mobile:</p>
                 <p>09473018756</p>

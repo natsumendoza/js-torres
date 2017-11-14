@@ -32,6 +32,10 @@
         }
         body {
             padding-top: 60px;
+            background-image: url(../images/team_torres.png);
+            background-repeat: no-repeat;
+            background-size: 1349px 859px;
+
         }
         .color-preview {
             border: 1px solid #CCC;
