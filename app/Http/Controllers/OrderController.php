@@ -251,7 +251,7 @@ class OrderController extends Controller
     {
         Order::where('transaction_code', base64_decode($transactionCode))->delete();
         Session::put('cartSize', 0);
-        return redirect('/');
+        return redirect('/home');
     }
 
     /**
@@ -317,7 +317,7 @@ class OrderController extends Controller
 
         Session::forget('cartSize');
         Session::forget('transactionCode');
-        return redirect('/');
+        return redirect('/home');
     }
 
 }
