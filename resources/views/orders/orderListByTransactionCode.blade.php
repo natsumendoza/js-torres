@@ -45,7 +45,7 @@
                 @php($totalPrice = $totalPrice + $item['total_price'])
                 <tr>
                 <td style="text-align: center;">{{$item['id']}}</td>
-                <td>{{$item['transaction_code']}}</td>
+                <td style="text-align: center;">{{$item['transaction_code']}}</td>
                 <td style="text-align: center;">
                     <a class="viewOrderImage" id="{{$item['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>
                 </td>
@@ -67,7 +67,7 @@
         </tr>
         <tr>
             <td style="text-align: left;">
-                <a href="{{url('')}}" class="btn btn-primary">Continue Shopping</a>
+                <a href="{{url('/home')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
             <td style="text-align: left;">
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#paymentModal">Proceed to checkout</button>
@@ -86,7 +86,7 @@
         </tr>
         <tr>
             <td colspan="6" style="text-align: left;">
-                <a href="{{url('')}}" class="btn btn-primary">Continue Shopping</a>
+                <a href="{{url('/home')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
         </tr>
         @endif
