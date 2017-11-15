@@ -82,7 +82,7 @@
             <a class="brand" href="{{ url('/') }}">JS Torres Shop</a>
             <div class="nav-collapse" id="main-menu">
                 <ul class="nav" id="main-menu-left">
-                    <li><a href="{{ url('/home') }}">Jerseys</a></li>
+                    <li><a href="{{ url('/customize') }}">Jerseys</a></li>
                     <li><a href="{{ url('/bags') }}">Bags</a></li>
                 </ul>
             </div>

@@ -32,9 +32,6 @@
         }
         body {
             padding-top: 60px;
-            background-image: url(../images/team_torres.png);
-            background-repeat: no-repeat;
-            background-size: 1349px 859px;
 
         }
         .color-preview {
@@ -87,6 +84,10 @@
 
         .dropdown2:hover .dropdown-content2 {
             display: block;
+        }
+
+        .link-active {
+            color: #45aeea !important;
         }
 
     </style>
@@ -163,7 +164,7 @@
 @yield('content')
 
 <!-- Footer ================================================== -->
-<footer class="footer">
+<footer class="footer" style="margin-top: 0px !important;">
     <div class="container">
         <p class="pull-right"><a href="#">Back to top</a></p>
     </div>
@@ -186,92 +187,24 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
 
-    var getShirtId = function(fileName) {
-        var start = fileName.lastIndexOf('/') + 1;
-        var end = fileName.substr(start).indexOf('_');
-        return fileName.substr(start, end);
-    };
-
-    // DATA PASSED FROM PHP
-    var productData = <?php echo json_encode(@$productData) ?>;
-    //console.log(productData);
-
-
-    var drawProductPriceRow = function (productName, productPrice) {
-        $('#priceTable').empty();
-        $('#priceTable').prepend(
-            "<tr>\n" +
-            "<td id='productName'>"+productName+"</td>\n" +
-            "<td align=\"right\">&#8369;<span id='basePrice'>"+productPrice+"</span></td>\n" +
-            "</tr>"
-        );
-    }
-
-    $(document).ready(function() {
-        var totalPrice = 0;
-        var basePrice = 0;
-        var quantity = 1;
-
-        $('.logoList').hide();
-        $('#addToCart').attr('disabled', 'disabled');
-        $('#colorList').hide();
-
-
-        $('.img-tshirt').on('click', function() {
-            $('#quantity').val(1);
-            $("#imageeditor").css('display', 'block');
-            $("#selectItem").css('display', 'none');
-
-            var tempId = getShirtId($('.img-tshirt').attr('src'));
-            console.log('tempId: ' + tempId);
-
-            var total = parseFloat($('#totalPrice').val())
-            if($('#tshirtFacing').attr('src') === '') {
-                $('#tshirtFacing').attr('src', $(this).attr('src'));
-
-                $('.logoList').show();
-                $('#addToCart').prop('disabled', false);
-                $('#colorList').show();
-                $('#tshirtFacing').hide();
-
-                var fileName = $('#tshirtFacing').attr('src');
-                var productId = getShirtId(fileName);
-                var product = productData[productId];
-                console.log('productId: ' + productId);
-                drawProductPriceRow(product.product_name, product.base_price);
-                basePrice = parseFloat(product.base_price);
-            } else {
-                $('#tshirtFacing').attr('src', $(this).attr('src'));
-                var fileName = $('#tshirtFacing').attr('src');
-                var productId = getShirtId(fileName);
-                var product = productData[productId];
-
-                if(tempId !== productId) {
-                    drawProductPriceRow(product.product_name, product.base_price);
-                    basePrice = parseFloat(product.base_price);
-                } else {
-                    drawProductPriceRow(product.product_name, product.base_price);
-                    $('#productName').text(product.product_name);
-                    $('#basePrice').text(product.base_price);
-                    basePrice = parseFloat(product.base_price);
-                }
-
-
-            }
-
-
-//            quantity = parseFloat($('#quantity').val());
-//            totalPrice = total + (basePrice * quantity);
-            $('#totalPrice').val(basePrice.toFixed(2));
+    $(document).ready(function () {
+        $('.contact-row').hide();
+        $('.payment-row').hide();
+        
+        $('#contact-link').click(function () {
+            $('#payment-link').removeClass('link-active');
+            $(this).addClass('link-active');
+            $('.bg-row').hide();
+            $('.contact-row').show();
+            $('.payment-row').hide();
         });
-
-        $('#quantity').change(function() {
-            var total = parseFloat($('#totalPrice').val());
-            quantity = parseFloat($(this).val());
-            totalPrice = (basePrice * quantity);
-            $('#totalPrice').val(totalPrice.toFixed(2));
+        $('#payment-link').click(function () {
+            $('#contact-link').removeClass('link-active');
+            $(this).addClass('link-active');
+            $('.bg-row').hide();
+            $('.contact-row').hide();
+            $('.payment-row').show();
         });
-
     });
 
 </script>

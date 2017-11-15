@@ -87,7 +87,7 @@
                                         @endguest
                                         @auth
                                                 @if(((substr($logo['logo_name'], 0, 5)) == 'admin') || ((substr($logo['logo_name'], 0)) == Auth::user()->id))
-                                                    <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{URL::asset('/logos/'.$logo['logo_name'])}}">
+                                                    <img height="100" width="100" style="cursor:pointer;" class="img-polaroid" src="{{asset('/logos/'.$logo['logo_name'])}}">
                                                 @endif
                                         @endauth
                                         {{--@if(isset(Auth::user()->id))--}}

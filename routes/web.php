@@ -19,7 +19,7 @@ Route::group(['middleware' => 'web'], function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/customize', 'HomeController@index');
 
 Route::get('/bags', 'BagController@index');
 
