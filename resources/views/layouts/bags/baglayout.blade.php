@@ -79,10 +79,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="{{ url('/customize') }}">June Sportshop</a>
+            <a class="brand" href="{{ url('/') }}">June Sportshop</a>
             <div class="nav-collapse" id="main-menu">
                 <ul class="nav" id="main-menu-left">
-                    <li><a href="{{ url('/home') }}">Jerseys</a></li>
+                    <li><a href="{{ url('/cutomize') }}">Jerseys</a></li>
                     <li><a href="{{ url('/bags') }}">Bags</a></li>
                 </ul>
             </div>
