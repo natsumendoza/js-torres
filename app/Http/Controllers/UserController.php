@@ -103,6 +103,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find(base64_decode($id));
+        $user->delete();
+
+        return redirect('users')->with('success', 'User has been deleted');
+    }
+
+
+    public function showUserList()
+    {
+        $userList = User::where('role_id', NULL)->get()->toArray();
+
+        return view('users.userList', compact('userList'));
     }
 }
