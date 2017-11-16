@@ -37,6 +37,7 @@ Route::get('/sparkpost', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('users', 'UserController@showUserList');
     Route::resource('user', 'UserController');
     Route::resource('products','ProductController');
     Route::delete('orders/transaction/{transactionCode}', 'OrderController@destroyByTransactionCode');

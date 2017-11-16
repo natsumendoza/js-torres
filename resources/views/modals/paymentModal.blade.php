@@ -6,19 +6,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Choose mode of payment: </h4>
+                    <h4 class="modal-title">You'll be paying via BDO: </h4>
                 </div>
                 <table width="95%">
                     <tr>
                         <td colspan="3">&nbsp;<!-- spacer --></td>
                     </tr>
                     <tr>
-                        <td width="20px;">&nbsp;</td>
-                        <td>
-                            <label><input type="radio" name="payment_mode" value="COD" checked><span style="font-size: 20px;"><b>Cash on delivery</b></span></label>
-                        </td>
-                        <td>
-                            <label><input type="radio" name="payment_mode" value="BDO"><img src="{{URL::asset('/img/bdo_logo.png')}}" height="70" width="70"></label>
+                        <td style="text-align: center;">
+                            <img src="{{URL::asset('/img/bdo_logo.png')}}" height="150" width="150">
                         </td>
                     </tr>
                     <tr>
