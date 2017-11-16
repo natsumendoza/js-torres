@@ -2,7 +2,7 @@
 @extends('layouts.layout')
 
 @section('content')
-@include('modals.productImageModal')
+@include('modals.finishedproductModal')
         <!DOCTYPE html>
 <html>
 <head>

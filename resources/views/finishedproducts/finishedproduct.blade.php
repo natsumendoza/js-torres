@@ -60,7 +60,7 @@
                                 <label for="price" class="col-md-4 control-label">Price</label>
 
                                 <div class="col-md-6">
-                                    <input id="price" type="number" step="0.01" class="form-control" name="price" value="{{@$product['base_price']}}" required autofocus>
+                                    <input id="price" type="number" step="0.01" class="form-control" name="price" value="{{@$product['price']}}" required autofocus>
 
                                     @if ($errors->has('price'))
                                         <span class="help-block">

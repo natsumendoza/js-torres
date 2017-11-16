@@ -136,6 +136,7 @@
                                 <ul class="dropdown-menu">
                                     @if(Auth::user()->isAdmin())
                                         <li><a href="{{ url('/products') }}">Products</a></li>
+                                        <li><a href="{{ url('/finishedproduct') }}">Finished Products</a></li>
                                         <li><a href="{{ url('/orders') }}">Orders</a></li>
                                         <li><a href="{{ url('/users') }}">Users</a></li>
                                     @else

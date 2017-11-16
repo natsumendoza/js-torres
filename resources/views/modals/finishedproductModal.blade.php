@@ -1,10 +1,10 @@
 <!-- Modal -->
-<div class="modal fade" id="orderImageModal" role="dialog">
+<div class="modal fade" id="finishedproductModal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Order Images</h4>
+                <h4 class="modal-title">Product Image</h4>
                 <h6>(Click Image for larger view)</h6>
             </div>
             <div class="modal-body">
