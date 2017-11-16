@@ -96,7 +96,7 @@
                                             {{--@endif--}}
                                         {{--@endif--}}
                                     @endforeach
-                                    
+
                                 </div>
                             </div>
                         </div>

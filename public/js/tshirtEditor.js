@@ -180,11 +180,13 @@ var rightLink;
 	        
 	  		fabric.Image.fromURL(el.src, function(image) {
 		          image.set({
-		            left: left,
-		            top: top,
+		            left: 100,
+		            top: 200,
 		            angle: 0,
 		            padding: 10,
 		            cornersize: 10,
+                      scaleX: 100 / image.width,
+                      scaleY: 100 / image.height,
 	      	  		hasRotatingPoint:true
 		          });
 		          //image.scale(getRandomNum(0.1, 0.25)).setCoords();
