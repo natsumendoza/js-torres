@@ -107,7 +107,7 @@ class FinishedProductController extends Controller
 
 
         $image = $request->file('image');
-        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'_front.'.$image->getClientOriginalExtension();
+        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'.'.$image->getClientOriginalExtension();
         $frontImageName = $input['imagename'];
         $destinationPath = public_path('/finishedproducts');
         $image->move($destinationPath, $frontImageName);
