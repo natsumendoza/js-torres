@@ -1,5 +1,8 @@
 <?php
 
+use App\Product;
+use App\FinishedProduct;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +27,10 @@ Route::get('/customize', 'HomeController@index');
 Route::get('/bags', 'BagController@index');
 
 Route::get('/', function () {
-    return view('home');
+
+    $productList = FinishedProduct::all()->where('product_type', 'jersey')->toArray();
+
+    return view('home')->with(array('productList' => $productList));
 });
 
 Route::get('/sparkpost', function () {
@@ -45,6 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('orders/images/{orderId}', 'OrderController@modal');
     Route::resource('orders', 'OrderController');
     Route::resource('cart', 'CartController');
+    Route::resource('finishedproduct', 'FinishedProductController');
     Route::get('error', function ()
     {
         return view('customException');

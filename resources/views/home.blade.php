@@ -15,30 +15,37 @@
         </div>
     </div>
     <div class="row" style=" text-align: center;">
-        <div class="col-md-3 text-center">
+
+        <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
+            <a style="text-decoration: none" href="{{url('/')}}"><h3 style=" color: #000000;">Home</h3></a>
+
         </div>
         <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
-            <h2 style=" color: #000000;">Customize</h2>
-            <div class="dropdown-content2">
-
-                <a style="text-decoration: none" href="{{url('/customize')}}"><p class="">Click here to continue</p></a>
-            </div>
+            <a style="text-decoration: none" href="{{url('/customize')}}"><h3 style=" color: #000000;">Customize</h3></a>
 
         </div>
         <div  class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
-            <h2 id="contact-link" style="cursor: pointer; color: #000000;">Contact Us</h2>
+            <h3 id="faqs-link" style="cursor: pointer; color: #000000;">FAQs</h3>
+        </div>
+        <div  class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
+            <h3 id="contact-link" style="cursor: pointer; color: #000000;">Contact Us</h3>
         </div>
         <div class="col-md-2 text-center dropdown2">
-            <h2 class="" id="payment-link" style="cursor: pointer;  color: #000000;">Payment Instructions</h2>
+            <h3 class="" id="payment-link" style="cursor: pointer;  color: #000000;">Payment Instructions</h3>
         </div>
         <div class="col-md-2 text-center">
         </div>
 
     </div>
-    <div class="row bg-row" style="background-image: url(../images/jersey_torres.png);
-            background-repeat: no-repeat;
-            background-size: 1349px 859px; height: 859px; margin: 0px;">
-
+    <div class="row2 bg-row" style="background-color: #f3f7e5; height: 859px; margin: 0px; text-align: center; width: 100%">
+            <div style="width: 50%; margin: 0 auto;">
+                @foreach($productList as $product)
+                    <div class="col2-md-3" style="margin-top: 10px">
+                        <img height="100" width="150" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/finishedproducts/'.$product['image'])}}">
+                        <button type="submit" class="btn  btn-success" name="addToCart" id="addToCart">Buy <i class="icon-shopping-cart icon-white"></i></button>
+                    </div>
+                @endforeach
+            </div>
     </div>
     <div class="row contact-row" style="height: 420px; background-color: #f3f7e5;">
         <div class="col-md-12" style="text-align: center; margin-top: 4%;">

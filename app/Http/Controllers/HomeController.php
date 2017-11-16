@@ -8,6 +8,7 @@ use App\Logo;
 use App\Order;
 use Session;
 use Auth;
+use App\FinishedProduct;
 
 class HomeController extends Controller
 {
