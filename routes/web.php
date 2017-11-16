@@ -28,7 +28,7 @@ Route::get('/bags', 'BagController@index');
 
 Route::get('/', function () {
 
-    $productList = FinishedProduct::all()->where('product_type', 'jersey')->toArray();
+    $productList = FinishedProduct::all()->toArray();
 
     return view('home')->with(array('productList' => $productList));
 });

@@ -51,7 +51,7 @@
             <div style="width: 50%; margin: 0 auto; margin-top: 4%;">
                 <h3 class="h2-mod" style="">Finished Products</h3>
                 @foreach($productList as $product)
-                    <form method="POST" action="{{url('orders')}}">
+                    <form style="margin: 0px;" method="POST" action="{{url('orders')}}">
                         {{csrf_field()}}
                         <input id="userId" type="hidden" class="hidden" name="userId" value="{{ Auth::user()->id }}">
                         <input id="orderType" type="hidden" class="hidden" name="orderType" value="jersey">
@@ -65,6 +65,7 @@
                     </form>
                 @endforeach
             </div>
+        <div class="clearfix" style="margin-bottom: 4%;"></div>
     </div>
     <div class="row contact-row" style="height: 420px; background-color: #f3f7e5;">
         <div class="col-md-12" style="text-align: center; margin-top: 4%;">
