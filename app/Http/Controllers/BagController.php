@@ -30,7 +30,7 @@ class BagController extends Controller
         }
 
         $productList = Product::all()->where('product_type', 'bag')->toArray();
-        $logos = Logo::all()->where('logo_type', 'bag')->toArray();
+        $logos = Logo::all()->where('logo_type', 'jersey')->toArray();
         $productData = array();
         foreach($productList as $product)
         {

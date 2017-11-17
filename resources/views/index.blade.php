@@ -45,6 +45,22 @@
                                 </div>
                                 <!--						      </p>-->
                             </div>
+                            <div id="neck-styles" style="display: none;" class="well">
+                                <!--					      	<h3>Tee Styles</h3>-->
+                                <!--						      <p>-->
+
+                                <div id="avatarlist">
+                                    <img height="100" width="100" style="cursor:pointer;" class="" id="round-neck" src="{{asset('neckstyles/round_neck.png')}}">
+                                    <img height="100" width="100" style="cursor:pointer;" class="" id="v-neck" src="{{asset('neckstyles/v_neck.png')}}">
+                                    <ul style="text-align: center; display: none;" class="nav neck-colors">
+                                        <li class="neck-color-preview" title="White" style="background-color:#ffffff;"></li>
+                                        <li class="neck-color-preview" title="Red" style="background-color:#ff0000;"></li>
+                                        <li class="neck-color-preview" title="Green" style="background-color:#0000ff;"></li>
+                                        <li class="neck-color-preview" title="Blue" style="background-color:#00ff00;"></li>
+                                    </ul>
+                                </div>
+                                <!--						      </p>-->
+                            </div>
                             <div class="well" id="colorList">
                                 <ul class="nav">
                                     <li class="color-preview" title="White" style="background-color:#ffffff;"></li>

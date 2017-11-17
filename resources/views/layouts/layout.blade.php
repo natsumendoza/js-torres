@@ -44,6 +44,17 @@
             width: 20px;
             height: 20px;
         }
+        .neck-color-preview {
+            border: 1px solid #CCC;
+            margin: 2px;
+            zoom: 1;
+            vertical-align: top;
+            display: inline-block;
+            cursor: pointer;
+            overflow: hidden;
+            width: 20px;
+            height: 20px;
+        }
         .rotate {
             -webkit-transform:rotate(90deg);
             -moz-transform:rotate(90deg);
@@ -106,6 +117,7 @@
 
 
                             <li class="dropdown">
+                                <input type="hidden" id="neckstylepath" value="{{asset('productneckstyles/')}}" />
                                 {{--{{ Auth::user()->name }}--}}
                                 <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -195,8 +207,22 @@
         $('#addToCart').attr('disabled', 'disabled');
         $('#colorList').hide();
 
+        $('#round-neck').on('click', function() {
+            $('.neck-colors').show();
+            $("#selectItem").css('display', 'none');
+            $('#tshirtFacing').attr('src', '{{asset('productneckstyles/front_jersey_roundneck_style_red.png')}}');
+
+            $('#tshirtFacing').hide();
+        });
+        $('#v-neck').on('click', function() {
+            $('.neck-colors').show();
+            $("#selectItem").css('display', 'none');
+            $('#tshirtFacing').attr('src', '{{asset('productneckstyles/front_jersey_vneck_style_red.png')}}');
+            $('#tshirtFacing').hide();
+        });
 
         $('.img-tshirt').on('click', function() {
+            $('#neck-styles').show();
             $('#quantity').val(1);
             $("#imageeditor").css('display', 'block');
             $("#selectItem").css('display', 'none');

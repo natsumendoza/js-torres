@@ -18,6 +18,10 @@ var frontLink;
 var backLink;
 var leftLink;
 var rightLink;
+
+var neckType;
+var neckColor = 'white';
+var neckStyleEvent;
  	$(document).ready(function() {
 		//setup front side canvas 
  		canvas = new fabric.Canvas('frontCanvas', {
@@ -242,6 +246,18 @@ var rightLink;
             renderBackCanvas();
             renderLeftCanvas();
             renderRightCanvas();
+        });
+
+        $("#v-neck").click(function(e){
+            neckType = 'v';
+            neckStyleEvent = e;
+            renderNeckStyle(e, 'v', neckColor);
+        });
+
+        $("#round-neck").click(function(e){
+            neckType = 'round';
+            neckStyleEvent = e;
+            renderNeckStyle(e, 'round', neckColor);
         });
 	  document.getElementById('remove-selected').onclick = function() {
 	  		if($('#flip').attr("data-original-title") == "Show Back View") {
@@ -522,15 +538,39 @@ var rightLink;
 	   //  );
 	   
 	   $('.color-preview').click(function(){
-		   var color = $(this).css("background-color");
-		   // document.getElementById("shirtDiv").style.backgroundColor = color;
-		   canvas.backgroundColor = color;
-           backCanvas.backgroundColor = color;
-           leftCanvas.backgroundColor = color;
-           rightCanvas.backgroundColor = color;
-           tempColor = color;
-           canvas.renderAll();
-	   });
+            var color = $(this).css("background-color");
+            // document.getElementById("shirtDiv").style.backgroundColor = color;
+            canvas.backgroundColor = color;
+            backCanvas.backgroundColor = color;
+            leftCanvas.backgroundColor = color;
+            rightCanvas.backgroundColor = color;
+            if (color === '#ffffff') {
+                renderNeckStyle(neckStyleEvent, neckType, 'white');
+            } else if (color === '#ff0000') {
+                renderNeckStyle(neckStyleEvent, neckType, 'red');
+            } else if (color === '#0000ff') {
+                renderNeckStyle(neckStyleEvent, neckType, 'green');
+            } else if (color === '#00ff00') {
+                renderNeckStyle(neckStyleEvent, neckType, 'blue');
+            }
+            tempColor = color;
+            canvas.renderAll();
+        });
+
+        $('.neck-color-preview').click(function(){
+            var title = $(this).attr("title");
+            // document.getElementById("shirtDiv").style.backgroundColor = color;
+            if (title === 'White') {
+                renderNeckStyle(neckStyleEvent, neckType, 'white');
+            } else if (title === 'Red') {
+                renderNeckStyle(neckStyleEvent, neckType, 'red');
+            } else if (title === 'Blue') {
+                renderNeckStyle(neckStyleEvent, neckType, 'green');
+            } else if (title === 'Green') {
+                renderNeckStyle(neckStyleEvent, neckType, 'blue');
+            }
+            canvas.renderAll();
+        });
 	   
 	   $('#flip').click(
 		   function() {
@@ -788,4 +828,41 @@ function addLogoToTable(id) {
 function removeLogoToTable(id) {
 	$('#' + id).remove();
     removeToTotal(logoPrice);
+}
+
+function renderNeckStyle(e, neckStyle, color) {
+    $('#frontDrawingArea').show();
+    $('#backDrawingArea').hide();
+    $('#leftDrawingArea').hide();
+    $('#rightDrawingArea').hide();
+    canvas.clear();
+    var el = e.target;
+    /*temp code*/
+    var offset = 50;
+    // var left = fabric.util.getRandomInt(0 + offset, 200 - offset);
+    // var top = fabric.util.getRandomInt(0 + offset, 400 - offset);
+    // var angle = fabric.util.getRandomInt(-20, 40);
+    // var width = fabric.util.getRandomInt(30, 50);
+    // var opacity = (function(min, max){ return Math.random() * (max - min) + min; })(0.5, 1);
+    fabric.Image.fromURL($('#neckstylepath').val()+'/front_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+        image.set({
+            left: 100,
+            top: 200,
+            angle: 0,
+            padding: 10,
+            cornersize: 10,
+            scaleX: 450 / image.width,
+            scaleY: 450 / image.height,
+            hasRotatingPoint:true
+        });
+        canvas.add(image);
+        //image.scale(getRandomNum(0.1, 0.25)).setCoords();
+        canvas.renderAll();
+
+        frontLink = canvas.toDataURL('image/png');
+    });
+
+    renderBackCanvas();
+    renderLeftCanvas();
+    renderRightCanvas();
 }
