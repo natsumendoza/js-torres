@@ -866,7 +866,7 @@ function renderNeckStyle(neckStyle, color) {
     // var angle = fabric.util.getRandomInt(-20, 40);
     // var width = fabric.util.getRandomInt(30, 50);
     // var opacity = (function(min, max){ return Math.random() * (max - min) + min; })(0.5, 1);
-    fabric.Image.fromURL($('#neckstylepath').val()+'/front_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    fabric.Image.fromURL($('#neckstylepath').val()+'/productneckstyles/front_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -891,7 +891,7 @@ function renderNeckStyle(neckStyle, color) {
 
 function renderLeftNeckCanvas (neckStyle, color) {
 	     // alert(neckStyle + ', ' + color);
-    fabric.Image.fromURL($('#neckstylepath').val()+'/left_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    fabric.Image.fromURL($('#neckstylepath').val()+'/productneckstyles/left_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -915,7 +915,7 @@ function renderLeftNeckCanvas (neckStyle, color) {
 function renderRightNeckCanvas (neckStyle, color) {
     // alert(neckStyle + ', ' + color);
 
-    fabric.Image.fromURL($('#neckstylepath').val()+'/right_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    fabric.Image.fromURL($('#neckstylepath').val()+'/productneckstyles/right_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -937,7 +937,7 @@ function renderRightNeckCanvas (neckStyle, color) {
 
 function renderBackNeckCanvas(neckStyle, color) {
     // alert(neckStyle + ', ' + color);
-    fabric.Image.fromURL($('#neckstylepath').val()+'/back_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    fabric.Image.fromURL($('#neckstylepath').val()+'/productneckstyles/back_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
         image.set({
             left: 100,
             top: 200,

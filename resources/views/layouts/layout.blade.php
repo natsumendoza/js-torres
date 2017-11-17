@@ -117,7 +117,7 @@
 
 
                             <li class="dropdown">
-                                <input type="hidden" id="neckstylepath" value="{{URL::asset('/productneckstyles/')}}" />
+                                <input type="hidden" id="neckstylepath" value="{{URL::asset('/')}}" />
                                 {{--{{ Auth::user()->name }}--}}
                                 <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
