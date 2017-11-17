@@ -42,7 +42,7 @@
 
     </div>
     {{--height: 859px;--}}
-    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 1349px 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/team_torres.jpg);
+    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 100% 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/team_torres.jpg);
  +
  +            ;">
 
