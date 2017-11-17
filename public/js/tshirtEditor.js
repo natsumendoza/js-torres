@@ -564,20 +564,30 @@ var neckSelected = false;
             // document.getElementById("shirtDiv").style.backgroundColor = color;
             if (title === 'White') {
                 neckColor = 'white';
-                renderNeckStyle( neckType, 'white');
+                renderNeckStyle( neckType, neckColor);
+                renderLeftNeckCanvas (neckType, neckColor);
+                renderRightNeckCanvas (neckType, neckColor);
+                renderBackNeckCanvas(neckType, neckColor);
             } else if (title === 'Red') {
                 neckColor = 'red';
-                renderNeckStyle(neckType, 'red');
+                renderNeckStyle(neckType, neckColor);
+                renderLeftNeckCanvas (neckType, neckColor);
+                renderRightNeckCanvas (neckType, neckColor);
+                renderBackNeckCanvas(neckType, neckColor);
             } else if (title === 'Blue') {
                 neckColor = 'blue';
-                renderNeckStyle(neckType, 'green');
+                renderNeckStyle(neckType, neckColor);
+                renderLeftNeckCanvas (neckType, neckColor);
+                renderRightNeckCanvas (neckType, neckColor);
+                renderBackNeckCanvas(neckType, neckColor);
             } else if (title === 'Green') {
                 neckColor = 'green';
-                renderNeckStyle(neckType, 'blue');
+                renderNeckStyle(neckType, neckColor);
+                renderLeftNeckCanvas (neckType, neckColor);
+                renderRightNeckCanvas (neckType, neckColor);
+                renderBackNeckCanvas(neckType, neckColor);
             }
-            renderLeftNeckCanvas (neckType, neckColor);
-            renderRightNeckCanvas (neckType, neckColor);
-            renderBackNeckCanvas(neckType, neckColor);
+
             canvas.renderAll();
         });
 	   
@@ -880,6 +890,7 @@ function renderNeckStyle(neckStyle, color) {
 }
 
 function renderLeftNeckCanvas (neckStyle, color) {
+	     // alert(neckStyle + ', ' + color);
     fabric.Image.fromURL($('#neckstylepath').val()+'/left_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
         image.set({
             left: 100,
@@ -902,7 +913,7 @@ function renderLeftNeckCanvas (neckStyle, color) {
 }
 
 function renderRightNeckCanvas (neckStyle, color) {
-
+    // alert(neckStyle + ', ' + color);
 
     fabric.Image.fromURL($('#neckstylepath').val()+'/right_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
         image.set({
@@ -925,6 +936,7 @@ function renderRightNeckCanvas (neckStyle, color) {
 }
 
 function renderBackNeckCanvas(neckStyle, color) {
+    // alert(neckStyle + ', ' + color);
     fabric.Image.fromURL($('#neckstylepath').val()+'/back_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
         image.set({
             left: 100,

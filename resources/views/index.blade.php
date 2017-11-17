@@ -55,8 +55,8 @@
                                     <ul style="text-align: center; display: none;" class="nav neck-colors">
                                         <li class="neck-color-preview" title="White" style="background-color:#ffffff;"></li>
                                         <li class="neck-color-preview" title="Red" style="background-color:#ff0000;"></li>
-                                        <li class="neck-color-preview" title="Green" style="background-color:#0000ff;"></li>
-                                        <li class="neck-color-preview" title="Blue" style="background-color:#00ff00;"></li>
+                                        <li class="neck-color-preview" title="Blue" style="background-color:#0000ff;"></li>
+                                        <li class="neck-color-preview" title="Green" style="background-color:#00ff00;"></li>
                                     </ul>
                                 </div>
                                 <!--						      </p>-->
