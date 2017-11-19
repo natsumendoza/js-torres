@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager as Image;
 use Mockery\Exception;
 use App\Exceptions\CustomException;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -23,12 +24,17 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orderListTemp = Order::where('status', '<>', config('constants.ORDER_STATUS_PENDING'))
-            ->get()->toArray();;
+        $orderListTemp = DB::table('orders')
+            ->join('users', 'orders.user_id', 'users.id')
+            ->select('orders.*',  'users.first_name', 'users.last_name')
+            ->where('orders.status', '<>', config('constants.ORDER_STATUS_PENDING'))
+            ->get();
 
-        $orderList = array();
+
+
         foreach ($orderListTemp as $order)
         {
+            $order  = (array) $order;
             $orderList[$order['id']] = $order;
         }
 

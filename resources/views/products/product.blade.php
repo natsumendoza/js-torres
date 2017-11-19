@@ -56,6 +56,23 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('jerseyType') ? ' has-error' : '' }}">
+                                <label for="productType" class="col-md-4 control-label">Jersey Type (Hide if not Jersey)</label>
+
+                                <div class="col-md-6">
+                                    <select name="jerseyType" id="jerseyType">
+                                        <option value="basketball">Jersey</option>
+                                        <option value="football">Bag</option>
+                                    </select>
+
+                                    @if ($errors->has('jerseyType'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('productType') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('basePrice') ? ' has-error' : '' }}">
                                 <label for="basePrice" class="col-md-4 control-label">Base Price</label>
 
@@ -70,59 +87,314 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('frontImage') ? ' has-error' : '' }}">
-                                <label for="frontImage" class="col-md-4 control-label">Front Image</label>
+                            <div>
+                                <label for="colors" class="col-md-4 control-label">Colors</label>
 
-                                <div class="col-md-6">
-                                    <input id="frontImage" type="file" class="form-control" name="frontImage" value="{{@$product['front_image']}}" required autofocus>
-
-                                    @if ($errors->has('frontImage'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('frontImage') }}</strong>
-                                    </span>
-                                    @endif
+                                <div class="col-md-6" style="margin-bottom: 20px;">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="red">Red
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="green">Green
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="blue">Blue
+                                    </label>
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('backImage') ? ' has-error' : '' }}">
-                                <label for="backImage" class="col-md-4 control-label">Back Image</label>
+                            <br>
+                            <div>
+                                <label style="float:left;">Red</label>
+                                <div class="form-group{{ $errors->has('redFrontImage') ? ' has-error' : '' }}">
+                                    <label for="frontImage" class="col-md-4 control-label">Red Front Image</label>
 
-                                <div class="col-md-6">
-                                    <input id="backImage" type="file" class="form-control" name="backImage" value="{{@$product['back_image']}}" required autofocus>
+                                    <div class="col-md-6">
+                                        <input id="frontImage" type="file" class="form-control" name="frontImage" value="{{@$product['front_image']}}" required autofocus>
 
-                                    @if ($errors->has('backImage'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('backImage') }}</strong>
+                                        @if ($errors->has('redFrontImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('redFrontImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group{{ $errors->has('redBackImage') ? ' has-error' : '' }}">
+                                    <label for="backImage" class="col-md-4 control-label">Red Back Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="redBackImage" type="file" class="form-control" name="redBackImage" value="{{@$product['back_image']}}" required autofocus>
+
+                                        @if ($errors->has('redBackImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('redBackImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div id="redLeftImage" class="form-group{{ $errors->has('redLeftImage') ? ' has-error' : '' }}">
+                                    <label for="redLeftImage" class="col-md-4 control-label">Red Left Side Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="redLeftImage" type="file" class="form-control" name="redLeftImage" value="{{@$product['left_image']}}">
+
+                                        @if ($errors->has('redLeftImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('redLeftImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div id="redRightImageForm" class="form-group{{ $errors->has('rightImage') ? ' has-error' : '' }}">
+                                    <label for="redRightImage" class="col-md-4 control-label">Red Right Side Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="redRightImage" type="file" class="form-control" name="redRightImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('redRightImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('redRightImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="redRoundForm" class="form-group{{ $errors->has('redRoundImage') ? ' has-error' : '' }}">
+                                    <label for="redRoundImage" class="col-md-4 control-label">Red Round Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="redRoundImage" type="file" class="form-control" name="redRoundImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('redRoundImage'))
+                                            <span class="help-block">
+                                        <strong>{{ $errors->first('redRoundImage') }}</strong>
                                     </span>
-                                    @endif
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="redVForm" class="form-group{{ $errors->has('redVImage') ? ' has-error' : '' }}">
+                                    <label for="redVImage" class="col-md-4 control-label">Red V Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="redVImage" type="file" class="form-control" name="redVImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('redVImage'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('redVImage') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="redCollarForm" class="form-group{{ $errors->has('redVImage') ? ' has-error' : '' }}">
+                                    <label for="redCollarImage" class="col-md-4 control-label">Red Collard Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="redCollarImage" type="file" class="form-control" name="redCollarImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('redCollarImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('redCollarImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
-                            <div id="leftImageForm" class="form-group{{ $errors->has('leftImage') ? ' has-error' : '' }}">
-                                <label for="leftImage" class="col-md-4 control-label">Left Side Image</label>
+                            <div>
+                                <label>Green</label>
+                                <div class="form-group{{ $errors->has('greenFrontImage') ? ' has-error' : '' }}">
+                                    <label for="frontImage" class="col-md-4 control-label">Green Front Image</label>
 
-                                <div class="col-md-6">
-                                    <input id="leftImage" type="file" class="form-control" name="leftImage" value="{{@$product['left_image']}}">
+                                    <div class="col-md-6">
+                                        <input id="frontImage" type="file" class="form-control" name="frontImage" value="{{@$product['front_image']}}" requigreen autofocus>
 
-                                    @if ($errors->has('leftImage'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('leftImage') }}</strong>
+                                        @if ($errors->has('greenFrontImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('greenFrontImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group{{ $errors->has('greenBackImage') ? ' has-error' : '' }}">
+                                    <label for="backImage" class="col-md-4 control-label">Green Back Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="greenBackImage" type="file" class="form-control" name="greenBackImage" value="{{@$product['back_image']}}" requigreen autofocus>
+
+                                        @if ($errors->has('greenBackImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('greenBackImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div id="greenLeftImage" class="form-group{{ $errors->has('greenLeftImage') ? ' has-error' : '' }}">
+                                    <label for="greenLeftImage" class="col-md-4 control-label">Green Left Side Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="greenLeftImage" type="file" class="form-control" name="greenLeftImage" value="{{@$product['left_image']}}">
+
+                                        @if ($errors->has('greenLeftImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('greenLeftImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div id="greenRightImageForm" class="form-group{{ $errors->has('rightImage') ? ' has-error' : '' }}">
+                                    <label for="greenRightImage" class="col-md-4 control-label">Green Right Side Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="greenRightImage" type="file" class="form-control" name="greenRightImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('greenRightImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('greenRightImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="greenRoundForm" class="form-group{{ $errors->has('greenRoundImage') ? ' has-error' : '' }}">
+                                    <label for="greenRoundImage" class="col-md-4 control-label">Green Round Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="greenRoundImage" type="file" class="form-control" name="greenRoundImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('greenRoundImage'))
+                                            <span class="help-block">
+                                        <strong>{{ $errors->first('greenRoundImage') }}</strong>
                                     </span>
-                                    @endif
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="greenVForm" class="form-group{{ $errors->has('greenVImage') ? ' has-error' : '' }}">
+                                    <label for="greenVImage" class="col-md-4 control-label">Green V Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="greenVImage" type="file" class="form-control" name="greenVImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('greenVImage'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('greenVImage') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="greenCollarForm" class="form-group{{ $errors->has('greenVImage') ? ' has-error' : '' }}">
+                                    <label for="greenCollarImage" class="col-md-4 control-label">Green Collard Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="greenCollarImage" type="file" class="form-control" name="greenCollarImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('greenCollarImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('greenCollarImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
-                            <div id="rightImageForm" class="form-group{{ $errors->has('rightImage') ? ' has-error' : '' }}">
-                                <label for="rightImage" class="col-md-4 control-label">Right Side Image</label>
+                            <div>
+                                <label>Blue</label>
+                                <div class="form-group{{ $errors->has('blueFrontImage') ? ' has-error' : '' }}">
+                                    <label for="frontImage" class="col-md-4 control-label">Blue Front Image</label>
 
-                                <div class="col-md-6">
-                                    <input id="rightImage" type="file" class="form-control" name="rightImage" value="{{@$product['right_image']}}">
+                                    <div class="col-md-6">
+                                        <input id="frontImage" type="file" class="form-control" name="frontImage" value="{{@$product['front_image']}}" requiblue autofocus>
 
-                                    @if ($errors->has('rightImage'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('rightImage') }}</strong>
+                                        @if ($errors->has('blueFrontImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('blueFrontImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group{{ $errors->has('blueBackImage') ? ' has-error' : '' }}">
+                                    <label for="backImage" class="col-md-4 control-label">Blue Back Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="blueBackImage" type="file" class="form-control" name="blueBackImage" value="{{@$product['back_image']}}" requiblue autofocus>
+
+                                        @if ($errors->has('blueBackImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('blueBackImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div id="blueLeftImage" class="form-group{{ $errors->has('blueLeftImage') ? ' has-error' : '' }}">
+                                    <label for="blueLeftImage" class="col-md-4 control-label">Blue Left Side Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="blueLeftImage" type="file" class="form-control" name="blueLeftImage" value="{{@$product['left_image']}}">
+
+                                        @if ($errors->has('blueLeftImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('blueLeftImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div id="blueRightImageForm" class="form-group{{ $errors->has('rightImage') ? ' has-error' : '' }}">
+                                    <label for="blueRightImage" class="col-md-4 control-label">Blue Right Side Image</label>
+
+                                    <div class="col-md-6">
+                                        <input id="blueRightImage" type="file" class="form-control" name="blueRightImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('blueRightImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('blueRightImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="blueRoundForm" class="form-group{{ $errors->has('blueRoundImage') ? ' has-error' : '' }}">
+                                    <label for="blueRoundImage" class="col-md-4 control-label">Blue Round Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="blueRoundImage" type="file" class="form-control" name="blueRoundImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('blueRoundImage'))
+                                            <span class="help-block">
+                                        <strong>{{ $errors->first('blueRoundImage') }}</strong>
                                     </span>
-                                    @endif
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="blueVForm" class="form-group{{ $errors->has('blueVImage') ? ' has-error' : '' }}">
+                                    <label for="blueVImage" class="col-md-4 control-label">Blue V Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="blueVImage" type="file" class="form-control" name="blueVImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('blueVImage'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('blueVImage') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div id="blueCollarForm" class="form-group{{ $errors->has('blueVImage') ? ' has-error' : '' }}">
+                                    <label for="blueCollarImage" class="col-md-4 control-label">Blue Collard Neck Type</label>
+
+                                    <div class="col-md-6">
+                                        <input id="blueCollarImage" type="file" class="form-control" name="blueCollarImage" value="{{@$product['right_image']}}">
+
+                                        @if ($errors->has('blueCollarImage'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('blueCollarImage') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 

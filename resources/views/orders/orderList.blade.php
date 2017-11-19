@@ -38,7 +38,7 @@
             <tr>
                 <td style="text-align: center;">{{$order['id']}}</td>
                 <td>{{$order['transaction_code']}}</td>
-                <td style="text-align: center;">{{$order['user_id']}}</td>
+                <td style="text-align: center;">{{"[".$order['user_id']."] " . $order['first_name'] . " " . $order['last_name']}} </td>
                 <td style="text-align: center;">
                     <a class="viewOrderImage" id="{{$order['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>
                 </td>
