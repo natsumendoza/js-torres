@@ -208,6 +208,7 @@
         $('#colorList').hide();
 
         $('#round-neck').on('click', function() {
+            $('#lining-label').show();
             $('.neck-colors').show();
             $("#selectItem").css('display', 'none');
             $('#tshirtFacing').attr('src', '{{asset('productneckstyles/front_jersey_roundneck_style_red.png')}}');
@@ -215,6 +216,7 @@
             $('#tshirtFacing').hide();
         });
         $('#v-neck').on('click', function() {
+            $('#lining-label').show();
             $('.neck-colors').show();
             $("#selectItem").css('display', 'none');
             $('#tshirtFacing').attr('src', '{{asset('productneckstyles/front_jersey_vneck_style_red.png')}}');

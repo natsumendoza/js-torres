@@ -39,23 +39,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('productType') ? ' has-error' : '' }}">
-                                <label for="productType" class="col-md-4 control-label">Product Type</label>
-
-                                <div class="col-md-6">
-                                    <select name="productType" id="productType">
-                                        <option @if(isset($product['product_type']) AND $product['product_type'] == 'jersey') selected @endif value="jersey">Jersey</option>
-                                        <option @if(isset($product['product_type']) AND $product['product_type'] == 'bag') selected @endif value="bag">Bag</option>
-                                    </select>
-
-                                    @if ($errors->has('productType'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('productType') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
                             <div class="form-group{{ $errors->has('jerseyType') ? ' has-error' : '' }}">
                                 <label for="productType" class="col-md-4 control-label">Jersey Type (Hide if not Jersey)</label>
 
@@ -87,7 +70,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="form-group">
                                 <label for="colors" class="col-md-4 control-label">Colors</label>
 
                                 <div class="col-md-6" style="margin-bottom: 20px;">
@@ -104,8 +87,8 @@
                             </div>
 
                             <br>
-                            <div>
-                                <label style="float:left;">Red</label>
+                            <div >
+                                <label>Red</label>
                                 <div class="form-group{{ $errors->has('redFrontImage') ? ' has-error' : '' }}">
                                     <label for="frontImage" class="col-md-4 control-label">Red Front Image</label>
 

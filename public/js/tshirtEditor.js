@@ -30,6 +30,15 @@ var neckSelected = false;
 		  selectionBorderColor:'blue'
 		});
 
+        canvas.on('mouse:down',function(e){
+            canvas.selection = true;
+        });
+        canvas.on('mouse:down',function(e){
+            if( e.e.button == 1 ) {
+                canvas.selection = false;
+            };
+        });
+
         backCanvas = new fabric.Canvas('backCanvas', {
             hoverCursor: 'pointer',
             selection: true,

@@ -37,6 +37,11 @@
                             <div class="well">
                                 <!--					      	<h3>Tee Styles</h3>-->
                                 <!--						      <p>-->
+                                <label for="jersey-type">Jersey Type</label>
+                                <select id="jersey-type">
+                                    <option value="basketball">Basketball</option>
+                                    <option value="football">Football</option>
+                                </select>
 
                                 <div id="avatarlist">
                                     @foreach($productList as $product)
@@ -48,10 +53,13 @@
                             <div id="neck-styles" style="display: none;" class="well">
                                 <!--					      	<h3>Tee Styles</h3>-->
                                 <!--						      <p>-->
-
+                                <p style="text-align: center">Select Neck Style</p>
                                 <div id="avatarlist">
+
                                     <img height="100" width="100" style="cursor:pointer;" class="" id="round-neck" src="{{asset('neckstyles/round_neck.png')}}">
                                     <img height="100" width="100" style="cursor:pointer;" class="" id="v-neck" src="{{asset('neckstyles/v_neck.png')}}">
+
+                                    <p id="lining-label" style="text-align: center; display: none;">Select Lining Color</p>
                                     <ul style="text-align: center; display: none;" class="nav neck-colors">
                                         <li class="neck-color-preview" title="White" style="background-color:#ffffff;"></li>
                                         <li class="neck-color-preview" title="Red" style="background-color:#ff0000;"></li>
