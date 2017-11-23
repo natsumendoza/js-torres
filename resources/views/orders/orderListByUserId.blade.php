@@ -41,8 +41,20 @@
                 <td style="text-align: center;">
                     <a class="viewOrderImage" id="{{$order['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>
                 </td>
-                <td style="text-align: center;">{{$order['fabric_type']}}</td>
-                <td style="text-align: center;">{{$order['print_type']}}</td>
+                <td style="text-align: center;">
+                    @if(ISSET($order['fabric_type']) AND !EMPTY($order['fabric_type']))
+                        {{$order['fabric_type']}}
+                    @else
+                        N/A
+                    @endif
+                </td>
+                <td style="text-align: center;">
+                    @if(ISSET($order['print_type']) AND !EMPTY($order['print_type']))
+                        {{$order['print_type']}}
+                    @else
+                        N/A
+                    @endif
+                </td>
                 <td style="text-align: center;">{{$order['quantity']}}</td>
                 <td style="text-align: right;">{{$order['total_price']}}</td>
                 <td style="text-align: center;">{{$order['status']}}</td>
