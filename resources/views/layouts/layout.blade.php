@@ -227,6 +227,12 @@
         var genderType = $('#gender-type').val();
 
         changeType(jerseyType, genderType);
+        var price;
+
+        $('input[name=printType]').change(function () {
+            price = atob($(this).attr('class'));
+            $('#totalPrice').val(price * quantity);
+        });
 
         $('#jersey-type').change(function () {
             hideAllTypes();
@@ -342,7 +348,7 @@
         $('#quantity').change(function() {
             var total = parseFloat($('#totalPrice').val());
             quantity = parseFloat($(this).val());
-            totalPrice = (basePrice * quantity);
+            totalPrice = (price * quantity);
             $('#totalPrice').val(totalPrice.toFixed(2));
         });
 

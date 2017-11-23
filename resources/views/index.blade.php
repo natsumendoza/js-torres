@@ -333,17 +333,17 @@
                                         <tr>
                                             <td>
                                                 <label class="radio-inline">
-                                                    <input type="radio" value="{{base64_encode('PRINT_CUTOUT')}}" name="printType" checked>{{config('constants.PRINT_CUTOUT')}}
+                                                    <input type="radio" class="{{base64_encode(config('constants.PRINT_PRIZE_CUTOUT'))}}" id="printType" value="{{base64_encode('PRINT_CUTOUT')}}" name="printType" checked>{{config('constants.PRINT_CUTOUT')}}
                                                 </label>
                                             </td>
                                             <td>
                                                 <label class="radio-inline"  style="margin-left: 10px;">
-                                                    <input type="radio" value="{{base64_encode('PRINT_RUBBERIZED')}}" name="printType">{{config('constants.PRINT_RUBBERIZED')}}
+                                                    <input type="radio" class="{{base64_encode(config('constants.PRINT_PRIZE_RUBBERIZED'))}}" id="printType" value="{{base64_encode('PRINT_RUBBERIZED')}}" name="printType">{{config('constants.PRINT_RUBBERIZED')}}
                                                 </label>
                                             </td>
                                             <td>
                                                 <label class="radio-inline"  style="margin-left: 10px;">
-                                                    <input type="radio" value="{{base64_encode('PRINT_VINYL')}}" name="printType">{{config('constants.PRINT_VINYL')}}
+                                                    <input type="radio" class="{{base64_encode(config('constants.PRINT_PRIZE_VINYL'))}}" id="printType" value="{{base64_encode('PRINT_VINYL')}}" name="printType">{{config('constants.PRINT_VINYL')}}
                                                 </label>
                                             </td>
                                         </tr>
