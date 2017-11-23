@@ -172,7 +172,7 @@ var neckSelected = false;
                 backCanvas.renderAll();
             }
             logoCount++;
-            addLogoToTable(logoCount);
+            addLogoToTable(logoCount, 'Text');
 	  	};
 	  	$("#text-string").keyup(function(){	  		
 	  		var activeObject = canvas.getActiveObject();
@@ -217,7 +217,7 @@ var neckSelected = false;
 
 		        });
 	  		logoCount++;
-            addLogoToTable(logoCount);
+            addLogoToTable(logoCount, 'Logo');
 	  	});
         $(".img-tshirt").click(function(e){
             neckSelected = false;
@@ -847,10 +847,10 @@ function removeToTotal(price) {
     $('#totalPrice').val((total - price).toFixed(2));
 }
 
-function addLogoToTable(id) {
+function addLogoToTable(id, name) {
     $('#priceTable').prepend(
         "<tr id='"+id+"'>\n" +
-        "<td>Logo</td>\n" +
+        "<td>'"+name+"'</td>\n" +
         "<td align=\"right\">&#8369;<span id='logoPrice'>"+logoPrice.toFixed(2)+"</span></td>\n" +
         "</tr>"
     );

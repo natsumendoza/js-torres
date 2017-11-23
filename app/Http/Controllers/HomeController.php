@@ -9,6 +9,7 @@ use App\Order;
 use Session;
 use Auth;
 use App\FinishedProduct;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -46,13 +47,35 @@ class HomeController extends Controller
             }
         }
 
-        $productList = Product::all()->where('product_type', 'jersey')->toArray();
+
+
+//        $productList = Product::all()->where('product_type', 'jersey')->toArray();
+        $productList = DB::table('products')
+                        ->join('product_images', 'products.id', '=', 'product_images.product_id')
+                        ->select('products.*', 'product_images.*')
+                        ->where('products.product_type', '=', 'jersey')
+                        ->get();
+//        echo '<pre>';
+//        print_r($productList);
+        $productData = array();
+        foreach($productList as $product)
+        {
+            $product = (array)$product;
+            $productData[$product['id']] = $product;
+        }
+//        print_r($productData);
+//        die;
         $logos = Logo::all()->where('logo_type', 'jersey')->toArray();
         $productData = array();
         foreach($productList as $product)
         {
+            $product = (array)$product;
             $productData[$product['id']] = $product;
         }
+        echo '<pre>';
+        print_r($productData);
+        die;
+
 
         $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
 

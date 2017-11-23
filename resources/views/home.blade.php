@@ -21,7 +21,9 @@
 
         </div>
         <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
-            <h3 id="ad-link" style="cursor: pointer; color: #000000;">Advertisements</h3>
+            <h3 id="ad-link" style="cursor: pointer; color: #000000;">Product
+
+            </h3>
 
         </div>
         <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">

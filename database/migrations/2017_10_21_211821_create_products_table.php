@@ -17,12 +17,9 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('product_name');
             $table->string('product_type');
+            $table->string('gender_flag')->nullable();
             $table->decimal('base_price', 10,2);
             $table->string('jersey_type')->nullable();
-            $table->string('front_image')->nullable();
-            $table->string('back_image')->nullable();
-            $table->string('left_image')->nullable();
-            $table->string('right_image')->nullable();
             $table->timestamps();
         });
     }

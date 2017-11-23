@@ -44,8 +44,8 @@
                                 </select>
 
                                 <div id="avatarlist">
-                                    @foreach($productList as $product)
-                                        <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['front_image'])}}">
+                                    @foreach($productData as $product)
+                                        <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
                                     @endforeach
                                 </div>
                                 <!--						      </p>-->

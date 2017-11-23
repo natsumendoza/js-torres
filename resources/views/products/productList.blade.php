@@ -29,7 +29,7 @@
             <th style="text-align: center">Name</th>
             <th style="text-align: center">Type</th>
             <th style="text-align: center">Base Price</th>
-            <th style="text-align: center">Product Images</th>
+            {{--<th style="text-align: center">Product Images</th>--}}
             <th style="text-align: center" colspan="2">Action</th>
         </tr>
         </thead>
@@ -42,7 +42,7 @@
                 <td style="text-align: center;">{{$product['product_type']}}</td>
                 <td style="text-align: right;">{{$product['base_price']}}</td>
                 <td style="text-align: center;">
-                    <a class="viewProductImage" id="{{$product['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>
+{{--                    <a class="viewProductImage" id="{{$product['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>--}}
                 </td>
                 <td style="text-align: center;"><a href="{{action('ProductController@edit', $product['id'])}}" class="btn btn-warning">Edit</a></td>
                 <td style="text-align: center;">
