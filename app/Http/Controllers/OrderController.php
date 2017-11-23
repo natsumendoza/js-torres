@@ -173,7 +173,6 @@ class OrderController extends Controller
         $order['quantity']         = $validated_order['quantity'];
         $order['total_price']      = $validated_order['totalPrice'];
         $order['status']           = config('constants.ORDER_STATUS_PENDING');
-        $order['payment_mode']     = 'CART';
 
         Order::create($order);
 
@@ -315,7 +314,6 @@ class OrderController extends Controller
 
         $data = array(
             'status' => config('constants.ORDER_STATUS_OPEN'),
-            'payment_mode' => $request->get('payment_mode')
         );
 
         Order::where('transaction_code', $transactionCode)
@@ -323,7 +321,7 @@ class OrderController extends Controller
 
         Session::forget('cartSize');
         Session::forget('transactionCode');
-        return redirect('/home');
+        return redirect('/customize');
     }
 
 }

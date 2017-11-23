@@ -24,7 +24,6 @@ class CreateOrdersTable extends Migration
             $table->integer('quantity');
             $table->decimal('total_price', 10,2);
             $table->string('status');
-            $table->string('payment_mode');
             $table->timestamps();
         });
     }

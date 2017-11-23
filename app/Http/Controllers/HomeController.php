@@ -72,10 +72,6 @@ class HomeController extends Controller
             $product = (array)$product;
             $productData[$product['id']] = $product;
         }
-        echo '<pre>';
-        print_r($productData);
-        die;
-
 
         $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
 
