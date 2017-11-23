@@ -276,6 +276,7 @@
                                     <h3>Total Prices</h3>
                                     <p>
                                     <table class="table" id="priceTable">
+
                                         {{--<tr>--}}
                                             {{--<td>Short Sleeve</td>--}}
                                             {{--<td align="right">&#8369;12.49</td>--}}
@@ -305,9 +306,7 @@
                     @endif
                     @endauth
 
-
-
-        </div>
+         </div>
 
     </section>
 </div><!-- /container -->
