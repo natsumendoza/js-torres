@@ -43,10 +43,42 @@
                                     <option value="football">Football</option>
                                 </select>
 
-                                <div id="avatarlist">
-                                    @foreach($productData as $product)
-                                        <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
-                                    @endforeach
+                                <label for="gender-type">Gender</label>
+                                <select id="gender-type">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+
+                                <div class="basketball-male" id="avatarlist" style="display: none;">
+                                    @if(count($productDataBasketballMale) > 0)
+                                        @foreach($productDataBasketballMale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="soccer-male" id="avatarlist" style="display: none;">
+                                    @if(count($productDataSoccerMale) > 0)
+                                        @foreach($productDataSoccerMale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="basketball-female" id="avatarlist" style="display: none;">
+                                    @if(count($productDataBasketballFemale) > 0)
+                                        @foreach($productDataBasketballFemale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="soccer-female" id="avatarlist" style="display: none;">
+                                    @if(count($productDataSoccerFemale) > 0)
+                                        @foreach($productDataSoccerFemale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <!--						      </p>-->
                             </div>

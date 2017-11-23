@@ -58,17 +58,12 @@ class ProductController extends Controller
         $product = array();
         $product['product_name'] = $validated_product['productName'];
         $product['product_type'] = $validated_product['productType'];
-
+        $product['gender_flag'] = $request['gender'];
         if ($formType == 'jersey') {
-            $product['gender_flag'] = $request['gender'];
             $product['jersey_type']   = $request['jerseyType'];
         } else {
-            $product['base_price']   = $validated_product['basePrice'];
+            $product['base_price']   = $request['basePrice'];
         }
-//        $product['front_image']  = $frontImageName;
-//        $product['back_image']   = $backImageName;
-//        $product['left_image']   = $leftImageName;
-//        $product['right_image']  = $rightImageName;
 
         $insertedProduct = Product::create($product);
 

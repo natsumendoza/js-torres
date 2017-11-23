@@ -10,7 +10,7 @@ var line4;
 var tempColor;
 
 var logoCount = 0;
-var logoPrice = 150;
+var logoPrice = 0;
 
 var defaultColor = '#ffffff';
 
@@ -853,7 +853,7 @@ function removeToTotal(price) {
 function addLogoToTable(id, name) {
     $('#priceTable').prepend(
         "<tr id='"+id+"'>\n" +
-        "<td>'"+name+"'</td>\n" +
+        "<td>"+name+"</td>\n" +
         "<td align=\"right\">&#8369;<span id='logoPrice'>"+logoPrice.toFixed(2)+"</span></td>\n" +
         "</tr>"
     );

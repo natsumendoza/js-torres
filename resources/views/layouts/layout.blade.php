@@ -184,8 +184,10 @@
     };
 
     // DATA PASSED FROM PHP
-    var productData = <?php echo json_encode(@$productData) ?>;
-    console.log(productData);
+    var productDataBasketballMale = <?php echo json_encode(@$productDataBasketballMale) ?>;
+    var productDataSoccerMale = <?php echo json_encode(@$productDataSoccerMale) ?>;
+    var productDataBasketballFemale = <?php echo json_encode(@$productDataBasketballFemale) ?>;
+    var productDataSoccerFemale = <?php echo json_encode(@$productDataSoccerFemale) ?>;
 
 
     var drawProductPriceRow = function (productName) {
@@ -198,6 +200,16 @@
         );
     }
 
+    function changeType(jersey, gender) {
+        $('.' + jersey + '-' + gender).show();
+    }
+
+    function hideAllTypes() {
+        $('.basketball-male').hide();
+        $('.soccer-male').hide();
+        $('.basketball-female').hide();
+        $('.soccer-female').hide();
+    }
 
 
     $(document).ready(function() {
@@ -211,6 +223,34 @@
         $('#addToCart').attr('disabled', 'disabled');
         $('#colorList').hide();
 
+        var jerseyType = $('#jersey-type').val();
+        var genderType = $('#gender-type').val();
+
+        changeType(jerseyType, genderType);
+
+        $('#jersey-type').change(function () {
+            hideAllTypes();
+            $('#tshirtFacing').hide();
+            $('#lining-label').hide();
+            $('.neck-colors').hide();
+            $('#neck-styles').hide();
+            $('#addToCart').prop('disabled', true);
+            $('#colorList').hide();
+            jerseyType = $(this).val();
+            changeType(jerseyType, genderType);
+        });
+        $('#gender-type').change(function () {
+            hideAllTypes();
+            $('#tshirtFacing').hide();
+            $('#lining-label').hide();
+            $('.neck-colors').hide();
+            $('#neck-styles').hide();
+            $('#colorList').hide();
+            $('#addToCart').prop('disabled', true);
+            genderType = $(this).val();
+            changeType(jerseyType, genderType);
+        });
+        
         $('#round-neck').on('click', function() {
             $('#lining-label').show();
             $('.neck-colors').show();
@@ -239,6 +279,18 @@
             $("#imageeditor").css('display', 'block');
             $("#selectItem").css('display', 'none');
 
+            var productData;
+
+            if($('.basketball-male').is(':visible')) {
+                productData = productDataBasketballMale;
+            } else if($('.soccer-male').is(':visible')) {
+                productData = productDataSoccerMale;
+            } else if($('.basketball-female').is(':visible')) {
+                productData = productDataBasketballFemale;
+            } else if($('.soccer-female').is(':visible')) {
+                productData = productDataSoccerFemale;
+            }
+
             var tempId = getShirtId($('.img-tshirt').attr('src'));
             console.log('tempId: ' + tempId);
 
@@ -259,7 +311,9 @@
                 console.log('productId: ' + productId);
                 drawProductPriceRow(product.product_name);
             } else {
-
+                $('#colorList').show();
+                $('.logoList').show();
+                $('#addToCart').prop('disabled', false);
                 $('#tshirtFacing').attr('src', $(this).attr('src'));
                 var fileName = $('#tshirtFacing').attr('src');
                 var productId = getShirtId(fileName);
