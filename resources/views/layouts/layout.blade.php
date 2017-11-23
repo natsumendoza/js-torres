@@ -219,6 +219,9 @@
 
         var currentProductObj;
 
+        $('.fabricType').attr('disabled', 'disabled');
+        $('#printType').attr('disabled', 'disabled');
+
         $('.logoList').hide();
         $('#addToCart').attr('disabled', 'disabled');
         $('#colorList').hide();
@@ -284,6 +287,9 @@
             $('#quantity').val(1);
             $("#imageeditor").css('display', 'block');
             $("#selectItem").css('display', 'none');
+
+            $('.fabricType').prop('disabled', false);
+            $('#printType').attr('disabled', false);
 
             var productData;
 

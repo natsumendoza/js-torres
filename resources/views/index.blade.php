@@ -279,43 +279,43 @@
                                         <tr>
                                             <td>
                                                 <label class="radio-inline">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_MICRO_SHINY')}}" name="fabricType" checked required>{{config('constants.FABRIC_MICRO_SHINY')}}
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_MICRO_SHINY')}}" name="fabricType" checked required>{{config('constants.FABRIC_MICRO_SHINY')}}
                                                 </label>
                                             </td>
                                             <td>
                                                 <label class="radio-inline"  style="margin-left: 10px;">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_MICRO_NET')}}" name="fabricType">{{config('constants.FABRIC_MICRO_NET')}}
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_MICRO_NET')}}" name="fabricType">{{config('constants.FABRIC_MICRO_NET')}}
                                                 </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label class="radio-inline">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_TRIFIT')}}" name="fabricType">{{config('constants.FABRIC_TRIFIT')}}
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_TRIFIT')}}" name="fabricType">{{config('constants.FABRIC_TRIFIT')}}
                                                 </label>
                                             </td>
                                             <td>
                                                 <label class="radio-inline"  style="margin-left: 10px;">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_SEMI_COOL')}}" name="fabricType">{{config('constants.FABRIC_SEMI_COOL')}}
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_SEMI_COOL')}}" name="fabricType">{{config('constants.FABRIC_SEMI_COOL')}}
                                                 </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label class="radio-inline">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_SQUARE_KNIT')}}" name="fabricType">{{config('constants.FABRIC_SQUARE_KNIT')}}
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_SQUARE_KNIT')}}" name="fabricType">{{config('constants.FABRIC_SQUARE_KNIT')}}
                                                 </label>
                                             </td>
                                             <td>
                                                 <label class="radio-inline"  style="margin-left: 10px;">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_SPORTS_MAX')}}" name="fabricType">{{config('constants.FABRIC_SPORTS_MAX')}}
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_SPORTS_MAX')}}" name="fabricType">{{config('constants.FABRIC_SPORTS_MAX')}}
                                                 </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label class="radio-inline">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_CHECKERED')}}" name="fabricType">{{config('constants.FABRIC_CHECKERED')}}
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_CHECKERED')}}" name="fabricType">{{config('constants.FABRIC_CHECKERED')}}
                                                 </label>
                                             </td>
                                             <td>
