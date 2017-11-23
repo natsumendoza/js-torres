@@ -34,6 +34,8 @@
             <th style="text-align: center">ID</th>
             <th style="text-align: center">Transaction Code</th>
             <th style="text-align: center">Order Images</th>
+            <th style="text-align: center">Type of Fabric</th>
+            <th style="text-align: center">Type of Print</th>
             <th style="text-align: center">Quantity</th>
             <th style="text-align: center">Total Price</th>
             <th style="text-align: center">Action</th>
@@ -49,6 +51,8 @@
                 <td style="text-align: center;">
                     <a class="viewOrderImage" id="{{$item['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>
                 </td>
+                <td style="text-align: center;">{{$item['fabric_type']}}</td>
+                <td style="text-align: center;">{{$item['print_type']}}</td>
                 <td style="text-align: center;">{{$item['quantity']}}</td>
                 <td style="text-align: right;">{{number_format($item['total_price'], 2)}}</td>
                 <td style="text-align: center;">
@@ -62,17 +66,17 @@
         @endforeach
         <tr>
             <td>&nbsp;</td>
-            <td style="text-align: right;" colspan="4">{{number_format($totalPrice, 2)}}</td>
+            <td style="text-align: right;" colspan="6">{{number_format($totalPrice, 2)}}</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td style="text-align: left;">
-                <a href="{{url('/home')}}" class="btn btn-primary">Continue Shopping</a>
+                <a href="{{url('/customize')}}" class="btn btn-primary">Continue Shopping1</a>
             </td>
             <td style="text-align: left;">
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#paymentModal">Proceed to checkout</button>
             </td>
-            <td style="text-align: right;" colspan="4">
+            <td style="text-align: right;" colspan="6">
                 <form action="{{action('OrderController@destroyByTransactionCode', $transactionCode)}}" method="POST">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="DELETE">
@@ -82,11 +86,11 @@
         </tr>
         @else
         <tr>
-            <td colspan="6" style="text-align: center">No item in cart</td>
+            <td colspan="8" style="text-align: center">No item in cart</td>
         </tr>
         <tr>
-            <td colspan="6" style="text-align: left;">
-                <a href="{{url('/home')}}" class="btn btn-primary">Continue Shopping</a>
+            <td colspan="8" style="text-align: left;">
+                <a href="{{url('/customize')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
         </tr>
         @endif

@@ -241,7 +241,85 @@
 
                             <div class="span3">
                                 <div class="well">
-                                    <h3>Total Prices</h3>
+                                    <h4>Types of Fabrics</h4>
+                                    <p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="{{base64_encode('FABRIC_MICRO_SHINY')}}" name="fabricType" checked required>{{config('constants.FABRIC_MICRO_SHINY')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" value="{{base64_encode('FABRIC_MICRO_NET')}}" name="fabricType">{{config('constants.FABRIC_MICRO_NET')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="{{base64_encode('FABRIC_TRIFIT')}}" name="fabricType" checked required>{{config('constants.FABRIC_TRIFIT')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" value="{{base64_encode('FABRIC_SEMI_COOL')}}" name="fabricType">{{config('constants.FABRIC_SEMI_COOL')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="{{base64_encode('FABRIC_SQUARE_KNIT')}}" name="fabricType">{{config('constants.FABRIC_SQUARE_KNIT')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" value="{{base64_encode('FABRIC_SPORTS_MAX')}}" name="fabricType">{{config('constants.FABRIC_SPORTS_MAX')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="{{base64_encode('FABRIC_CHECKERED')}}" name="fabricType">{{config('constants.FABRIC_CHECKERED')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                    </p>
+                                </div>
+                                <div class="well">
+                                    <h4>Types of Print</h4>
+                                    <p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="{{base64_encode('PRINT_CUTOUT')}}" name="printType" checked>{{config('constants.PRINT_CUTOUT')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" value="{{base64_encode('PRINT_RUBBERIZED')}}" name="printType">{{config('constants.PRINT_RUBBERIZED')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" value="{{base64_encode('PRINT_VINYL')}}" name="printType">{{config('constants.PRINT_VINYL')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </div>
+                                <div class="well">
+                                    <h4>Total Prices</h4>
                                     <p>
                                     <table class="table" id="priceTable">
 

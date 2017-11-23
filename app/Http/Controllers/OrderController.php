@@ -60,8 +60,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-
-
         $orderType = $request['orderType'];
         if(!(\Session::has('transactionCode'))) :
             //SET $transactionCode
@@ -72,13 +70,33 @@ class OrderController extends Controller
             $transactionCode = Session::get('transactionCode');
         endif;
 
+        $validated_order = array();
 
 
-        $validated_order = $this->validate($request,[
-            'userId' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'totalPrice' => 'required|numeric'
-        ]);
+
+        if($orderType == 'jersey')
+        {
+
+            $request['fabricType'] = config('constants.' .base64_decode($request['fabricType']));
+            $request['printType'] = config('constants.' .base64_decode($request['printType']));
+
+            $validated_order = $this->validate($request, [
+                'userId' => 'required|numeric',
+                'fabricType' => 'required',
+                'printType' => 'required',
+                'quantity' => 'required|numeric',
+                'totalPrice' => 'required|numeric'
+            ]);
+
+        }
+        else
+        {
+            $validated_order = $this->validate($request, [
+                'userId' => 'required|numeric',
+                'quantity' => 'required|numeric',
+                'totalPrice' => 'required|numeric'
+            ]);
+        }
 
         // CONVERSION FROM BASE64 TO IMAGE
         $userId = $request['userId'];
@@ -125,7 +143,8 @@ class OrderController extends Controller
 
 
 
-        if($orderType == 'jersey') {
+        if($orderType == 'jersey')
+        {
 
             $leftFileName = $userId."_".time()."_left.png";
             $leftPath = public_path("orderimages/".$leftFileName);
@@ -173,6 +192,12 @@ class OrderController extends Controller
         $order['quantity']         = $validated_order['quantity'];
         $order['total_price']      = $validated_order['totalPrice'];
         $order['status']           = config('constants.ORDER_STATUS_PENDING');
+
+        if($orderType == 'jersey')
+        {
+            $order['fabric_type']  = $validated_order['fabricType'];
+            $order['print_type']   = $validated_order['printType'];
+        }
 
         Order::create($order);
 

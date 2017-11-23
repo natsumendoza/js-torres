@@ -16,4 +16,15 @@ return [
     'FABRIC_SPORTS_MAX'         => 'Sports Max',
     'FABRIC_CHECKERED'          => 'Checkered',
 
+    // TYPES OF PRINTS
+    'PRINT_CUTOUT'              => 'Cutout',
+    'PRINT_RUBBERIZED'          => 'Rubberized',
+    'PRINT_VINYL'               => 'Vinyl',
+
+    // PRINT PRIZES
+    'PRINT_PRIZE_CUTOUT'        => 500,
+    'PRINT_PRIZE_RUBBERIZED'    => 600,
+    'PRINT_PRIZE_VINYL'         => 700,
+
+
 ];

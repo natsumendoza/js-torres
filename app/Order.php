@@ -13,6 +13,8 @@ class Order extends Model
         'back_image',
         'left_image',
         'right_image',
+        'fabric_type',
+        'print_type',
         'quantity',
         'total_price',
         'status'
