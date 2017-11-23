@@ -52,17 +52,18 @@ class ProductController extends Controller
         $validated_product = $this->validate($request,[
             'productName' => 'required',
             'productType' => 'required',
-            'basePrice' => 'required|numeric',
         ]);
 
         // SETS $validate_product to $product
         $product = array();
         $product['product_name'] = $validated_product['productName'];
         $product['product_type'] = $validated_product['productType'];
-        $product['base_price']   = $validated_product['basePrice'];
+
         if ($formType == 'jersey') {
             $product['gender_flag'] = $request['gender'];
             $product['jersey_type']   = $request['jerseyType'];
+        } else {
+            $product['base_price']   = $validated_product['basePrice'];
         }
 //        $product['front_image']  = $frontImageName;
 //        $product['back_image']   = $backImageName;
@@ -190,37 +191,37 @@ class ProductController extends Controller
         if ($formType == 'jersey') {
             // WHITE
             $image = $request->file('whiteFrontImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_white_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_white_front.'.$image->getClientOriginalExtension();
             $whiteFrontImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $whiteFrontImageName);
 
             $image = $request->file('whiteBackImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_white_back.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_white_back.'.$image->getClientOriginalExtension();
             $whiteBackImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $whiteBackImageName);
 
             $image = $request->file('whiteLeftImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_white_left.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_white_left.'.$image->getClientOriginalExtension();
             $whiteLeftImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $whiteLeftImageName);
 
             $image = $request->file('whiteRightImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_white_right.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_white_right.'.$image->getClientOriginalExtension();
             $whiteRightImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $whiteRightImageName);
 
             $image = $request->file('whiteRoundImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_round_white_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_round_white_front.'.$image->getClientOriginalExtension();
             $whiteRoundImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $whiteRoundImageName);
 
             $image = $request->file('whiteVImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_v_white_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_v_white_front.'.$image->getClientOriginalExtension();
             $whiteVImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $whiteVImageName);
@@ -228,7 +229,7 @@ class ProductController extends Controller
             $whiteCollarImageName = '';
             if($request['jerseyType'] == 'soccer') {
                 $image = $request->file('whiteCollarImage');
-                $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_collar_white_front.'.$image->getClientOriginalExtension();
+                $input['imagename'] = $id.'_'.$request['productName'].'_collar_white_front.'.$image->getClientOriginalExtension();
                 $whiteCollarImageName = $input['imagename'];
                 $destinationPath = public_path('/productimages');
                 $image->move($destinationPath, $whiteCollarImageName);
@@ -238,37 +239,37 @@ class ProductController extends Controller
 
             // RED
             $image = $request->file('redFrontImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_red_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_red_front.'.$image->getClientOriginalExtension();
             $redFrontImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $redFrontImageName);
 
             $image = $request->file('redBackImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_red_back.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_red_back.'.$image->getClientOriginalExtension();
             $redBackImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $redBackImageName);
 
             $image = $request->file('redLeftImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_red_left.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_red_left.'.$image->getClientOriginalExtension();
             $redLeftImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $redLeftImageName);
 
             $image = $request->file('redRightImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_red_right.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_red_right.'.$image->getClientOriginalExtension();
             $redRightImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $redRightImageName);
 
             $image = $request->file('redRoundImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_round_red_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_round_red_front.'.$image->getClientOriginalExtension();
             $redRoundImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $redRoundImageName);
 
             $image = $request->file('redVImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_v_red_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_v_red_front.'.$image->getClientOriginalExtension();
             $redVImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $redVImageName);
@@ -276,7 +277,7 @@ class ProductController extends Controller
             $redCollarImageName = '';
             if($request['jerseyType'] == 'soccer') {
                 $image = $request->file('redCollarImage');
-                $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_collar_red_front.'.$image->getClientOriginalExtension();
+                $input['imagename'] = $id.'_'.$request['productName'].'_collar_red_front.'.$image->getClientOriginalExtension();
                 $redCollarImageName = $input['imagename'];
                 $destinationPath = public_path('/productimages');
                 $image->move($destinationPath, $redCollarImageName);
@@ -286,37 +287,37 @@ class ProductController extends Controller
 
             // GREEN
             $image = $request->file('greenFrontImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_green_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_green_front.'.$image->getClientOriginalExtension();
             $greenFrontImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $greenFrontImageName);
 
             $image = $request->file('greenBackImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_green_back.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_green_back.'.$image->getClientOriginalExtension();
             $greenBackImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $greenBackImageName);
 
             $image = $request->file('greenLeftImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_green_left.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_green_left.'.$image->getClientOriginalExtension();
             $greenLeftImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $greenLeftImageName);
 
             $image = $request->file('greenRightImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_green_right.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_green_right.'.$image->getClientOriginalExtension();
             $greenRightImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $greenRightImageName);
 
             $image = $request->file('greenRoundImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_round_green_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_round_green_front.'.$image->getClientOriginalExtension();
             $greenRoundImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $greenRoundImageName);
 
             $image = $request->file('greenVImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_v_green_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_v_green_front.'.$image->getClientOriginalExtension();
             $greenVImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $greenVImageName);
@@ -324,7 +325,7 @@ class ProductController extends Controller
             $greenCollarImageName = '';
             if($request['jerseyType'] == 'soccer') {
                 $image = $request->file('greenCollarImage');
-                $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_collar_green_front.'.$image->getClientOriginalExtension();
+                $input['imagename'] = $id.'_'.$request['productName'].'_collar_green_front.'.$image->getClientOriginalExtension();
                 $greenCollarImageName = $input['imagename'];
                 $destinationPath = public_path('/productimages');
                 $image->move($destinationPath, $greenCollarImageName);
@@ -334,38 +335,38 @@ class ProductController extends Controller
 
             // BLUE
             $image = $request->file('blueFrontImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_blue_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_blue_front.'.$image->getClientOriginalExtension();
             $blueFrontImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $blueFrontImageName);
 
             $image = $request->file('blueBackImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_blue_back.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_blue_back.'.$image->getClientOriginalExtension();
             $blueBackImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $blueBackImageName);
 
 
             $image = $request->file('blueLeftImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_blue_left.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_blue_left.'.$image->getClientOriginalExtension();
             $blueLeftImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $blueLeftImageName);
 
             $image = $request->file('blueRightImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_base_blue_right.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_base_blue_right.'.$image->getClientOriginalExtension();
             $blueRightImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $blueRightImageName);
 
             $image = $request->file('blueRoundImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_round_blue_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_round_blue_front.'.$image->getClientOriginalExtension();
             $blueRoundImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $blueRoundImageName);
 
             $image = $request->file('blueVImage');
-            $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_v_blue_front.'.$image->getClientOriginalExtension();
+            $input['imagename'] = $id.'_'.$request['productName'].'_v_blue_front.'.$image->getClientOriginalExtension();
             $blueVImageName = $input['imagename'];
             $destinationPath = public_path('/productimages');
             $image->move($destinationPath, $blueVImageName);
@@ -373,7 +374,7 @@ class ProductController extends Controller
             $blueCollarImageName = '';
             if($request['jerseyType'] == 'soccer') {
                 $image = $request->file('blueCollarImage');
-                $input['imagename'] = $id.'_'.$request['productName'].'_'.time().'_collar_blue_front.'.$image->getClientOriginalExtension();
+                $input['imagename'] = $id.'_'.$request['productName'].'_collar_blue_front.'.$image->getClientOriginalExtension();
                 $blueCollarImageName = $input['imagename'];
                 $destinationPath = public_path('/productimages');
                 $image->move($destinationPath, $blueCollarImageName);

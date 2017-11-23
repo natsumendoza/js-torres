@@ -198,7 +198,10 @@
                         Please select product to start.
                     </div>
                     <img id="tshirtFacing" src=""/>
-                    <div id="frontDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
+                    <img id="tshirtFacingBackNeck" style="display: none;" src=""/>
+                    <img id="tshirtFacingLeftNeck" style="display: none;" src=""/>
+                    <img id="tshirtFacingRightNeck" style="display: none;" src=""/>
+                    <div id="frontDrawingArea"  style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="frontCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
                     <div id="backDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">

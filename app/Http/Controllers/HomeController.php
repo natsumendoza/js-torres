@@ -61,8 +61,9 @@ class HomeController extends Controller
         foreach($productList as $product)
         {
             $product = (array)$product;
-            $productData[$product['id']] = $product;
+            $productData[$product['product_id']] = $product;
         }
+//        echo '<pre>';
 //        print_r($productData);
 //        die;
         $logos = Logo::all()->where('logo_type', 'jersey')->toArray();
@@ -70,8 +71,13 @@ class HomeController extends Controller
         foreach($productList as $product)
         {
             $product = (array)$product;
-            $productData[$product['id']] = $product;
+            $productData[$product['product_id']] = $product;
         }
+
+//        echo '<pre>';
+//        print_r($productData);
+//        die;
+
 
         $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
 
