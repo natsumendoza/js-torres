@@ -27,7 +27,12 @@ class UploadController extends Controller
         $logo = array();
         $logo['logo_name'] = $input['imagename'];
         $logo['logo_type'] = $request['logoType'];
-        $logo['base_price'] = 150.00;
+        if(Auth::user()->isAdmin()) {
+            $logo['base_price'] = 0.00;
+        } else {
+            $logo['base_price'] = 30.00;
+        }
+
 //        $this->postImage->add($input);
         Logo::create($logo);
 

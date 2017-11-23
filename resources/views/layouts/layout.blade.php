@@ -185,23 +185,27 @@
 
     // DATA PASSED FROM PHP
     var productData = <?php echo json_encode(@$productData) ?>;
-    //console.log(productData);
+    console.log(productData);
 
 
-    var drawProductPriceRow = function (productName, productPrice) {
+    var drawProductPriceRow = function (productName) {
         $('#priceTable').empty();
         $('#priceTable').prepend(
             "<tr>\n" +
             "<td id='productName'>"+productName+"</td>\n" +
-            "<td align=\"right\">&#8369;<span id='basePrice'>"+productPrice+"</span></td>\n" +
+            "<td align=\"right\">&#8369;<span id='basePrice'>0.00</span></td>\n" +
             "</tr>"
         );
     }
+
+
 
     $(document).ready(function() {
         var totalPrice = 0;
         var basePrice = 0;
         var quantity = 1;
+
+        var currentProductObj;
 
         $('.logoList').hide();
         $('#addToCart').attr('disabled', 'disabled');
@@ -211,7 +215,10 @@
             $('#lining-label').show();
             $('.neck-colors').show();
             $("#selectItem").css('display', 'none');
-            $('#tshirtFacing').attr('src', '{{asset('productneckstyles/front_jersey_roundneck_style_red.png')}}');
+            $('#tshirtFacing').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_round_neck_image);
+            $('#tshirtFacingBackNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_back_image);
+            $('#tshirtFacingLeftNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_left_image);
+            $('#tshirtFacingRightNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_right_image);
 
             $('#tshirtFacing').hide();
         });
@@ -219,7 +226,10 @@
             $('#lining-label').show();
             $('.neck-colors').show();
             $("#selectItem").css('display', 'none');
-            $('#tshirtFacing').attr('src', '{{asset('productneckstyles/front_jersey_vneck_style_red.png')}}');
+            $('#tshirtFacing').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_v_neck_image);
+            $('#tshirtFacingBackNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_back_image);
+            $('#tshirtFacingLeftNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_left_image);
+            $('#tshirtFacingRightNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_right_image);
             $('#tshirtFacing').hide();
         });
 
@@ -244,23 +254,26 @@
                 var fileName = $('#tshirtFacing').attr('src');
                 var productId = getShirtId(fileName);
                 var product = productData[productId];
+                currentProductObj = product;
+                console.log(product);
                 console.log('productId: ' + productId);
-                drawProductPriceRow(product.product_name, product.base_price);
-                basePrice = parseFloat(product.base_price);
+                drawProductPriceRow(product.product_name);
             } else {
+
                 $('#tshirtFacing').attr('src', $(this).attr('src'));
                 var fileName = $('#tshirtFacing').attr('src');
                 var productId = getShirtId(fileName);
                 var product = productData[productId];
 
                 if(tempId !== productId) {
-                    drawProductPriceRow(product.product_name, product.base_price);
-                    basePrice = parseFloat(product.base_price);
+                    $('.neck-colors').hide();
+                    $('#lining-label').hide();
+                    drawProductPriceRow(product.product_name);
                 } else {
-                    drawProductPriceRow(product.product_name, product.base_price);
+                    $('.neck-colors').hide();
+                    $('#lining-label').hide();
+                    drawProductPriceRow(product.product_name);
                     $('#productName').text(product.product_name);
-                    $('#basePrice').text(product.base_price);
-                    basePrice = parseFloat(product.base_price);
                 }
 
 

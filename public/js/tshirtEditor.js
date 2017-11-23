@@ -171,8 +171,8 @@ var neckSelected = false;
 
                 backCanvas.renderAll();
             }
-            logoCount++;
-            addLogoToTable(logoCount, 'Text');
+            // logoCount++;
+            // addLogoToTable(logoCount, 'Text');
 	  	};
 	  	$("#text-string").keyup(function(){	  		
 	  		var activeObject = canvas.getActiveObject();
@@ -566,6 +566,9 @@ var neckSelected = false;
             rightCanvas.backgroundColor = color;
             tempColor = color;
             canvas.renderAll();
+            backCanvas.renderAll();
+            leftCanvas.renderAll();
+            rightCanvas.renderAll();
         });
 
         $('.neck-color-preview').click(function(){
@@ -863,6 +866,14 @@ function removeLogoToTable(id) {
 }
 
 function renderNeckStyle(neckStyle, color) {
+
+    var fileName = $('.img-tshirt').attr('src');
+
+    var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+    var newStrFileName = fileName.replace(angleToReplace, "");
+    var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
+    var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
+    var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
     $('#frontDrawingArea').show();
     $('#backDrawingArea').hide();
     $('#leftDrawingArea').hide();
@@ -875,7 +886,7 @@ function renderNeckStyle(neckStyle, color) {
     // var angle = fabric.util.getRandomInt(-20, 40);
     // var width = fabric.util.getRandomInt(30, 50);
     // var opacity = (function(min, max){ return Math.random() * (max - min) + min; })(0.5, 1);
-    fabric.Image.fromURL('/productneckstyles/front_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    fabric.Image.fromURL(($('#tshirtFacing').attr('src').replace(colorToReplace, '_'+color)).replace(neckToReplace, '_'+neckStyle), function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -900,7 +911,18 @@ function renderNeckStyle(neckStyle, color) {
 
 function renderLeftNeckCanvas (neckStyle, color) {
 	     // alert(neckStyle + ', ' + color);
-    fabric.Image.fromURL('/productneckstyles/left_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    // $('#frontDrawingArea').hide();
+    // $('#backDrawingArea').hide();
+    // $('#leftDrawingArea').show();
+    // $('#rightDrawingArea').hide();
+    var fileName = $('.img-tshirt').attr('src');
+
+    var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+    var newStrFileName = fileName.replace(angleToReplace, "");
+    var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
+    var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
+    var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+    fabric.Image.fromURL(($('#tshirtFacingLeftNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_base'), function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -923,8 +945,19 @@ function renderLeftNeckCanvas (neckStyle, color) {
 
 function renderRightNeckCanvas (neckStyle, color) {
     // alert(neckStyle + ', ' + color);
+    // $('#frontDrawingArea').hide();
+    // $('#backDrawingArea').hide();
+    // $('#leftDrawingArea').hide();
+    // $('#rightDrawingArea').show();
+    var fileName = $('.img-tshirt').attr('src');
 
-    fabric.Image.fromURL('/productneckstyles/right_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+    var newStrFileName = fileName.replace(angleToReplace, "");
+    var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
+    var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
+    var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+    // console.log(neckToReplace);
+    fabric.Image.fromURL(($('#tshirtFacingRightNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_base'), function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -945,8 +978,19 @@ function renderRightNeckCanvas (neckStyle, color) {
 }
 
 function renderBackNeckCanvas(neckStyle, color) {
-    // alert(neckStyle + ', ' + color);
-    fabric.Image.fromURL('/productneckstyles/back_jersey_'+neckStyle+'neck_style_'+color+'.png', function(image) {
+    // alert(neckStyle + ', ' + color);\
+    // $('#frontDrawingArea').hide();
+    // $('#backDrawingArea').show();
+    // $('#leftDrawingArea').hide();
+    // $('#rightDrawingArea').hide();
+    var fileName = $('.img-tshirt').attr('src');
+
+    var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
+    var newStrFileName = fileName.replace(angleToReplace, "");
+    var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
+    var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
+    var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+    fabric.Image.fromURL(($('#tshirtFacingBackNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_base'), function(image) {
         image.set({
             left: 100,
             top: 200,

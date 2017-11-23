@@ -58,22 +58,21 @@
                             </div>
 
 
+                            <div id="bag-div">
 
-                            <div class="form-group{{ $errors->has('basePrice') ? ' has-error' : '' }}">
-                                <label for="basePrice" class="col-md-4 control-label">Base Price</label>
+                                <div class="form-group{{ $errors->has('basePrice') ? ' has-error' : '' }}">
+                                    <label for="basePrice" class="col-md-4 control-label">Base Price</label>
 
-                                <div class="col-md-6">
-                                    <input id="basePrice" type="number" step="0.01" class="form-control" name="basePrice" value="{{@$product['base_price']}}" required autofocus>
+                                    <div class="col-md-6">
+                                        <input id="basePrice" type="number" step="0.01" class="form-control" name="basePrice" value="{{@$product['base_price']}}" required autofocus>
 
-                                    @if ($errors->has('basePrice'))
-                                        <span class="help-block">
+                                        @if ($errors->has('basePrice'))
+                                            <span class="help-block">
                                         <strong>{{ $errors->first('basePrice') }}</strong>
                                     </span>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div id="bag-div">
 
                                 <div class="form-group{{ $errors->has('bagFrontImage') ? ' has-error' : '' }}">
                                     <label for="bagFrontImage" class="col-md-4 control-label">Front Image</label>
