@@ -291,7 +291,7 @@
                                         <tr>
                                             <td>
                                                 <label class="radio-inline">
-                                                    <input type="radio" value="{{base64_encode('FABRIC_TRIFIT')}}" name="fabricType" checked required>{{config('constants.FABRIC_TRIFIT')}}
+                                                    <input type="radio" value="{{base64_encode('FABRIC_TRIFIT')}}" name="fabricType">{{config('constants.FABRIC_TRIFIT')}}
                                                 </label>
                                             </td>
                                             <td>
