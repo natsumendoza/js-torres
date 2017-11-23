@@ -10,6 +10,7 @@ class Product extends Model
         'product_type',
         'product_name',
         'base_price',
-        'gender_flag'
+        'gender_flag',
+        'jersey_type'
     ];
 }

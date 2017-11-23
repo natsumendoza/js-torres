@@ -44,7 +44,7 @@
 
     </div>
     {{--height: 859px;--}}
-    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 100% 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/team_torres.jpg);
+    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 100% 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/Jersey.jpg);
  +
  +            ;">
 
@@ -62,7 +62,7 @@
 
 
                         <div class="col2-md-2" style="margin-top: 10px;">
-                            <img height="100" width="150" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/finishedproducts/'.$product['image'])}}">
+                            <img height="100" width="150" style="cursor:pointer; height: 130px !important;" class="img-tshirt" src="{{URL::asset('/finishedproducts/'.$product['image'])}}">
                             @auth
                                 <button type="submit" class="btn  btn-success" name="addToCart" id="addToCart">Buy <i class="icon-shopping-cart icon-white"></i></button>
                             @endauth

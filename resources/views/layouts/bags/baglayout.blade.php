@@ -172,7 +172,8 @@
     };
 
     // DATA PASSED FROM PHP
-    var productData = <?php echo json_encode(@$productData) ?>;
+    var productDataBagMale = <?php echo json_encode(@$productDataBagMale) ?>;
+    var productDataBagFemale = <?php echo json_encode(@$productDataBagFemale) ?>;
     //console.log(productData);
 
 
@@ -186,6 +187,15 @@
         );
     }
 
+    function changeType(gender) {
+        $('.bag-' + gender).show();
+    }
+
+    function hideAllTypes() {
+        $('.bag-male').hide();
+        $('.bag-female').hide();
+    }
+
     $(document).ready(function() {
         var totalPrice = 0;
         var basePrice = 0;
@@ -195,11 +205,31 @@
         $('#addToCart').attr('disabled', 'disabled');
         $('#colorList').hide();
 
+        var genderType = $('#gender-type').val();
+        changeType(genderType);
+
+        $('#gender-type').change(function () {
+            hideAllTypes();
+            $('#tshirtFacing').hide();
+            $('#colorList').hide();
+            $('#addToCart').prop('disabled', true);
+            genderType = $(this).val();
+            changeType(genderType);
+        });
+
 
         $('.img-tshirt').on('click', function() {
             $('#quantity').val(1);
             $("#imageeditor").css('display', 'block');
             $("#selectItem").css('display', 'none');
+
+            var productData;
+
+            if($('.bag-male').is(':visible')) {
+                productData = productDataBagMale;
+            } else if($('.bag-female').is(':visible')) {
+                productData = productDataBagFemale;
+            }
 
             var tempId = getShirtId($('.img-tshirt').attr('src'));
             console.log('tempId: ' + tempId);
@@ -220,6 +250,9 @@
                 drawProductPriceRow(product.product_name, product.base_price);
                 basePrice = parseFloat(product.base_price);
             } else {
+                $('#addToCart').prop('disabled', false);
+                $('#colorList').show();
+                $('.logoList').show();
                 $('#tshirtFacing').attr('src', $(this).attr('src'));
                 var fileName = $('#tshirtFacing').attr('src');
                 var productId = getShirtId(fileName);
