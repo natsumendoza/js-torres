@@ -9,6 +9,7 @@ use App\Order;
 use Session;
 use Auth;
 use App\FinishedProduct;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -46,15 +47,89 @@ class HomeController extends Controller
             }
         }
 
-        $productList = Product::all()->where('product_type', 'jersey')->toArray();
+
+
+//        $productList = Product::all()->where('product_type', 'jersey')->toArray();
+        $productListBasketballMale = DB::table('products')
+                        ->join('product_images', 'products.id', '=', 'product_images.product_id')
+                        ->select('products.*', 'product_images.*')
+                        ->where('products.product_type', '=', 'jersey')
+                        ->where('products.jersey_type', '=', 'basketball')
+                        ->where('products.gender_flag', '=', 'M')
+                        ->get();
+
+        $productListSoccerMale = DB::table('products')
+            ->join('product_images', 'products.id', '=', 'product_images.product_id')
+            ->select('products.*', 'product_images.*')
+            ->where('products.product_type', '=', 'jersey')
+            ->where('products.jersey_type', '=', 'soccer')
+            ->where('products.gender_flag', '=', 'M')
+            ->get();
+
+        $productListBasketballFemale = DB::table('products')
+            ->join('product_images', 'products.id', '=', 'product_images.product_id')
+            ->select('products.*', 'product_images.*')
+            ->where('products.product_type', '=', 'jersey')
+            ->where('products.jersey_type', '=', 'basketball')
+            ->where('products.gender_flag', '=', 'F')
+            ->get();
+
+        $productListSoccerFemale = DB::table('products')
+            ->join('product_images', 'products.id', '=', 'product_images.product_id')
+            ->select('products.*', 'product_images.*')
+            ->where('products.product_type', '=', 'jersey')
+            ->where('products.jersey_type', '=', 'soccer')
+            ->where('products.gender_flag', '=', 'F')
+            ->get();
+//        echo '<pre>';
+//        print_r($productList);
+
+//        echo '<pre>';
+//        print_r($productData);
+//        die;
         $logos = Logo::all()->where('logo_type', 'jersey')->toArray();
-        $productData = array();
-        foreach($productList as $product)
+        $productDataBasketballMale = array();
+        foreach($productListBasketballMale as $product)
         {
-            $productData[$product['id']] = $product;
+            $product = (array)$product;
+            $productDataBasketballMale[$product['product_id']] = $product;
+        }
+        $productDataSoccerMale = array();
+        foreach($productListSoccerMale as $product)
+        {
+            $product = (array)$product;
+            $productDataSoccerMale[$product['product_id']] = $product;
+        }
+        $productDataBasketballFemale = array();
+        foreach($productListBasketballFemale as $product)
+        {
+            $product = (array)$product;
+            $productDataBasketballFemale[$product['product_id']] = $product;
+        }
+        $productDataSoccerFemale = array();
+        foreach($productListSoccerFemale as $product)
+        {
+            $product = (array)$product;
+            $productDataSoccerFemale[$product['product_id']] = $product;
         }
 
-        $data = array('productList' => $productList, 'logos' => $logos, 'productData' => $productData);
+//        echo '<pre>';
+//        print_r($productData);
+//        die;
+
+
+        $data = array(
+            'productListBasketballMale' => $productListBasketballMale,
+            'productListSoccerMale' => $productDataSoccerMale,
+            'productListBasketballFemale' => $productDataBasketballFemale,
+            'productListSoccerFemale' => $productDataSoccerFemale,
+
+            'productDataBasketballMale' => $productDataBasketballMale,
+            'productDataSoccerMale' => $productDataSoccerMale,
+            'productDataBasketballFemale' => $productDataBasketballFemale,
+            'productDataSoccerFemale' => $productDataSoccerFemale,
+            'logos' => $logos
+        );
 
         return view('index')->with($data);
     }

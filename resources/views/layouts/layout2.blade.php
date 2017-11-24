@@ -119,6 +119,7 @@
 
 <script src="{{ env('APP_ENV') == 'local' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
 <script src="{{ env('APP_ENV') == 'local' ? asset('js/jstorres.js') : secure_asset('js/jstorres.js')}}"></script>
+<script src="{{ env('APP_ENV') == 'local' ? asset('js/jstorresProduct.js') : secure_asset('js/jstorresProduct.js')}}"></script>
 
 
 </body>

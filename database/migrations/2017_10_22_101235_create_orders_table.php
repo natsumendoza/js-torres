@@ -21,10 +21,11 @@ class CreateOrdersTable extends Migration
             $table->string('back_image');
             $table->string('left_image')->nullable();
             $table->string('right_image')->nullable();
+            $table->string('fabric_type')->nullable();
+            $table->string('print_type')->nullable();
             $table->integer('quantity');
             $table->decimal('total_price', 10,2);
             $table->string('status');
-            $table->string('payment_mode');
             $table->timestamps();
         });
     }

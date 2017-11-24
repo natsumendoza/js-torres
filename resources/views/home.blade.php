@@ -21,7 +21,9 @@
 
         </div>
         <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
-            <h3 id="ad-link" style="cursor: pointer; color: #000000;">Advertisements</h3>
+            <h3 id="ad-link" style="cursor: pointer; color: #000000;">Product
+
+            </h3>
 
         </div>
         <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
@@ -42,7 +44,7 @@
 
     </div>
     {{--height: 859px;--}}
-    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 100% 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/team_torres.jpg);
+    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 100% 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/Jersey.jpg);
  +
  +            ;">
 
@@ -54,15 +56,14 @@
                     <form style="margin: 0px;" method="POST" action="{{url('orders')}}">
                         {{csrf_field()}}
                         <input id="userId" type="hidden" class="hidden" name="userId" value="{{ @Auth::user()->id }}">
-                        <input id="orderType" type="hidden" class="hidden" name="orderType" value="jersey">
-                        <input id="orderType" type="hidden" class="hidden" name="quantity" value="1">
-                        <input id="orderType" type="hidden" class="hidden" name="totalPrice" value="{{$product['price']}}">
-
+                        <input id="orderType" type="hidden" class="hidden" name="orderType" value="finished">
+                        <input id="quantity" type="hidden" class="hidden" name="quantity" value="1">
+                        <input id="totalPrice" type="hidden" class="hidden" name="totalPrice" value="{{$product['price']}}">
 
                         <div class="col2-md-2" style="margin-top: 10px;">
-                            <img height="100" width="150" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/finishedproducts/'.$product['image'])}}">
+                            <img height="100" width="150" style="cursor:pointer; height: 130px !important;" class="img-tshirt" src="{{URL::asset('/finishedproducts/'.$product['image'])}}">
                             @auth
-                                <button type="submit" class="btn  btn-success" name="addToCart" id="addToCart">Buy <i class="icon-shopping-cart icon-white"></i></button>
+                                <button type="submit" class="btn btn-success" name="addToCart" id="addToCart">Buy <i class="icon-shopping-cart icon-white"></i></button>
                             @endauth
                         </div>
 

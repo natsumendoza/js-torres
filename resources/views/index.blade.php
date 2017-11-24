@@ -43,10 +43,42 @@
                                     <option value="football">Football</option>
                                 </select>
 
-                                <div id="avatarlist">
-                                    @foreach($productList as $product)
-                                        <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['front_image'])}}">
-                                    @endforeach
+                                <label for="gender-type">Gender</label>
+                                <select id="gender-type">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+
+                                <div class="basketball-male" id="avatarlist" style="display: none;">
+                                    @if(count($productDataBasketballMale) > 0)
+                                        @foreach($productDataBasketballMale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="soccer-male" id="avatarlist" style="display: none;">
+                                    @if(count($productDataSoccerMale) > 0)
+                                        @foreach($productDataSoccerMale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="basketball-female" id="avatarlist" style="display: none;">
+                                    @if(count($productDataBasketballFemale) > 0)
+                                        @foreach($productDataBasketballFemale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="soccer-female" id="avatarlist" style="display: none;">
+                                    @if(count($productDataSoccerFemale) > 0)
+                                        @foreach($productDataSoccerFemale as $product)
+                                            <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['white_front_image'])}}">
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <!--						      </p>-->
                             </div>
@@ -198,7 +230,10 @@
                         Please select product to start.
                     </div>
                     <img id="tshirtFacing" src=""/>
-                    <div id="frontDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
+                    <img id="tshirtFacingBackNeck" style="display: none;" src=""/>
+                    <img id="tshirtFacingLeftNeck" style="display: none;" src=""/>
+                    <img id="tshirtFacingRightNeck" style="display: none;" src=""/>
+                    <div id="frontDrawingArea"  style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="frontCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
                     <div id="backDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
@@ -238,9 +273,88 @@
 
                             <div class="span3">
                                 <div class="well">
-                                    <h3>Total Prices</h3>
+                                    <h4>Types of Fabrics</h4>
+                                    <p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_MICRO_SHINY')}}" name="fabricType" checked required>{{config('constants.FABRIC_MICRO_SHINY')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_MICRO_NET')}}" name="fabricType">{{config('constants.FABRIC_MICRO_NET')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_TRIFIT')}}" name="fabricType">{{config('constants.FABRIC_TRIFIT')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_SEMI_COOL')}}" name="fabricType">{{config('constants.FABRIC_SEMI_COOL')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_SQUARE_KNIT')}}" name="fabricType">{{config('constants.FABRIC_SQUARE_KNIT')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_SPORTS_MAX')}}" name="fabricType">{{config('constants.FABRIC_SPORTS_MAX')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" class="fabricType" value="{{base64_encode('FABRIC_CHECKERED')}}" name="fabricType">{{config('constants.FABRIC_CHECKERED')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                    </p>
+                                </div>
+                                <div class="well">
+                                    <h4>Types of Print</h4>
+                                    <p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label class="radio-inline">
+                                                    <input type="radio" class="{{base64_encode(config('constants.PRINT_PRIZE_CUTOUT'))}}" id="printType" value="{{base64_encode('PRINT_CUTOUT')}}" name="printType" checked>{{config('constants.PRINT_CUTOUT')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" class="{{base64_encode(config('constants.PRINT_PRIZE_RUBBERIZED'))}}" id="printType" value="{{base64_encode('PRINT_RUBBERIZED')}}" name="printType">{{config('constants.PRINT_RUBBERIZED')}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"  style="margin-left: 10px;">
+                                                    <input type="radio" class="{{base64_encode(config('constants.PRINT_PRIZE_VINYL'))}}" id="printType" value="{{base64_encode('PRINT_VINYL')}}" name="printType">{{config('constants.PRINT_VINYL')}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </p>
+                                </div>
+                                <div class="well">
+                                    <h4>Total Prices</h4>
                                     <p>
                                     <table class="table" id="priceTable">
+
                                         {{--<tr>--}}
                                             {{--<td>Short Sleeve</td>--}}
                                             {{--<td align="right">&#8369;12.49</td>--}}
@@ -270,9 +384,7 @@
                     @endif
                     @endauth
 
-
-
-        </div>
+         </div>
 
     </section>
 </div><!-- /container -->

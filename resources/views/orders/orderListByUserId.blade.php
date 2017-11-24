@@ -26,6 +26,8 @@
             <th style="text-align: center">ID</th>
             <th style="text-align: center">Transaction Code</th>
             <th style="text-align: center">Order Images</th>
+            <th style="text-align: center">Type of Fabric</th>
+            <th style="text-align: center">Type of Print</th>
             <th style="text-align: center">Quantity</th>
             <th style="text-align: center">Total Price</th>
             <th style="text-align: center">Status</th>
@@ -39,13 +41,27 @@
                 <td style="text-align: center;">
                     <a class="viewOrderImage" id="{{$order['id']}}" data-toggle="modal" data-target="#orderImageModal">View Images</a>
                 </td>
+                <td style="text-align: center;">
+                    @if(ISSET($order['fabric_type']) AND !EMPTY($order['fabric_type']))
+                        {{$order['fabric_type']}}
+                    @else
+                        N/A
+                    @endif
+                </td>
+                <td style="text-align: center;">
+                    @if(ISSET($order['print_type']) AND !EMPTY($order['print_type']))
+                        {{$order['print_type']}}
+                    @else
+                        N/A
+                    @endif
+                </td>
                 <td style="text-align: center;">{{$order['quantity']}}</td>
                 <td style="text-align: right;">{{$order['total_price']}}</td>
                 <td style="text-align: center;">{{$order['status']}}</td>
             </tr>
         @endforeach
         <tr>
-            <td style="text-align: right;" colspan="6">
+            <td style="text-align: right;" colspan="8">
                 <a href="{{url('')}}" class="btn btn-default">Close</a>
             </td>
         </tbody>

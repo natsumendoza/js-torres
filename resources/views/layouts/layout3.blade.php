@@ -91,6 +91,16 @@
             color: #45aeea !important;
         }
 
+        /*.dropdown-submenu, .dropdown-menu {*/
+            /*top: 0;*/
+            /*left: 100%;*/
+            /*margin-top: -1px;*/
+        /*}*/
+        .dropdown-submenu {
+            position: relative;
+        }
+
+
     </style>
 </head>
 
@@ -260,7 +270,7 @@
     });
 
 </script>
-<script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
+<script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/jstorres.js') : secure_asset('js/jstorres.js') }}"></script>
 
 </body>
 </html>

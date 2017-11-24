@@ -14,7 +14,7 @@
                     </tr>
                     <tr>
                         <td style="text-align: center;">
-                            <img src="{{URL::asset('/img/bdo_logo.png')}}" height="150" width="150">
+                            <img src="{{URL::asset('/images/bdo_logo.png')}}" height="150" width="150">
                         </td>
                     </tr>
                     <tr>
