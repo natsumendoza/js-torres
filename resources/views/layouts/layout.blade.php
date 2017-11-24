@@ -77,6 +77,21 @@
         .Plaster{font-family:"Plaster";}
         .Engagement{font-family:"Engagement";}
 
+
+
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            .drawing-areas {
+                left: 90px !important;
+            }
+
+            body {
+                padding-top: 0px;
+
+            }
+        }
+
+
     </style>
 </head>
 
@@ -321,7 +336,7 @@
                 currentProductObj = product;
                 console.log(product);
                 console.log('productId: ' + productId);
-                drawProductPriceRow(product.product_name);
+//                drawProductPriceRow(product.product_name);
             } else {
                 $('#colorList').show();
                 $('.logoList').show();
@@ -334,11 +349,11 @@
                 if(tempId !== productId) {
                     $('.neck-colors').hide();
                     $('#lining-label').hide();
-                    drawProductPriceRow(product.product_name);
+//                    drawProductPriceRow(product.product_name);
                 } else {
                     $('.neck-colors').hide();
                     $('#lining-label').hide();
-                    drawProductPriceRow(product.product_name);
+//                    drawProductPriceRow(product.product_name);
                     $('#productName').text(product.product_name);
                 }
 

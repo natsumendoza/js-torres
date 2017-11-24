@@ -66,6 +66,15 @@
         .Plaster{font-family:"Plaster";}
         .Engagement{font-family:"Engagement";}
 
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            body {
+                padding-top: 0px;
+
+            }
+
+        }
+
     </style>
 </head>
 

@@ -87,6 +87,18 @@
             display: block;
         }
 
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            .dropdown2 {
+                display:block;
+            }
+            body {
+                padding-top: 0px;
+
+            }
+
+        }
+
         .link-active {
             color: #45aeea !important;
         }
