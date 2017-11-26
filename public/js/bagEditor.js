@@ -120,9 +120,10 @@ $(document).ready(function() {
 
     document.getElementById('add-text').onclick = function() {
         var text = $("#text-string").val();
+        var offset = 50;
         var textSample = new fabric.Text(text, {
-            left: fabric.util.getRandomInt(0, 200),
-            top: fabric.util.getRandomInt(0, 400),
+            left: fabric.util.getRandomInt(offset, 200 - offset),
+            top: fabric.util.getRandomInt(offset, 400 - offset),
             fontFamily: 'helvetica',
             angle: 0,
             fill: '#000000',
@@ -132,24 +133,12 @@ $(document).ready(function() {
             hasRotatingPoint:true
         });
 
-        if ($('#flip').attr("data-original-title") == "Show Back View") {
             canvas.add(textSample);
             canvas.item(canvas.item.length-1).hasRotatingPoint = true;
             $("#texteditor").css('display', 'block');
             $("#imageeditor").css('display', 'block');
 
             canvas.renderAll();
-
-        } else {
-            backCanvas.add(textSample);
-            backCanvas.item(backCanvas.item.length-1).hasRotatingPoint = true;
-            $("#texteditor").css('display', 'block');
-            $("#imageeditor").css('display', 'block');
-
-            backCanvas.renderAll();
-        }
-        logoCount++;
-        addLogoToTable(logoCount);
     };
     $("#text-string").keyup(function(){
         var activeObject = canvas.getActiveObject();
@@ -162,8 +151,8 @@ $(document).ready(function() {
         var el = e.target;
         /*temp code*/
         var offset = 50;
-        var left = fabric.util.getRandomInt(0 + offset, 200 - offset);
-        var top = fabric.util.getRandomInt(0 + offset, 400 - offset);
+        var left = fabric.util.getRandomInt(offset, 200 - offset);
+        var top = fabric.util.getRandomInt(offset, 400 - offset);
         var angle = fabric.util.getRandomInt(-20, 40);
         var width = fabric.util.getRandomInt(30, 50);
         var opacity = (function(min, max){ return Math.random() * (max - min) + min; })(0.5, 1);
@@ -178,21 +167,11 @@ $(document).ready(function() {
                 hasRotatingPoint:true
             });
             //image.scale(getRandomNum(0.1, 0.25)).setCoords();
-            console.log('here')
-
-
-            if ($('#flip').attr("data-original-title") == "Show Back View") {
-                canvas.add(image);
-                canvas.renderAll();
-            } else {
-                backCanvas.add(image);
-                backCanvas.renderAll();
-            }
+            canvas.add(image);
+            canvas.renderAll();
 
 
         });
-        logoCount++;
-        addLogoToTable(logoCount);
     });
     $(".img-tshirt").click(function(e){
         $('#frontDrawingArea').show();
@@ -209,8 +188,8 @@ $(document).ready(function() {
 
         fabric.Image.fromURL(el.src, function(image) {
             image.set({
-                left: 170,
-                top: 210,
+                left: 190,
+                top: 220,
                 angle: 0,
                 padding: 10,
                 cornersize: 10,
@@ -228,7 +207,6 @@ $(document).ready(function() {
         renderBackCanvas();
     });
     document.getElementById('remove-selected').onclick = function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject(),
                 activeGroup = canvas.getActiveGroup();
             if (activeObject) {
@@ -242,21 +220,6 @@ $(document).ready(function() {
                     canvas.remove(object);
                 });
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject(),
-                activeGroup = backCanvas.getActiveGroup();
-            if (activeObject) {
-                backCanvas.remove(activeObject);
-                $("#text-string").val("");
-            }
-            else if (activeGroup) {
-                var objectsInGroup = activeGroup.getObjects();
-                backCanvas.discardActiveGroup();
-                objectsInGroup.forEach(function(object) {
-                    backCanvas.remove(object);
-                });
-            }
-        }
 
         if (logoCount > 0) {
             removeLogoToTable(logoCount);
@@ -266,148 +229,77 @@ $(document).ready(function() {
     };
 
     $("#text-bold").click(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $("#text-italic").click(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $("#text-strike").click(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $("#text-underline").click(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $("#text-left").click(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.textAlign = 'left';
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.textAlign = 'left';
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $("#text-center").click(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.textAlign = 'center';
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.textAlign = 'center';
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $("#text-right").click(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.textAlign = 'right';
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.textAlign = 'right';
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $("#font-family").change(function() {
-        if($('#flip').attr("data-original-title") == "Show Back View") {
             var activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
                 activeObject.fontFamily = this.value;
                 canvas.renderAll();
             }
-        } else {
-            var activeObject = backCanvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.fontFamily = this.value;
-                backCanvas.renderAll();
-            }
-        }
 
     });
     $('#text-bgcolor').miniColors({
         change: function(hex, rgb) {
-            if($('#flip').attr("data-original-title") == "Show Back View") {
                 var activeObject = canvas.getActiveObject();
                 if (activeObject && activeObject.type === 'text') {
                     activeObject.backgroundColor = this.value;
                     canvas.renderAll();
                 }
-            } else {
-                var activeObject = backCanvas.getActiveObject();
-                if (activeObject && activeObject.type === 'text') {
-                    activeObject.backgroundColor = this.value;
-                    backCanvas.renderAll();
-                }
-            }
+
 
         },
         open: function(hex, rgb) {
@@ -419,19 +311,11 @@ $(document).ready(function() {
     });
     $('#text-fontcolor').miniColors({
         change: function(hex, rgb) {
-            if($('#flip').attr("data-original-title") == "Show Back View") {
                 var activeObject = canvas.getActiveObject();
                 if (activeObject && activeObject.type === 'text') {
                     activeObject.fill = this.value;
                     canvas.renderAll();
                 }
-            } else {
-                var activeObject = backCanvas.getActiveObject();
-                if (activeObject && activeObject.type === 'text') {
-                    activeObject.fill = this.value;
-                    backCanvas.renderAll();
-                }
-            }
 
         },
         open: function(hex, rgb) {
@@ -444,19 +328,11 @@ $(document).ready(function() {
 
     $('#text-strokecolor').miniColors({
         change: function(hex, rgb) {
-            if($('#flip').attr("data-original-title") == "Show Back View") {
                 var activeObject = canvas.getActiveObject();
                 if (activeObject && activeObject.type === 'text') {
                     activeObject.strokeStyle = this.value;
                     canvas.renderAll();
                 }
-            } else {
-                var activeObject = backCanvas.getActiveObject();
-                if (activeObject && activeObject.type === 'text') {
-                    activeObject.strokeStyle = this.value;
-                    backCanvas.renderAll();
-                }
-            }
 
         },
         open: function(hex, rgb) {

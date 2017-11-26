@@ -89,6 +89,13 @@
                 padding-top: 0px;
 
             }
+
+            .modal-body {
+                display: none;
+            }
+            #drpdwn {
+                float: left !important;
+            }
         }
 
 
@@ -113,8 +120,8 @@
                 </ul>
             </div>
             
-            <div class="nav-collapse" id="main-menu">
-                <ul class="nav navbar-nav navbar-right" style="float:right">
+            <div class="drpdwn nav-collapse" id="main-menu">
+                <ul class="nav navbar-nav navbar-right" id="drpdwn" style="float:right">
 
                     @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
@@ -136,14 +143,14 @@
                             @endif
 
 
-                            <li class="dropdown">
+                            <li class="dropdown" >
                                 <input type="hidden" id="neckstylepath" value="{{URL::asset('/')}}" />
                                 {{--{{ Auth::user()->name }}--}}
                                 <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     @if(Auth::user()->isAdmin())
                                         <li><a href="{{ url('/products') }}">Products</a></li>
-                                        <li><a href="{{ url('/finishedproduct') }}">Finished Products</a></li>
+                                        <li><a href="{{ url('/finishedproduct') }}">Sample Products</a></li>
                                         <li><a href="{{ url('/orders') }}">Orders</a></li>
                                         <li><a href="{{ url('/users') }}">Users</a></li>
                                     @else
@@ -186,6 +193,12 @@
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/canvas2image.js') : secure_asset('js/canvas2image.js')}}"></script>
 <script type="text/javascript">
+
+//    $(window).resize(function(){
+//        if ($(window).width() <= 800){
+//            $('.drpdwn').removeClass('nav-collapse in collapse');
+//        }
+//    });
 
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-35639689-1']);
@@ -240,7 +253,7 @@
         var currentProductObj;
 
         $('.fabricType').attr('disabled', 'disabled');
-        $('#printType').attr('disabled', 'disabled');
+        $('input[name=printType]').attr('disabled', 'disabled');
 
         $('.logoList').hide();
         $('#addToCart').attr('disabled', 'disabled');
@@ -309,7 +322,7 @@
             $("#selectItem").css('display', 'none');
 
             $('.fabricType').prop('disabled', false);
-            $('#printType').attr('disabled', false);
+            $('input[name=printType]').attr('disabled', false);
 
             var productData;
 

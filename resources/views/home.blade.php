@@ -21,7 +21,7 @@
 
         </div>
         <div class="col-md-2 text-center dropdown2" style="margin-right: 20px;">
-            <h3 id="ad-link" style="cursor: pointer; color: #000000;">Product
+            <h3 id="ad-link" style="cursor: pointer; color: #000000;">Products
 
             </h3>
 
@@ -44,7 +44,7 @@
 
     </div>
     {{--height: 859px;--}}
-    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 100% 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/Jersey.jpg);
+    <div class="row2 bg-row" style="background-color: #f3f7e5; margin: 0px; min-height: 400px;  text-align: center; background-size: 100% 859px; height: 859px;background-repeat: no-repeat; background-image: url(../images/JSBACKGROUND1.jpg);
  +
  +            ;">
 
