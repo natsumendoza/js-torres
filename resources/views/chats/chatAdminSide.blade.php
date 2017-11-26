@@ -72,7 +72,7 @@
         </tr>
         <tr>
             <td style="text-align: right;">
-                <a href="{{url('')}}" class="btn btn-default">Close</a>
+                <a href="{{url('/chat')}}" class="btn btn-default">Close</a>
             </td>
         </tr>
     </table>
