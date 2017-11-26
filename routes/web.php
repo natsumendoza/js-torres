@@ -53,6 +53,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('orders', 'OrderController');
     Route::resource('cart', 'CartController');
     Route::resource('finishedproduct', 'FinishedProductController');
+    Route::get('chat/admin/{clientId}', 'ChatController@chatAdminSide');
+    Route::get('chat/client', 'ChatController@chatClientSide');
+    Route::resource('chat', 'ChatController');
     Route::get('error', function ()
     {
         return view('customException');

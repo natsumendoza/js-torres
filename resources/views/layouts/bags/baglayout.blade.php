@@ -111,8 +111,13 @@
 
 
                                 <li><a href="{{(url('/cart/'.\base64_encode(Session::get('transactionCode')))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
+                                <li><a href="{{ url('/chat/client') }}"><i class="icon-comment icon-white"></i></a></li>
                             @endif
 
+                            @if(Auth::user()->isAdmin())
+                                <li><a href="{{ url('/chat')}}"><i class="icon-comment icon-white"></i></a></li>
+
+                            @endif
 
                             <li class="dropdown">
                                 {{--{{ Auth::user()->name }}--}}
