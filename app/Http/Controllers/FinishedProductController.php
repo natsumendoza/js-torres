@@ -101,22 +101,27 @@ class FinishedProductController extends Controller
             'productName' => 'required',
             'productType' => 'required',
             'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
-
-
-        $image = $request->file('image');
-        $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'.'.$image->getClientOriginalExtension();
-        $frontImageName = $input['imagename'];
-        $destinationPath = public_path('/finishedproducts');
-        $image->move($destinationPath, $frontImageName);
-
-        // SETS $validate_product to $product
         $product['product_name'] = $validated_product['productName'];
         $product['product_type'] = $validated_product['productType'];
         $product['price']   = $validated_product['price'];
-        $product['image']  = $frontImageName;
+
+
+
+        if($request['image'] != NULL) {
+            File::delete(public_path('finishedproducts/'.$product['image']));
+
+            $image = $request->file('image');
+            $input['imagename'] = $id.'_'.$validated_product['productName'].'_'.time().'.'.$image->getClientOriginalExtension();
+            $frontImageName = $input['imagename'];
+            $destinationPath = public_path('/finishedproducts');
+            $image->move($destinationPath, $frontImageName);
+            $product['image']  = $frontImageName;
+        }
+
+        // SETS $validate_product to $product
+
         $product->save();
 
         return redirect('finishedproduct')->with('success','Product has been updated');

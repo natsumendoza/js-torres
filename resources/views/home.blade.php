@@ -56,15 +56,14 @@
                     <form style="margin: 0px;" method="POST" action="{{url('orders')}}">
                         {{csrf_field()}}
                         <input id="userId" type="hidden" class="hidden" name="userId" value="{{ @Auth::user()->id }}">
-                        <input id="orderType" type="hidden" class="hidden" name="orderType" value="jersey">
-                        <input id="orderType" type="hidden" class="hidden" name="quantity" value="1">
-                        <input id="orderType" type="hidden" class="hidden" name="totalPrice" value="{{$product['price']}}">
-
+                        <input id="orderType" type="hidden" class="hidden" name="orderType" value="finished">
+                        <input id="quantity" type="hidden" class="hidden" name="quantity" value="1">
+                        <input id="totalPrice" type="hidden" class="hidden" name="totalPrice" value="{{$product['price']}}">
 
                         <div class="col2-md-2" style="margin-top: 10px;">
                             <img height="100" width="150" style="cursor:pointer; height: 130px !important;" class="img-tshirt" src="{{URL::asset('/finishedproducts/'.$product['image'])}}">
                             @auth
-                                <button type="submit" class="btn  btn-success" name="addToCart" id="addToCart">Buy <i class="icon-shopping-cart icon-white"></i></button>
+                                <button type="submit" class="btn btn-success" name="addToCart" id="addToCart">Buy <i class="icon-shopping-cart icon-white"></i></button>
                             @endauth
                         </div>
 

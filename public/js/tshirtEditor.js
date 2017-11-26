@@ -217,7 +217,7 @@ var neckSelected = false;
 
 		        });
 	  		logoCount++;
-            addLogoToTable(logoCount, 'Logo');
+            // addLogoToTable(logoCount, 'Logo');
 	  	});
         $(".img-tshirt").click(function(e){
             neckSelected = false;

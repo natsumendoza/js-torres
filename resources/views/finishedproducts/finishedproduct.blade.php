@@ -74,7 +74,7 @@
                                 <label for="image" class="col-md-4 control-label">Image</label>
 
                                 <div class="col-md-6">
-                                    <input id="image" type="file" class="form-control" name="image" value="{{@$product['front_image']}}" required autofocus>
+                                    <input id="image" type="file" class="form-control" name="image" value="{{@$product['front_image']}}" autofocus>
 
                                     @if ($errors->has('image'))
                                         <span class="help-block">
@@ -84,6 +84,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Current Image</label>
+
+                                <div class="col-md-6">
+                                    <a href="{{asset('finishedproducts/'.$product['image'])}}" target="_blank" data-toggle="tooltip" title="Click image"><img height="80" width="120" src="{{asset('finishedproducts/'.$product['image'])}}"></a>
+                                </div>
+                            </div>
 
 
                             <div class="form-group">

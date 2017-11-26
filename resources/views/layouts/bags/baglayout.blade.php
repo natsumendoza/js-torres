@@ -66,6 +66,15 @@
         .Plaster{font-family:"Plaster";}
         .Engagement{font-family:"Engagement";}
 
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            body {
+                padding-top: 0px;
+
+            }
+
+        }
+
     </style>
 </head>
 
@@ -79,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="{{ url('/') }}">June Sportshop</a>
+            <a class="brand" href="{{ url('/') }}">JS Torres Shop</a>
             <div class="nav-collapse" id="main-menu">
                 <ul class="nav" id="main-menu-left">
                     <li><a href="{{ url('/customize') }}">Jerseys</a></li>

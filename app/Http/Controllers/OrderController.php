@@ -32,6 +32,7 @@ class OrderController extends Controller
 
 
 
+        $orderList = array();
         foreach ($orderListTemp as $order)
         {
             $order  = (array) $order;

@@ -233,16 +233,16 @@
                     <img id="tshirtFacingBackNeck" style="display: none;" src=""/>
                     <img id="tshirtFacingLeftNeck" style="display: none;" src=""/>
                     <img id="tshirtFacingRightNeck" style="display: none;" src=""/>
-                    <div id="frontDrawingArea"  style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
+                    <div class="drawing-areas" id="frontDrawingArea"  style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="frontCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
-                    <div id="backDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
+                    <div class="drawing-areas" id="backDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="backCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
-                    <div id="leftDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
+                    <div class="drawing-areas" id="leftDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="leftCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
-                    <div id="rightDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
+                    <div class="drawing-areas" id="rightDrawingArea" style="position: absolute;top: 40px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="rightCanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
                     {{--<a id="frontDownload">Download front image</a>--}}
