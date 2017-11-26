@@ -209,8 +209,8 @@ $(document).ready(function() {
 
         fabric.Image.fromURL(el.src, function(image) {
             image.set({
-                left: 170,
-                top: 210,
+                left: 190,
+                top: 220,
                 angle: 0,
                 padding: 10,
                 cornersize: 10,
