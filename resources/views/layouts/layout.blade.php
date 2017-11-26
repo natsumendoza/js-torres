@@ -138,7 +138,7 @@
                                 <ul class="dropdown-menu">
                                     @if(Auth::user()->isAdmin())
                                         <li><a href="{{ url('/products') }}">Products</a></li>
-                                        <li><a href="{{ url('/finishedproduct') }}">Finished Products</a></li>
+                                        <li><a href="{{ url('/finishedproduct') }}">Sample Products</a></li>
                                         <li><a href="{{ url('/orders') }}">Orders</a></li>
                                         <li><a href="{{ url('/users') }}">Users</a></li>
                                     @else
@@ -235,7 +235,7 @@
         var currentProductObj;
 
         $('.fabricType').attr('disabled', 'disabled');
-        $('#printType').attr('disabled', 'disabled');
+        $('input[name=printType]').attr('disabled', 'disabled');
 
         $('.logoList').hide();
         $('#addToCart').attr('disabled', 'disabled');
@@ -304,7 +304,7 @@
             $("#selectItem").css('display', 'none');
 
             $('.fabricType').prop('disabled', false);
-            $('#printType').attr('disabled', false);
+            $('input[name=printType]').attr('disabled', false);
 
             var productData;
 

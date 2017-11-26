@@ -20,11 +20,13 @@ return [
     'PRINT_CUTOUT'              => 'Cutout',
     'PRINT_RUBBERIZED'          => 'Rubberized',
     'PRINT_VINYL'               => 'Vinyl',
+    'PRINT_SUBLIMATION'               => 'Sublimation',
 
     // PRINT PRIZES
     'PRINT_PRIZE_CUTOUT'        => 500,
     'PRINT_PRIZE_RUBBERIZED'    => 600,
     'PRINT_PRIZE_VINYL'         => 700,
+    'PRINT_PRIZE_SUBLIMATION'         => 1200,
 
 
 ];
