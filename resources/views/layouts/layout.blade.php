@@ -89,6 +89,13 @@
                 padding-top: 0px;
 
             }
+
+            .modal-body {
+                display: none;
+            }
+            #drpdwn {
+                float: left !important;
+            }
         }
 
 
@@ -113,8 +120,8 @@
                 </ul>
             </div>
             
-            <div class="nav-collapse" id="main-menu">
-                <ul class="nav navbar-nav navbar-right" style="float:right">
+            <div class="drpdwn nav-collapse" id="main-menu">
+                <ul class="nav navbar-nav navbar-right" id="drpdwn" style="float:right">
 
                     @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
@@ -131,7 +138,7 @@
                             @endif
 
 
-                            <li class="dropdown">
+                            <li class="dropdown" >
                                 <input type="hidden" id="neckstylepath" value="{{URL::asset('/')}}" />
                                 {{--{{ Auth::user()->name }}--}}
                                 <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">{{ Auth::user()->isAdmin() ? "Admin" : Auth::user()->first_name }} <b class="caret"></b></a>
@@ -181,6 +188,12 @@
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/canvas2image.js') : secure_asset('js/canvas2image.js')}}"></script>
 <script type="text/javascript">
+
+//    $(window).resize(function(){
+//        if ($(window).width() <= 800){
+//            $('.drpdwn').removeClass('nav-collapse in collapse');
+//        }
+//    });
 
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-35639689-1']);
