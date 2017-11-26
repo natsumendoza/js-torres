@@ -337,7 +337,7 @@
                                                 </label>
                                             </td>
                                             <td>
-                                                <label class="radio-inline"  style="">
+                                                <label class="radio-inline"  style="margin-left: 10px;">
                                                     <input type="radio" class="{{base64_encode(config('constants.PRINT_PRIZE_RUBBERIZED'))}}" id="printType" value="{{base64_encode('PRINT_RUBBERIZED')}}" name="printType">{{config('constants.PRINT_RUBBERIZED')}}
                                                 </label>
                                             </td>
