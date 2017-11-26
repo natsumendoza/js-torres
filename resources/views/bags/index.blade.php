@@ -38,24 +38,9 @@
                                     <!--					      	<h3>Tee Styles</h3>-->
                                     <!--						      <p>-->
 
-                                    <label for="gender-type">Gender</label>
-                                    <select id="gender-type">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-
-                                    <div class="bag-male" id="avatarlist" style="display: none;">
-                                        @if(count($productDataBagMale) > 0)
-                                            @foreach($productDataBagMale as $product)
-                                                <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['bag_front_image'])}}">
-                                            @endforeach
-                                        @endif
-
-                                    </div>
-
-                                    <div class="bag-female" id="avatarlist" style="display: none;">
-                                        @if(count($productDataBagFemale) > 0)
-                                            @foreach($productDataBagFemale as $product)
+                                    <div class="bag-male" id="avatarlist">
+                                        @if(count($productData) > 0)
+                                            @foreach($productData as $product)
                                                 <img height="100" width="100" style="cursor:pointer;" class="img-tshirt" src="{{URL::asset('/productimages/'.$product['bag_front_image'])}}">
                                             @endforeach
                                         @endif
@@ -178,7 +163,7 @@
                             </div>
                             <div class="pull-right" align="" id="imageeditor" style="display:none">
                                 <div class="btn-group">
-                                    <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>
+                                    {{--<button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>--}}
                                     <button id="remove-selected" class="btn" title="Delete selected item" style="display: none;"><i class="icon-trash" style="height:19px;"></i></button>
                                 </div>
                             </div>

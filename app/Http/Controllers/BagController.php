@@ -32,41 +32,25 @@ class BagController extends Controller
 
 //        $productList = Product::all()->where('product_type', 'bag')->toArray();
 
-        $productListBagMale = DB::table('products')
+        $productList = DB::table('products')
             ->join('product_images', 'products.id', '=', 'product_images.product_id')
             ->select('products.*', 'product_images.*')
             ->where('products.product_type', '=', 'bag')
-            ->where('products.gender_flag', '=', 'M')
-            ->get();
-
-        $productListBagFemale = DB::table('products')
-            ->join('product_images', 'products.id', '=', 'product_images.product_id')
-            ->select('products.*', 'product_images.*')
-            ->where('products.product_type', '=', 'bag')
-            ->where('products.gender_flag', '=', 'F')
             ->get();
 
         $logos = Logo::all()->where('logo_type', 'jersey')->toArray();
 
-        $productDataBagMale = array();
-        foreach($productListBagMale as $product)
+        $productData = array();
+        foreach($productList as $product)
         {
             $product = (array)$product;
-            $productDataBagMale[$product['product_id']] = $product;
-        }
-        $productDataBagFemale = array();
-        foreach($productListBagFemale as $product)
-        {
-            $product = (array)$product;
-            $productDataBagFemale[$product['product_id']] = $product;
+            $productData[$product['product_id']] = $product;
         }
 
         $data = array(
-            'productListBagMale' => $productListBagMale,
-            'productListBagFemale' => $productListBagFemale,
+            'productList' => $productList,
             'logos' => $logos,
-            'productDataBagMale' => $productDataBagMale,
-            'productDataBagFemale' => $productDataBagFemale
+            'productData' => $productData,
         );
 
         return view('bags/index')->with($data);
