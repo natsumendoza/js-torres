@@ -22,7 +22,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Choose Client to Chat</th>
+            <th style="text-align: center;" colspan="2">Choose Client to Chat</th>
         </tr>
         </thead>
         <tbody>

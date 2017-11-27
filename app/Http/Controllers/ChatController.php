@@ -46,6 +46,7 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
+        date_default_timezone_set('Asia/Manila');
         $validated_message = array();
         $redirect = "";
 
@@ -140,6 +141,7 @@ class ChatController extends Controller
                 $query->where('to', $clientId);
             })->get();
 
+        $data['messages'] = array();
         foreach($messagesTemp as $message)
         {
             $data['messages'][] = (array) $message;
@@ -156,6 +158,7 @@ class ChatController extends Controller
      */
     public function chatClientSide()
     {
+        $data['messages'] = array();
         $data['messages'] = Message::where('from', Auth::user()->id)
             ->orWhere('to', Auth::user()->id)
             ->get()->toArray();
