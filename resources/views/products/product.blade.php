@@ -40,7 +40,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('jerseyType') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('productType') ? ' has-error' : '' }}">
                                 <label for="productType" class="col-md-4 control-label">Product Type</label>
 
                                 <div class="col-md-6">
@@ -64,7 +64,7 @@
                                     <label for="basePrice" class="col-md-4 control-label">Base Price</label>
 
                                     <div class="col-md-6">
-                                        <input id="basePrice" type="number" step="0.01" class="form-control" name="basePrice" value="{{@$product['base_price']}}" required autofocus>
+                                        <input id="basePrice" type="number" step="0.01" class="form-control" name="basePrice" value="{{@$product['base_price']}}">
 
                                         @if ($errors->has('basePrice'))
                                             <span class="help-block">
@@ -113,7 +113,7 @@
                                     <div class="col-md-6">
                                         <select name="jerseyType" id="jerseyType">
                                             <option value="basketball">Basketball</option>
-                                            <option value="football">Soccer</option>
+                                            <option value="soccer">Soccer</option>
                                         </select>
 
                                         @if ($errors->has('jerseyType'))

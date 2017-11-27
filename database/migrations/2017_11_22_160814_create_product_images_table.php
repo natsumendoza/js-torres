@@ -18,7 +18,6 @@ class CreateProductImagesTable extends Migration
             $table->integer('product_id');
 
             $table->string('bag_front_image')->nullable();
-            $table->string('bag_back_image')->nullable();
 
             $table->string('white_front_image')->nullable();
             $table->string('white_back_image')->nullable();

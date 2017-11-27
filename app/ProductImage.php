@@ -10,7 +10,6 @@ class ProductImage extends Model
         'product_id',
 
         'bag_front_image',
-        'bag_back_image',
 
         'white_front_image',
         'white_back_image',

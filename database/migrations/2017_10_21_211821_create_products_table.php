@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->string('product_type');
             $table->string('gender_flag')->nullable();
-            $table->decimal('base_price', 10,2);
+            $table->decimal('base_price', 10,2)->nullable();
             $table->string('jersey_type')->nullable();
             $table->timestamps();
         });
