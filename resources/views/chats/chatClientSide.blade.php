@@ -37,20 +37,41 @@
     <table class="" style="text-align: center;width: 50%;" align="center">
         <thead>
         <tr>
-            <th style="text-align: center">Admin</th>
+            <th style="text-align: center;">Admin</th>
+        </tr>
+        <tr>
+            <th style="text-align: center;">&nbsp;</th>
         </tr>
         </thead>
         <tbody id="chat_list">
         @if(count($data['messages'])>0)
         @foreach($data['messages'] as $message)
-            @php($position = 'left')
+            @php
+                date_default_timezone_set('Asia/Manila');
+                $time = date_format(date_create($message['created_at']), 'M d, Y g:i:s a');
+
+                if(date('Ymd') == date('Ymd', strtotime($message['created_at'])))
+                {
+                    $time = date_format(date_create($message['created_at']), 'g:i:s a');
+                }
+            @endphp
+
             @if($message['from']== Auth::user()->id)
-                 @php($position = 'right')
+                 <tr>
+                     <td style="text-align:right;">{{$message['message']}}</td>
+                 </tr>
+                 <tr>
+                     <td style="text-align:right;"><span style="font-size: 8px;">{{$time}}</span></td>
+                 </tr>
+            @else
+                <tr>
+                    <td style="text-align:left;"><img src="{{asset('images/avatar_admin.png')}}" height="25px;" width="25px;" style="margin-right: 10px;">{{$message['message']}}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;"><span style="font-size: 8px;">{{$time}}</span></td>
+                </tr>
             @endif
 
-            <tr>
-                <td style="text-align: {{$position}};">{{$message['message']}}</td>
-            </tr>
         @endforeach
         @else
             <tr>
@@ -59,6 +80,8 @@
                 </td>
             </tr>
         @endif
+        </tbody>
+
         <tr>
             <td style="text-align: right;">
                 <form method="POST" action="{{url('chat')}}">
@@ -73,7 +96,6 @@
                 <a href="{{url('')}}" class="btn btn-default">Close</a>
             </td>
         </tr>
-        </tbody>
     </table>
 </div>
 </body>

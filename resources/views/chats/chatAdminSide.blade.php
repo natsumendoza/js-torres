@@ -23,6 +23,7 @@
         thead {
             width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width */
         }
+
     </style>
 </head>
 <body>
@@ -36,21 +37,46 @@
 
     <table class="" style="text-align: center;width: 50%;" align="center">
         <thead>
-        <tr>
-            <th style="text-align: center">{{'[' . $data['user']['id'] . '] ' . $data['user']['first_name'] . ' ' . $data['user']['last_name']}}</th>
-        </tr>
+            <tr>
+                <th style="text-align: center">{{'[' . $data['user']['id'] . '] ' . $data['user']['first_name'] . ' ' . $data['user']['last_name']}}</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">&nbsp;</th>
+            </tr>
         </thead>
         <tbody id="chat_list">
         @if(count($data['messages'])>0)
             @foreach($data['messages'] as $message)
-                @php($position = 'left')
-                @if($message['from']== Auth::user()->id)
-                    @php($position = 'right')
-                @endif
+                @php
+                    date_default_timezone_set('Asia/Manila');
+                    $time = date_format(date_create($message['created_at']), 'M d, Y g:i:s a');
 
-                <tr>
-                    <td style="text-align: {{$position}};">{{$message['message']}}</td>
-                </tr>
+                    if(date('Ymd') == date('Ymd', strtotime($message['created_at'])))
+                    {
+                        $time = date_format(date_create($message['created_at']), 'g:i:s a');
+                    }
+                @endphp
+
+
+                @if($message['from']== Auth::user()->id)
+                    <tr>
+                        <td style="text-align:right;">{{$message['message']}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right;"><span style="font-size: 8px;">{{$time}}</span></td>
+                    </tr>
+                @else
+                    @php($avatar = 'avatar_male.png')
+                    @if($data['user']['gender'] == config('constants.FEMALE'))
+                        @php($avatar = 'avatar_female.png')
+                    @endif
+                    <tr>
+                        <td style="text-align:left;"><img src="{{asset('images/'.$avatar)}}" height="25px;" width="25px;" style="margin-right: 10px;">{{$message['message']}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;"><span style="font-size: 8px;">{{$time}}</span></td>
+                    </tr>
+                @endif
             @endforeach
         @else
             <tr>
