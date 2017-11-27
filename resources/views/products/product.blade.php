@@ -88,19 +88,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group{{ $errors->has('bagBackImage') ? ' has-error' : '' }}">
-                                    <label for="bagBackImage" class="col-md-4 control-label">Back Image</label>
-
-                                    <div class="col-md-6">
-                                        <input id="bagBackImage" type="file" class="form-control" name="bagBackImage" value="{{@$product['back_image']}}" autofocus>
-
-                                        @if ($errors->has('bagBackImage'))
-                                            <span class="help-block">
-                                            <strong>{{ $errors->first('bagBackImage') }}</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                </div>
 
                             </div>
 
