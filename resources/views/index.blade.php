@@ -90,7 +90,7 @@
 
                                     <img height="100" width="100" style="cursor:pointer;" class="" id="round-neck" src="{{asset('neckstyles/round_neck.png')}}">
                                     <img height="100" width="100" style="cursor:pointer;" class="" id="v-neck" src="{{asset('neckstyles/v_neck.png')}}">
-                                    <img height="100" width="100" style="cursor:pointer;" class="" id="collar-neck" src="{{asset('neckstyles/collar_neck.png')}}">
+                                    <img height="100" width="100" style="cursor:pointer; display: none;" class="" id="collar-neck" src="{{asset('neckstyles/collar_neck.png')}}">
 
                                     <p id="lining-label" style="text-align: center; display: none;">Select Lining Color</p>
                                     <ul style="text-align: center; display: none;" class="nav neck-colors">
@@ -230,6 +230,7 @@
                     <div id="selectItem" style="text-align: center">
                         Please select product to start.
                     </div>
+                    <input type="hidden" id="currentImageId" value="">
                     <img id="tshirtFacing" src=""/>
                     <img id="tshirtFacingBackNeck" style="display: none;" src=""/>
                     <img id="tshirtFacingLeftNeck" style="display: none;" src=""/>

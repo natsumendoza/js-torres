@@ -22,7 +22,14 @@ var rightLink;
 var neckType;
 var neckColor = 'white';
 var neckSelected = false;
+var jerseyType = 'basketball';
+
  	$(document).ready(function() {
+
+        $('#jersey-type').change(function () {
+            jerseyType = $(this).val();
+        });
+
 		//setup front side canvas 
  		canvas = new fabric.Canvas('frontCanvas', {
 		  hoverCursor: 'pointer',
@@ -181,6 +188,7 @@ var neckSelected = false;
 		    	  canvas.renderAll();
 		      }
 	  	});
+
 	  	$(".img-polaroid").click(function(e){
 	  		var el = e.target;
 	  		/*temp code*/
@@ -219,6 +227,7 @@ var neckSelected = false;
 	  		logoCount++;
             // addLogoToTable(logoCount, 'Logo');
 	  	});
+
         $(".img-tshirt").click(function(e){
             neckSelected = false;
             $('#frontDrawingArea').show();
@@ -234,7 +243,6 @@ var neckSelected = false;
             // var angle = fabric.util.getRandomInt(-20, 40);
             // var width = fabric.util.getRandomInt(30, 50);
             // var opacity = (function(min, max){ return Math.random() * (max - min) + min; })(0.5, 1);
-
             fabric.Image.fromURL(el.src, function(image) {
                 image.set({
                     left: 100,
@@ -253,9 +261,9 @@ var neckSelected = false;
                 frontLink = canvas.toDataURL('image/png');
             });
 
-            renderBackCanvas();
-            renderLeftCanvas();
-            renderRightCanvas();
+            // renderBackCanvas();
+            // renderLeftCanvas();
+            // renderRightCanvas();
         });
 
         $("#v-neck").click(function(e){
@@ -265,10 +273,17 @@ var neckSelected = false;
         });
 
         $("#round-neck").click(function(e){
+
             neckSelected = true;
             neckType = 'round';
             renderNeckStyle('round', neckColor);
         });
+        $("#collar-neck").click(function(e){
+            neckSelected = true;
+            neckType = 'collar';
+            renderNeckStyle('collar', neckColor);
+        });
+
 	  document.getElementById('remove-selected').onclick = function() {
 	  		if($('#flip').attr("data-original-title") == "Show Back View") {
                 var activeObject = canvas.getActiveObject(),
@@ -616,9 +631,10 @@ var neckSelected = false;
 			   		if(neckSelected) {
 			   		    renderBackNeckCanvas(neckType, neckColor);
                     } else {
+                        a = JSON.stringify(backCanvas);
                         renderBackCanvas();
                     }
-                    a = JSON.stringify(backCanvas);
+
                     backCanvas.clear();
                     try
                     {
@@ -635,10 +651,11 @@ var neckSelected = false;
                     $('#backDrawingArea').hide();
                     $('#leftDrawingArea').hide();
                     $('#rightDrawingArea').hide();
-                    var fileName = $('.img-tshirt').attr('src');
+                    var fileName = $('#tshirtFacing').attr('src');
                     var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
 			    	$(this).attr('data-original-title', 'Show Back View');
-                    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_front'));
+
+                    $('#tshirtFacing').attr('src', ($('#tshirtFacing').attr('src')).replace(strToReplace, '_front'));
                     fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
                         image.set({
                             left: 100,
@@ -762,12 +779,11 @@ function downloadCanvas(link, canvasObj, filename) {
 }
 
 function renderLeftCanvas () {
-    var fileName = $('.img-tshirt').attr('src');
+    var fileName = $('#tshirtFacing').attr('src');
     var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
 
-    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_left'));
+    $('#tshirtFacing').attr('src', ($('#tshirtFacing').attr('src')).replace(strToReplace, '_left'));
     leftCanvas.clear();
-
     fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
         image.set({
             left: 100,
@@ -790,10 +806,10 @@ function renderLeftCanvas () {
 }
 
 function renderRightCanvas () {
-    var fileName = $('.img-tshirt').attr('src');
+    var fileName = $('#tshirtFacing').attr('src');
     var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
 
-    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_right'));
+    $('#tshirtFacing').attr('src', ($('#tshirtFacing').attr('src')).replace(strToReplace, '_right'));
     rightCanvas.clear();
 
     fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
@@ -817,11 +833,12 @@ function renderRightCanvas () {
 }
 
 function renderBackCanvas() {
-    var fileName = $('.img-tshirt').attr('src');
+    var fileName = $('#tshirtFacing').attr('src');
     var strToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
 
+    backCanvas.clear();
 
-    $('#tshirtFacing').attr('src', ($('.img-tshirt').attr('src')).replace(strToReplace, '_back'));
+    $('#tshirtFacing').attr('src', ($('#tshirtFacing').attr('src')).replace(strToReplace, '_back'));
     fabric.Image.fromURL($('#tshirtFacing').attr('src'), function(image) {
         image.set({
             left: 100,
@@ -867,13 +884,24 @@ function removeLogoToTable(id) {
 
 function renderNeckStyle(neckStyle, color) {
 
-    var fileName = $('.img-tshirt').attr('src');
-
+    // alert($('#currentImageId').val());
+    var fileName = $('#tshirtFacing').attr('src');
     var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
     var newStrFileName = fileName.replace(angleToReplace, "");
     var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
     var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
+
     var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+
+    var jerseyNameFile = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+    var newJerseyFileName = newNeckStrFileName.replace(jerseyNameFile, "");
+    var jerseyToReplace = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+
+
+    var jerseyIdNameFile = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+    var newJerseyIdNameFile = newJerseyFileName.replace(jerseyIdNameFile, "");
+    var idToReplace = newJerseyIdNameFile.substring(newJerseyIdNameFile.lastIndexOf('/'), newJerseyIdNameFile.lastIndexOf('.')).replace('/', "");
+
     $('#frontDrawingArea').show();
     $('#backDrawingArea').hide();
     $('#leftDrawingArea').hide();
@@ -886,7 +914,8 @@ function renderNeckStyle(neckStyle, color) {
     // var angle = fabric.util.getRandomInt(-20, 40);
     // var width = fabric.util.getRandomInt(30, 50);
     // var opacity = (function(min, max){ return Math.random() * (max - min) + min; })(0.5, 1);
-    fabric.Image.fromURL(($('#tshirtFacing').attr('src').replace(colorToReplace, '_'+color)).replace(neckToReplace, '_'+neckStyle), function(image) {
+    // alert($('#tshirtFacing').attr('src').replace(colorToReplace, '_'+color)).replace(neckToReplace, '_'+neckStyle);
+    fabric.Image.fromURL(($('#tshirtFacing').attr('src').replace(colorToReplace, '_'+color)).replace(neckToReplace, '_'+neckStyle).replace(jerseyToReplace, '_'+jerseyType).replace(idToReplace, $('#currentImageId').val()), function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -897,16 +926,15 @@ function renderNeckStyle(neckStyle, color) {
             scaleY: 450 / image.height,
             hasRotatingPoint:true
         });
-        canvas.add(image);
         //image.scale(getRandomNum(0.1, 0.25)).setCoords();
         canvas.renderAll();
-
+        canvas.add(image);
         frontLink = canvas.toDataURL('image/png');
     });
 
-    renderLeftNeckCanvas (neckStyle, color);
-    renderRightNeckCanvas (neckStyle, color)
-    renderBackNeckCanvas(neckStyle, color)
+    // renderLeftNeckCanvas (neckStyle, color);
+    // renderRightNeckCanvas (neckStyle, color);
+    // renderBackNeckCanvas(neckStyle, color);
 }
 
 function renderLeftNeckCanvas (neckStyle, color) {
@@ -915,14 +943,25 @@ function renderLeftNeckCanvas (neckStyle, color) {
     // $('#backDrawingArea').hide();
     // $('#leftDrawingArea').show();
     // $('#rightDrawingArea').hide();
-    var fileName = $('.img-tshirt').attr('src');
+    leftCanvas.clear();
+    var fileName = $('#tshirtFacing').attr('src');
 
     var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
     var newStrFileName = fileName.replace(angleToReplace, "");
     var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
     var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
     var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
-    fabric.Image.fromURL(($('#tshirtFacingLeftNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_base'), function(image) {
+
+    var jerseyNameFile = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+    var newJerseyFileName = newNeckStrFileName.replace(jerseyNameFile, "");
+    var jerseyToReplace = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+
+
+    var jerseyIdNameFile = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+    var newJerseyIdNameFile = newJerseyFileName.replace(jerseyIdNameFile, "");
+    var idToReplace = newJerseyIdNameFile.substring(newJerseyIdNameFile.lastIndexOf('/'), newJerseyIdNameFile.lastIndexOf('.')).replace('/', "");
+
+    fabric.Image.fromURL(($('#tshirtFacingLeftNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_'+neckStyle).replace(jerseyToReplace, '_'+jerseyType).replace(idToReplace, $('#currentImageId').val()), function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -949,15 +988,26 @@ function renderRightNeckCanvas (neckStyle, color) {
     // $('#backDrawingArea').hide();
     // $('#leftDrawingArea').hide();
     // $('#rightDrawingArea').show();
-    var fileName = $('.img-tshirt').attr('src');
+    rightCanvas.clear();
+    var fileName = $('#tshirtFacing').attr('src');
+
 
     var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
     var newStrFileName = fileName.replace(angleToReplace, "");
     var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
     var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
     var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+
+    var jerseyNameFile = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+    var newJerseyFileName = newNeckStrFileName.replace(jerseyNameFile, "");
+    var jerseyToReplace = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+
+
+    var jerseyIdNameFile = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+    var newJerseyIdNameFile = newJerseyFileName.replace(jerseyIdNameFile, "");
+    var idToReplace = newJerseyIdNameFile.substring(newJerseyIdNameFile.lastIndexOf('/'), newJerseyIdNameFile.lastIndexOf('.')).replace('/', "");
     // console.log(neckToReplace);
-    fabric.Image.fromURL(($('#tshirtFacingRightNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_base'), function(image) {
+    fabric.Image.fromURL(($('#tshirtFacingRightNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_'+neckStyle).replace(jerseyToReplace, '_'+jerseyType).replace(idToReplace, $('#currentImageId').val()), function(image) {
         image.set({
             left: 100,
             top: 200,
@@ -983,14 +1033,24 @@ function renderBackNeckCanvas(neckStyle, color) {
     // $('#backDrawingArea').show();
     // $('#leftDrawingArea').hide();
     // $('#rightDrawingArea').hide();
-    var fileName = $('.img-tshirt').attr('src');
+    backCanvas.clear();
+    var fileName = $('#tshirtFacing').attr('src');
 
     var angleToReplace = fileName.substring(fileName.lastIndexOf('_'), fileName.lastIndexOf('.'));
     var newStrFileName = fileName.replace(angleToReplace, "");
     var colorToReplace = newStrFileName.substring(newStrFileName.lastIndexOf('_'), newStrFileName.lastIndexOf('.'));
     var newNeckStrFileName = newStrFileName.replace(colorToReplace, "");
     var neckToReplace = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
-    fabric.Image.fromURL(($('#tshirtFacingBackNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_base'), function(image) {
+
+    var jerseyNameFile = newNeckStrFileName.substring(newNeckStrFileName.lastIndexOf('_'), newNeckStrFileName.lastIndexOf('.'));
+    var newJerseyFileName = newNeckStrFileName.replace(jerseyNameFile, "");
+    var jerseyToReplace = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+
+    var jerseyIdNameFile = newJerseyFileName.substring(newJerseyFileName.lastIndexOf('_'), newJerseyFileName.lastIndexOf('.'));
+    var newJerseyIdNameFile = newJerseyFileName.replace(jerseyIdNameFile, "");
+    var idToReplace = newJerseyIdNameFile.substring(newJerseyIdNameFile.lastIndexOf('/'), newJerseyIdNameFile.lastIndexOf('.')).replace('/', "");
+
+    fabric.Image.fromURL(($('#tshirtFacingBackNeck').attr('src')).replace(colorToReplace, '_'+color).replace(neckToReplace, '_'+neckStyle).replace(jerseyToReplace, '_'+jerseyType).replace(idToReplace, $('#currentImageId').val()), function(image) {
         image.set({
             left: 100,
             top: 200,

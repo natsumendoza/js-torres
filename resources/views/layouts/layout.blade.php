@@ -192,6 +192,7 @@
 <!-- Scripts -->
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/bootstrap.min.js') : secure_asset('js/bootstrap.min.js')}}"></script>
 <script src="{{ env('APP_URL') == 'http://localhost' ? asset('js/canvas2image.js') : secure_asset('js/canvas2image.js')}}"></script>
+<script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
 <script type="text/javascript">
 
 //    $(window).resize(function(){
@@ -234,6 +235,13 @@
     }
 
     function changeType(jersey, gender) {
+
+        if(jersey === 'soccer') {
+            $('#collar-neck').show();
+        } else {
+            $('#collar-neck').hide();
+        }
+
         $('.' + jersey + '-' + gender).show();
     }
 
@@ -336,6 +344,8 @@
             $('.fabricType').prop('disabled', false);
             $('input[name=printType]').attr('disabled', false);
 
+
+
             var productData;
 
             if($('.basketball-male').is(':visible')) {
@@ -355,14 +365,17 @@
             if($('#tshirtFacing').attr('src') === '') {
                 $('#tshirtFacing').attr('src', $(this).attr('src'));
 
+
                 $('.logoList').show();
                 $('#addToCart').prop('disabled', false);
                 $('#colorList').show();
                 $('#tshirtFacing').hide();
 
+
                 var fileName = $('#tshirtFacing').attr('src');
                 var productId = getShirtId(fileName);
                 var product = productData[productId];
+                $('#currentImageId').val(productId);
                 currentProductObj = product;
                 console.log(product);
                 console.log('productId: ' + productId);
@@ -375,7 +388,7 @@
                 var fileName = $('#tshirtFacing').attr('src');
                 var productId = getShirtId(fileName);
                 var product = productData[productId];
-
+                $('#currentImageId').val(productId);
                 if(tempId !== productId) {
                     $('.neck-colors').hide();
                     $('#lining-label').hide();
@@ -406,7 +419,7 @@
     });
 
 </script>
-<script type="text/javascript" src="{{ env('APP_ENV') == 'local' ? asset('js/tshirtEditor.js') : secure_asset('js/tshirtEditor.js') }}"></script>
+
 
 </body>
 </html>
