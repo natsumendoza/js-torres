@@ -257,6 +257,8 @@
         var jerseyType = $('#jersey-type').val();
         var genderType = $('#gender-type').val();
 
+
+
         changeType(jerseyType, genderType);
         var price;
 
@@ -304,6 +306,16 @@
             $('.neck-colors').show();
             $("#selectItem").css('display', 'none');
             $('#tshirtFacing').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_v_neck_image);
+            $('#tshirtFacingBackNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_back_image);
+            $('#tshirtFacingLeftNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_left_image);
+            $('#tshirtFacingRightNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_right_image);
+            $('#tshirtFacing').hide();
+        });
+        $('#collar-neck').on('click', function() {
+            $('#lining-label').show();
+            $('.neck-colors').show();
+            $("#selectItem").css('display', 'none');
+            $('#tshirtFacing').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_collar_image);
             $('#tshirtFacingBackNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_back_image);
             $('#tshirtFacingLeftNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_left_image);
             $('#tshirtFacingRightNeck').attr('src', '{{asset('productimages')}}/' + currentProductObj.white_right_image);
