@@ -629,6 +629,7 @@ var jerseyType = 'basketball';
 			   	if ($(this).attr("data-original-title") == "Show Back View") {
                     $(this).attr('data-original-title', 'Show Front View');
 			   		if(neckSelected) {
+                        a = JSON.stringify(backCanvas);
 			   		    renderBackNeckCanvas(neckType, neckColor);
                     } else {
                         a = JSON.stringify(backCanvas);
