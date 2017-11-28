@@ -47,14 +47,15 @@ class HomeController extends Controller
                     Session::put('transactionCode', $cartItems[0]['transaction_code']);
                 }
             }
+
+            // COUNT UNREAD MESSAGE
+            $unreadMessages = Message::where('to', Auth::user()->id)
+                ->where('read_flag', config('constants.NO'))
+                ->count();
+
+            Session::put('unreadMessages', $unreadMessages);
         }
 
-        // COUNT UNREAD MESSAGE
-        $unreadMessages = Message::where('to', Auth::user()->id)
-            ->where('read_flag', config('constants.NO'))
-            ->count();
-
-        Session::put('unreadMessages', $unreadMessages);
 
 //        $productList = Product::all()->where('product_type', 'jersey')->toArray();
         $productListBasketballMale = DB::table('products')

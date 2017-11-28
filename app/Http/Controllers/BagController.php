@@ -30,13 +30,14 @@ class BagController extends Controller
                     Session::put('transactionCode', $cartItems[0]['transaction_code']);
                 }
             }
+
+            $unreadMessages = Message::where('to', Auth::user()->id)
+                ->where('read_flag', config('constants.NO'))
+                ->count();
+
+            Session::put('unreadMessages', $unreadMessages);
         }
 
-        $unreadMessages = Message::where('to', Auth::user()->id)
-            ->where('read_flag', config('constants.NO'))
-            ->count();
-
-        Session::put('unreadMessages', $unreadMessages);
 
 //        $productList = Product::all()->where('product_type', 'bag')->toArray();
 
