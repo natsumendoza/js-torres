@@ -20,21 +20,30 @@ class ChatController extends Controller
     {
         if(Auth::user()->isAdmin())
         {
-            $clientListTemp = DB::table('users')
-                ->leftJoin('messages', 'users.id', '=', 'messages.from')
-                ->select(DB::raw('users.*, count(messages.read_flag) as unread_message'))
-                ->where('users.id', '<>', Auth::user()->id)
-                ->groupBy('users.id')
+            $data = array();
+
+            $clientList = User::where('id', '<>', Auth::user()->id)
+                ->get()->toArray();
+
+
+            $unreadMessagesTemp = DB::table('messages')
+                ->select('from', DB::raw('count(*) as unread_messages'))
+                ->where('messages.from', '<>', Auth::user()->id)
+                ->where('messages.read_flag', config('constants.NO'))
+                ->groupBy('from')
                 ->get();
 
-            $clientList = array();
-            foreach($clientListTemp as $client)
+            $unreadMessages = array();
+            foreach ($unreadMessagesTemp as $unread)
             {
-                $clientList[] = (array) $client;
+                $unread = (array) $unread;
+                $unreadMessages[$unread['from']] = $unread['unread_messages'];
             }
 
+            $data['clientList'] = $clientList;
+            $data['unreadMessages'] = $unreadMessages;
 
-            return view('chats.chatClientList', compact('clientList'));
+            return view('chats.chatClientList', compact('data'));
         }
         else
         {
@@ -171,7 +180,7 @@ class ChatController extends Controller
         }
         else
         {
-            return redirect('/');
+            return redirect('/chat');
         }
     }
 

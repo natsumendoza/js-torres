@@ -26,10 +26,10 @@
         </tr>
         </thead>
         <tbody>
-        @if(count($clientList)>0)
-        @foreach($clientList as $client)
+        @if(count($data['clientList'])>0)
+        @foreach($data['clientList'] as $client)
             <tr>
-                <td style="text-align: left;">{{$client['first_name'] . " " . $client['last_name']}} @if($client['unread_message']>0)<span class="w3-badge w3-red">{{$client['unread_message']}}</span>@endif</td>
+                <td style="text-align: left;">{{$client['first_name'] . " " . $client['last_name']}} @if(ISSET($data['unreadMessages'][$client['id']]) AND $data['unreadMessages'][$client['id']]>0)<span class="w3-badge w3-red">{{$data['unreadMessages'][$client['id']]}}</span>@endif</td>
                 <td style="text-align: center;"><a href="{{url('/chat/admin/'. base64_encode($client['id']))}}">Chat</a></td>
             </tr>
         @endforeach
