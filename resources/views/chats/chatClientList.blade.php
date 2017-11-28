@@ -19,7 +19,7 @@
         </div><br />
     @endif
 
-    <table class="table table-striped">
+    <table class="table table-striped" style="text-align: center;width: 50%;" align="center">
         <thead>
         <tr>
             <th style="text-align: center;" colspan="2">Choose Client to Chat</th>
@@ -29,7 +29,7 @@
         @if(count($clientList)>0)
         @foreach($clientList as $client)
             <tr>
-                <td style="text-align: left;">{{$client['first_name'] . " " . $client['last_name']}}</td>
+                <td style="text-align: left;">{{$client['first_name'] . " " . $client['last_name']}} @if($client['unread_message']>0)<span class="w3-badge w3-red">{{$client['unread_message']}}</span>@endif</td>
                 <td style="text-align: center;"><a href="{{url('/chat/admin/'. base64_encode($client['id']))}}">Chat</a></td>
             </tr>
         @endforeach

@@ -21,9 +21,8 @@
     <link type="text/css" rel="stylesheet" href="{{ env('APP_ENV') == 'local' ? asset('css/jquery.miniColors.css') : secure_asset('css/jquery.miniColors.css') }}" />
     <link href="{{ env('APP_ENV') == 'local' ? asset('css/bootstrap.min.css') : secure_asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ env('APP_ENV') == 'local' ? asset('css/bootstrap-responsive.min.css') : secure_asset('css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    <script type="text/javascript">
-    </script>
     <style type="text/css">
         .footer {
             padding: 70px 0;
@@ -146,14 +145,21 @@
                                 @if (\Session::has('cartSize'))
                                     @php($cartSize = \Session::get('cartSize'))
                                 @endif
+                                <li><a href="{{ url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>@if($cartSize>0)<span class="w3-badge w3-red">{{$cartSize}}</span>@endif</a></li>
 
-
-                                <li><a href="{{ url('/cart/'.\base64_encode(Session::get('transactionCode'))) }}"><i class="icon-shopping-cart icon-white"></i>({{$cartSize}})</a></li>
-                                <li><a href="{{ url('/chat/client') }}"><i class="icon-comment icon-white"></i></a></li>
+                                @php($unreadMessages = 0)
+                                @if (\Session::has('unreadMessages'))
+                                    @php($unreadMessages = \Session::get('unreadMessages'))
+                                @endif
+                                <li><a href="{{ url('/chat/client') }}"><i class="icon-comment icon-white"></i>@if($unreadMessages>0)<span class="w3-badge w3-red">{{$unreadMessages}}</span>@endif</a></li>
                             @endif
 
                             @if(Auth::user()->isAdmin())
-                                <li><a href="{{ url('/chat')}}"><i class="icon-comment icon-white"></i></a></li>
+                                @php($unreadMessages = 0)
+                                @if (\Session::has('unreadMessages'))
+                                    @php($unreadMessages = \Session::get('unreadMessages'))
+                                @endif
+                                <li><a href="{{ url('/chat')}}"><i class="icon-comment icon-white"></i>@if($unreadMessages>0)<span class="w3-badge w3-red">{{$unreadMessages}}</span>@endif</a></li>
 
                             @endif
 

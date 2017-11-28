@@ -10,6 +10,7 @@ use Session;
 use Auth;
 use App\FinishedProduct;
 use Illuminate\Support\Facades\DB;
+use App\Message;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (!Auth::guest()) {
+        // COUNT CART SIZE
+        if(!Auth::guest()) {
             $cartItems = Order::where('user_id', Auth::user()->id)
                 ->where('status', 'pending')
                 ->get()->toArray();
@@ -47,7 +49,12 @@ class HomeController extends Controller
             }
         }
 
+        // COUNT UNREAD MESSAGE
+        $unreadMessages = Message::where('to', Auth::user()->id)
+            ->where('read_flag', config('constants.NO'))
+            ->count();
 
+        Session::put('unreadMessages', $unreadMessages);
 
 //        $productList = Product::all()->where('product_type', 'jersey')->toArray();
         $productListBasketballMale = DB::table('products')

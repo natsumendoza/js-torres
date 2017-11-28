@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ChatController extends Controller
 {
@@ -19,7 +20,20 @@ class ChatController extends Controller
     {
         if(Auth::user()->isAdmin())
         {
-            $clientList = User::where('id', '<>',Auth::user()->id)->get()->toArray();
+            $clientListTemp = DB::table('users')
+                ->leftJoin('messages', 'users.id', '=', 'messages.from')
+                ->select(DB::raw('users.*, count(messages.read_flag) as unread_message'))
+                ->where('users.id', '<>', Auth::user()->id)
+                ->groupBy('users.id')
+                ->get();
+
+            $clientList = array();
+            foreach($clientListTemp as $client)
+            {
+                $clientList[] = (array) $client;
+            }
+
+
             return view('chats.chatClientList', compact('clientList'));
         }
         else
@@ -68,7 +82,7 @@ class ChatController extends Controller
             $redirect = "/chat/client";
         }
         $validated_message['from'] = Auth::user()->id;
-        $validated_message['read_flag'] = 'N';
+        $validated_message['read_flag'] = config('constants.NO');
 
         Message::create($validated_message);
 
@@ -128,41 +142,90 @@ class ChatController extends Controller
      */
     public function chatAdminSide($clientId)
     {
-        $data = array();
-        $clientId = base64_decode($clientId);
-        $data['user'] = User::find($clientId);
-        $messagesTemp = DB::table('messages')
-            ->where(function($query) use ($clientId){
-                $query->where('from', $clientId);
-                $query->where('to', Auth::user()->id);
-            })
-            ->orWhere(function($query) use ($clientId){
-                $query->where('from', Auth::user()->id);
-                $query->where('to', $clientId);
-            })->get();
-
-        $data['messages'] = array();
-        foreach($messagesTemp as $message)
+        if(Auth::user()->isAdmin())
         {
-            $data['messages'][] = (array) $message;
-        }
+            $data = array();
 
-        return view('chats.chatAdminSide', compact('data'));
+            $clientId = base64_decode($clientId);
+
+            $this->updateReadFlag($clientId);
+
+            $data['user'] = User::find($clientId);
+            $messagesTemp = DB::table('messages')
+                ->where(function($query) use ($clientId){
+                    $query->where('from', $clientId);
+                    $query->where('to', Auth::user()->id);
+                })
+                ->orWhere(function($query) use ($clientId){
+                    $query->where('from', Auth::user()->id);
+                    $query->where('to', $clientId);
+                })->get();
+
+            $data['messages'] = array();
+            foreach($messagesTemp as $message)
+            {
+                $data['messages'][] = (array) $message;
+            }
+
+            return view('chats.chatAdminSide', compact('data'));
+        }
+        else
+        {
+            return redirect('/');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function chatClientSide()
     {
-        $data['messages'] = array();
-        $data['messages'] = Message::where('from', Auth::user()->id)
-            ->orWhere('to', Auth::user()->id)
-            ->get()->toArray();
+        if(!Auth::guest() AND !Auth::user()->isAdmin())
+        {
+            $this->updateReadFlag();
 
-        return view('chats.chatClientSide', compact('data'));
+            $data['messages'] = array();
+            $data['messages'] = Message::where('from', Auth::user()->id)
+                ->orWhere('to', Auth::user()->id)
+                ->get()->toArray();
+
+            return view('chats.chatClientSide', compact('data'));
+        }
+        else
+        {
+            return redirect('/');
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateReadFlag($sender = NULL)
+    {
+        $unreadMessages = 0;
+        if($sender != NULL)
+        {
+            Message::where('to', Auth::user()->id)
+                ->where('from', $sender)
+                ->update(array('read_flag' => config('constants.YES')));
+
+            // COUNT UNREAD MESSAGE
+            $unreadMessages = Message::where('to', Auth::user()->id)
+                ->where('read_flag', config('constants.NO'))
+                ->count();
+        }
+        else
+        {
+            Message::where('to', Auth::user()->id)
+                ->update(array('read_flag' => config('constants.YES')));
+        }
+
+
+
+        Session::put('unreadMessages', $unreadMessages);
     }
 }

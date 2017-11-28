@@ -1,7 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use App\Order;
 use App\Product;
 use App\FinishedProduct;
+use App\Message;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +30,28 @@ Route::get('/customize', 'HomeController@index');
 Route::get('/bags', 'BagController@index');
 
 Route::get('/', function () {
+
+    if (!Auth::guest()) {
+        $cartItems = Order::where('user_id', Auth::user()->id)
+            ->where('status', 'pending')
+            ->get()->toArray();
+
+        if(!empty($cartItems))
+        {
+            Session::put('cartSize', count($cartItems));
+            if(!(\Session::has('transactionCode')))
+            {
+                Session::put('transactionCode', $cartItems[0]['transaction_code']);
+            }
+        }
+
+        $unreadMessages = Message::where('to', Auth::user()->id)
+            ->where('read_flag', config('constants.NO'))
+            ->count();
+
+        Session::put('unreadMessages', $unreadMessages);
+
+    }
 
     $productList = FinishedProduct::all()->toArray();
 

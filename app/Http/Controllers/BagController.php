@@ -10,11 +10,13 @@ use App\Order;
 use Session;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use App\Message;
 
 class BagController extends Controller
 {
     public function index()
     {
+        // COUNT CART SIZE
         if(!Auth::guest()) {
             $cartItems = Order::where('user_id', Auth::user()->id)
                 ->where('status', 'pending')
@@ -29,6 +31,12 @@ class BagController extends Controller
                 }
             }
         }
+
+        $unreadMessages = Message::where('to', Auth::user()->id)
+            ->where('read_flag', config('constants.NO'))
+            ->count();
+
+        Session::put('unreadMessages', $unreadMessages);
 
 //        $productList = Product::all()->where('product_type', 'bag')->toArray();
 
