@@ -84,14 +84,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Current Image</label>
+                            @isset($product['id'])
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Current Image</label>
 
-                                <div class="col-md-6">
-                                    <a href="{{asset('finishedproducts/'.$product['image'])}}" target="_blank" data-toggle="tooltip" title="Click image"><img height="80" width="120" src="{{asset('finishedproducts/'.$product['image'])}}"></a>
+                                    <div class="col-md-6">
+                                        <a href="{{asset('finishedproducts/'.$product['image'])}}" target="_blank" data-toggle="tooltip" title="Click image"><img height="80" width="120" src="{{asset('finishedproducts/'.$product['image'])}}"></a>
+                                    </div>
                                 </div>
-                            </div>
-
+                            @endisset
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

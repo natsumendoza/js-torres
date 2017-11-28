@@ -135,7 +135,7 @@ class FinishedProductController extends Controller
      */
     public function destroy($id)
     {
-        $destinationPath = public_path('/productimages');
+        $destinationPath = public_path('/finishedproducts');
         $product = FinishedProduct::find($id);
         $product->delete();
         File::delete([$destinationPath.'/'.$product['image']]);

@@ -19,7 +19,7 @@
                     <div class="panel-heading">{{$header}}</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{(isset($product['id'])) ? action('ProductController@update', $id) : url('products')}}">
+                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{(isset($product['id'])) ? action('ProductController@update', $product['id']) : url('products')}}">
                             {{ csrf_field() }}
                             <input type="hidden" name="formType" id="formType" value="" />
                             @if(isset($product['id']))
@@ -45,8 +45,8 @@
 
                                 <div class="col-md-6">
                                     <select name="productType" id="productType">
-                                        <option value="jersey">Jersey</option>
-                                        <option value="bag">Bag</option>
+                                        <option value="jersey" {{$product['product_type'] == 'jersey' ? 'selected' : ''}}>Jersey</option>
+                                        <option value="bag" {{$product['product_type'] == 'bag' ? 'selected' : ''}}>Bag</option>
                                     </select>
 
                                     @if ($errors->has('productType'))
@@ -88,6 +88,16 @@
                                     </div>
                                 </div>
 
+                                @isset($product['id'])
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Current Bag Image</label>
+
+                                        <div class="col-md-6">
+                                            <a href="{{asset('productimages/'.$product['bag_front_image'])}}" target="_blank" data-toggle="tooltip" title="Click image"><img height="80" width="120" src="{{asset('productimages/'.$product['bag_front_image'])}}"></a>
+                                        </div>
+                                    </div>
+                                @endisset
+
 
                             </div>
 
@@ -99,8 +109,16 @@
 
                                     <div class="col-md-6">
                                         <select name="jerseyType" id="jerseyType">
-                                            <option value="basketball">Basketball</option>
-                                            <option value="soccer">Soccer</option>
+                                            <option value="basketball"
+                                                @isset($product['jersey_type'])
+                                                    {{$product['jersey_type'] == 'basketball' ? 'selected' : ''}}
+                                                @endisset
+                                            >Basketball</option>
+                                            <option value="soccer"
+                                                @isset($product['jersey_type'])
+                                                    {{$product['jersey_type'] == 'soccer' ? 'selected' : ''}}
+                                                @endisset
+                                            >Soccer</option>
                                         </select>
 
                                         @if ($errors->has('jerseyType'))
@@ -116,8 +134,16 @@
 
                                     <div class="col-md-6">
                                         <select name="gender" id="gender">
-                                            <option value="M">Male</option>
-                                            <option value="F">Female</option>
+                                            <option value="M"
+                                                @isset($product['gender_flag'])
+                                                    {{$product['gender_flag'] == 'M' ? 'selected' : ''}}
+                                                @endisset
+                                            >Male</option>
+                                            <option value="F"
+                                                @isset($product['gender_flag'])
+                                                    {{$product['gender_flag'] == 'F' ? 'selected' : ''}}
+                                                @endisset
+                                            >Female</option>
                                         </select>
 
                                         @if ($errors->has('gender'))
@@ -129,21 +155,21 @@
                                 </div>
 
                                 {{--// TODO under construction--}}
-                                <div class="form-group">
-                                    <label for="colors" class="col-md-4 control-label">Colors</label>
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="colors" class="col-md-4 control-label">Colors</label>--}}
 
-                                    <div class="col-md-6" style="margin-bottom: 20px;">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="red">Red
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="green">Green
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="blue">Blue
-                                        </label>
-                                    </div>
-                                </div>
+                                    {{--<div class="col-md-6" style="margin-bottom: 20px;">--}}
+                                        {{--<label class="checkbox-inline">--}}
+                                            {{--<input type="checkbox" value="red">Red--}}
+                                        {{--</label>--}}
+                                        {{--<label class="checkbox-inline">--}}
+                                            {{--<input type="checkbox" value="green">Green--}}
+                                        {{--</label>--}}
+                                        {{--<label class="checkbox-inline">--}}
+                                            {{--<input type="checkbox" value="blue">Blue--}}
+                                        {{--</label>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 {{--// end TODO under construction--}}
 
                                 <br>
@@ -165,6 +191,16 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current White Front Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['white_front_image'])}}" target="_blank" data-toggle="tooltip" title="Click image"><img height="80" width="120" src="{{asset('productimages/'.$product['white_front_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div class="form-group{{ $errors->has('whiteBackImage') ? ' has-error' : '' }}">
                                         <label for="whiteBackImage" class="col-md-4 control-label">White Back Image</label>
 
@@ -178,6 +214,17 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current White Back Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['white_back_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['white_back_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
 
                                     <div id="redLeftImage" class="form-group{{ $errors->has('whiteLeftImage') ? ' has-error' : '' }}">
                                         <label for="whiteLeftImage" class="col-md-4 control-label">White Left Side Image</label>
@@ -193,6 +240,17 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Left Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['white_left_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['white_left_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redRightImageForm" class="form-group{{ $errors->has('whiteRightImage') ? ' has-error' : '' }}">
                                         <label for="whiteRightImage" class="col-md-4 control-label">White Right Side Image</label>
 
@@ -206,6 +264,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Right Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['white_right_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['white_right_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redRoundForm" class="form-group{{ $errors->has('whiteRoundImage') ? ' has-error' : '' }}">
                                         <label for="whiteRoundImage" class="col-md-4 control-label">White Round Neck Type</label>
 
@@ -219,6 +289,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Round Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['white_round_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['white_round_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redVForm" class="form-group{{ $errors->has('whiteVImage') ? ' has-error' : '' }}">
                                         <label for="whiteVImage" class="col-md-4 control-label">White V Neck Type</label>
 
@@ -232,6 +314,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current V Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['white_v_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['white_v_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redCollarForm" class="form-group{{ $errors->has('whiteCollarImage') ? ' has-error' : '' }}">
                                         <label for="whiteCollarImage" class="col-md-4 control-label">White Collard Neck Type</label>
 
@@ -245,6 +339,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Collard Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['white_collar_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['white_collar_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                 </div>
                                 {{--// end white--}}
 
@@ -265,6 +371,17 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Red Front Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['red_front_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['red_front_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div class="form-group{{ $errors->has('redBackImage') ? ' has-error' : '' }}">
                                         <label for="redBackImage" class="col-md-4 control-label">Red Back Image</label>
 
@@ -278,6 +395,17 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Red Back Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['red_back_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['red_back_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
 
                                     <div id="redLeftImage" class="form-group{{ $errors->has('redLeftImage') ? ' has-error' : '' }}">
                                         <label for="redLeftImage" class="col-md-4 control-label">Red Left Side Image</label>
@@ -293,6 +421,17 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Red Left Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['red_left_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['red_left_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redRightImageForm" class="form-group{{ $errors->has('redRightImage') ? ' has-error' : '' }}">
                                         <label for="redRightImage" class="col-md-4 control-label">Red Right Side Image</label>
 
@@ -306,6 +445,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Red Right Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['red_right_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['red_right_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redRoundForm" class="form-group{{ $errors->has('redRoundImage') ? ' has-error' : '' }}">
                                         <label for="redRoundImage" class="col-md-4 control-label">Red Round Neck Type</label>
 
@@ -319,6 +470,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Red Round Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['red_round_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['red_round_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redVForm" class="form-group{{ $errors->has('redVImage') ? ' has-error' : '' }}">
                                         <label for="redVImage" class="col-md-4 control-label">Red V Neck Type</label>
 
@@ -332,6 +495,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Red V Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['red_v_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['red_v_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="redCollarForm" class="form-group{{ $errors->has('redCollarImage') ? ' has-error' : '' }}">
                                         <label for="redCollarImage" class="col-md-4 control-label">Red Collard Neck Type</label>
 
@@ -345,6 +520,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Red Collard Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['red_collar_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['red_collar_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                 </div>
                                 {{--// end red--}}
 
@@ -365,6 +552,17 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Green Front Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['green_front_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['green_front_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div class="form-group{{ $errors->has('greenBackImage') ? ' has-error' : '' }}">
                                         <label for="greenBackImage" class="col-md-4 control-label">Green Back Image</label>
 
@@ -378,6 +576,17 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Green Back Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['green_back_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['green_back_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
 
                                     <div id="greenLeftImage" class="form-group{{ $errors->has('greenLeftImage') ? ' has-error' : '' }}">
                                         <label for="greenLeftImage" class="col-md-4 control-label">Green Left Side Image</label>
@@ -393,6 +602,17 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Green Left Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['green_left_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['green_left_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="greenRightImageForm" class="form-group{{ $errors->has('greenRightImage') ? ' has-error' : '' }}">
                                         <label for="greenRightImage" class="col-md-4 control-label">Green Right Side Image</label>
 
@@ -406,6 +626,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Green Right Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['green_right_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['green_right_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="greenRoundForm" class="form-group{{ $errors->has('greenRoundImage') ? ' has-error' : '' }}">
                                         <label for="greenRoundImage" class="col-md-4 control-label">Green Round Neck Type</label>
 
@@ -419,6 +651,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Green Round Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['green_round_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['green_round_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="greenVForm" class="form-group{{ $errors->has('greenVImage') ? ' has-error' : '' }}">
                                         <label for="greenVImage" class="col-md-4 control-label">Green V Neck Type</label>
 
@@ -432,6 +676,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Green V Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['green_v_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['green_v_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="greenCollarForm" class="form-group{{ $errors->has('greenCollarImage') ? ' has-error' : '' }}">
                                         <label for="greenCollarImage" class="col-md-4 control-label">Green Collard Neck Type</label>
 
@@ -445,6 +701,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Green Collard Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['green_collar_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['green_collar_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                 </div>
                                 {{--// green--}}
 
@@ -465,6 +733,17 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Blue Front Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['blue_front_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['blue_front_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div class="form-group{{ $errors->has('blueBackImage') ? ' has-error' : '' }}">
                                         <label for="backImage" class="col-md-4 control-label">Blue Back Image</label>
 
@@ -478,6 +757,17 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Blue Back Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['blue_back_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['blue_back_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
 
                                     <div id="blueLeftImage" class="form-group{{ $errors->has('blueLeftImage') ? ' has-error' : '' }}">
                                         <label for="blueLeftImage" class="col-md-4 control-label">Blue Left Side Image</label>
@@ -493,6 +783,17 @@
                                         </div>
                                     </div>
 
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Blue Left Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['blue_left_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['blue_left_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="blueRightImageForm" class="form-group{{ $errors->has('blueRightImage') ? ' has-error' : '' }}">
                                         <label for="blueRightImage" class="col-md-4 control-label">Blue Right Side Image</label>
 
@@ -506,6 +807,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Blue Right Side Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['blue_right_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['blue_right_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="blueRoundForm" class="form-group{{ $errors->has('blueRoundImage') ? ' has-error' : '' }}">
                                         <label for="blueRoundImage" class="col-md-4 control-label">Blue Round Neck Type</label>
 
@@ -519,6 +832,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Blue Round Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['blue_round_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['blue_round_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="blueVForm" class="form-group{{ $errors->has('blueVImage') ? ' has-error' : '' }}">
                                         <label for="blueVImage" class="col-md-4 control-label">Blue V Neck Type</label>
 
@@ -532,6 +857,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Blue V Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['blue_v_neck_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['blue_v_neck_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
+
                                     <div id="blueCollarForm" class="form-group{{ $errors->has('blueCollarImage') ? ' has-error' : '' }}">
                                         <label for="blueCollarImage" class="col-md-4 control-label">Blue Collard Neck Type</label>
 
@@ -545,6 +882,17 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    @isset($product['id'])
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Current Blue Collard Neck Type Image</label>
+
+                                            <div class="col-md-6">
+                                                <a href="{{asset('productimages/'.$product['blue_collar_image'])}}" target="_blank" data-toggle="tooltip" title="Click image">
+                                                    <img height="80" width="120" src="{{asset('productimages/'.$product['blue_collar_image'])}}"></a>
+                                            </div>
+                                        </div>
+                                    @endisset
                             </div>
                             </div>
                             {{--// blue--}}
