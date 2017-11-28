@@ -261,9 +261,9 @@ var jerseyType = 'basketball';
                 frontLink = canvas.toDataURL('image/png');
             });
 
-            renderBackCanvas();
-            renderLeftCanvas();
-            renderRightCanvas();
+            // renderBackCanvas();
+            // renderLeftCanvas();
+            // renderRightCanvas();
         });
 
         $("#v-neck").click(function(e){
