@@ -488,19 +488,12 @@ function onSelectedCleared(e){
     $("#text-string").val("");
 }
 function setFont(font){
-    if($('#flip').attr("data-original-title") == "Show Back View") {
         var activeObject = canvas.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.fontFamily = font;
             canvas.renderAll();
         }
-    } else {
-        var activeObject = backCanvas.getActiveObject();
-        if (activeObject && activeObject.type === 'text') {
-            activeObject.fontFamily = font;
-            backCanvas.renderAll();
-        }
-    }
+
 
 }
 function removeWhite(){
