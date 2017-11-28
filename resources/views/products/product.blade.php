@@ -45,8 +45,9 @@
 
                                 <div class="col-md-6">
                                     <select name="productType" id="productType">
-                                        <option value="jersey" {{$product['product_type'] == 'jersey' ? 'selected' : ''}}>Jersey</option>
-                                        <option value="bag" {{$product['product_type'] == 'bag' ? 'selected' : ''}}>Bag</option>
+                                        <option value="jersey" {{@$product['product_type'] == 'jersey' ? 'selected' : ''}}>Jersey</option>
+                                        <option value="bag" {{@$product['product_type'] == 'bag' ? 'selected' : ''}}>Bag</option>
+
                                     </select>
 
                                     @if ($errors->has('productType'))
