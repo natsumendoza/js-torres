@@ -100,17 +100,22 @@ class ReportController extends Controller
 
         $reportTemp = DB::table('orders')
             ->join('users', 'orders.user_id', 'users.id')
-            ->select('orders.*',  'users.first_name', 'users.last_name')
+            ->select('orders.*', 'users.first_name', 'users.last_name')
+            ->whereYear('orders.created_at', $reportParams['year'])
+            ->whereMonth('orders.created_at', $reportParams['month'])
             ->where('orders.status', '<>', config('constants.ORDER_STATUS_PENDING'))
             ->get();
 
-        echo '<pre>';
-        print_r($reportTemp);
-        die;
+        $reports = array();
+        foreach ($reportTemp as $temp)
+        {
+            $reports[] = (array) $temp;
+        }
 
         $data               = array();
         $data['year']       = $reportParams['year'];
         $data['monthName']  = date("F", mktime(0, 0, 0, $reportParams['month'], 10));
+        $data['reports']    = $reports;
 
         $pdf = PDF::loadView('reports.salesReport', compact('data'));
 
