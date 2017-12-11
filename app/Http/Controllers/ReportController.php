@@ -100,10 +100,8 @@ class ReportController extends Controller
 
         $reportTemp = DB::table('orders')
             ->join('users', 'orders.user_id', 'users.id')
-            ->select('orders.*', 'users.first_name', 'users.last_name')
-            ->whereYear('orders.created_at', $reportParams['year'])
-            ->whereMonth('orders.created_at', $reportParams['month'])
-            ->where('orders.status', '<>', config('constants.TRANSACTION_STATUS_PENDING'))
+            ->select('orders.*',  'users.first_name', 'users.last_name')
+            ->where('orders.status', '<>', config('constants.ORDER_STATUS_PENDING'))
             ->get();
 
         echo '<pre>';
