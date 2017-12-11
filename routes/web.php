@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('chat/admin/{clientId}', 'ChatController@chatAdminSide');
     Route::get('chat/client', 'ChatController@chatClientSide');
     Route::resource('chat', 'ChatController');
+    Route::get('generateReport', 'ReportController@generateReport');
+    Route::resource('reports', 'ReportController');
     Route::get('error', function ()
     {
         return view('customException');
