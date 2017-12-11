@@ -19,7 +19,6 @@
             <p>{{ \Session::get('success') }}</p>
         </div><br />
     @endif
-
     <table class="table table-striped">
         <thead>
         <tr>
@@ -28,12 +27,14 @@
             <th style="text-align: center">Order Images</th>
             <th style="text-align: center">Type of Fabric</th>
             <th style="text-align: center">Type of Print</th>
+            <th style="text-align: center">Type of Order</th>
             <th style="text-align: center">Quantity</th>
             <th style="text-align: center">Total Price</th>
             <th style="text-align: center">Status</th>
         </tr>
         </thead>
         <tbody>
+        @if(count($orderList)>0);
         @foreach($orderList as $order)
             <tr>
                 <td style="text-align: center;">{{$order['id']}}</td>
@@ -55,13 +56,21 @@
                         N/A
                     @endif
                 </td>
+                <td style="text-align: center;">{{$order['order_type']}}</td>
                 <td style="text-align: center;">{{$order['quantity']}}</td>
                 <td style="text-align: right;">{{$order['total_price']}}</td>
                 <td style="text-align: center;">{{$order['status']}}</td>
             </tr>
         @endforeach
+        @else
+            <tr>
+                <td style="text-align: center;" colspan="9">
+                    There is no order
+                </td>
+            </tr>
+        @endif
         <tr>
-            <td style="text-align: right;" colspan="8">
+            <td style="text-align: right;" colspan="9">
                 <a href="{{url('')}}" class="btn btn-default">Close</a>
             </td>
         </tbody>

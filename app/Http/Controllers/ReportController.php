@@ -119,7 +119,7 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('reports.salesReport', compact('data'));
 
-        return $pdf->download('sales_report_'. '$month' . '_' . '$year' . '.pdf');
+        return $pdf->download('sales_report_'. $data['monthName'] . '_' . $data['monthName'] . '.pdf');
 
     }
 

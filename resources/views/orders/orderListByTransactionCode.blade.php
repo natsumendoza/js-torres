@@ -8,10 +8,17 @@
         $cartItem = reset($cartItems);
         $transactionCode = base64_encode($cartItem['transaction_code']);
     }
+
+    $totalQuantity = 0;
+    foreach($cartItems as $cart)
+    {
+        $totalQuantity += $cart['quantity'];
+    }
+
     $totalPrice = 0.00;
 
 @endphp
-@include('modals.paymentModal', ['transactionCode'=>$transactionCode])
+@include('modals.paymentModal', ['transactionCode'=>$transactionCode, 'totalQuantity'=>$totalQuantity])
 @include('modals.orderImageModal')
 <!DOCTYPE html>
 <html>
@@ -28,6 +35,7 @@
             <p>{{ \Session::get('success') }}</p>
         </div><br />
     @endif
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -44,7 +52,9 @@
         <tbody>
         @if(!empty($cartItems))
         @foreach($cartItems as $item)
-                @php($totalPrice = $totalPrice + $item['total_price'])
+                @php
+                    $totalPrice = $totalPrice + $item['total_price'];
+                @endphp
                 <tr>
                 <td style="text-align: center;">{{$item['id']}}</td>
                 <td style="text-align: center;">{{$item['transaction_code']}}</td>
@@ -83,7 +93,7 @@
         </tr>
         <tr>
             <td style="text-align: left;">
-                <a href="{{url('/customize')}}" class="btn btn-primary">Continue Shopping1</a>
+                <a href="{{url('/customize')}}" class="btn btn-primary">Continue Shopping</a>
             </td>
             <td style="text-align: left;">
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#paymentModal">Proceed to checkout</button>
@@ -114,7 +124,9 @@
 <script>
     $(document).ready(function() {
         var items = <?php echo json_encode(@$cartItems); ?>;
-        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;
+        var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>
+        var totalQuantity = <?php echo json_encode(@$totalQuantity); ?>;
+
 
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;
@@ -129,6 +141,7 @@
             $('#leftImgSrcOrder').attr("src", orderImagePath + '/' + items[id]['left_image']);
             $('#rightImgSrcOrder').attr("src", orderImagePath + '/' + items[id]['right_image']);
         });
+
     });
 </script>
 </html>

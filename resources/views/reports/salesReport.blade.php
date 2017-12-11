@@ -38,11 +38,11 @@
 <table style="width: 100%" class="border">
     <thead>
         <tr>
-            <th class="border">Date</th>
-            <th class="border">Transaction Code
-            <th class="border">Order No.</th>
-            <th class="border">Client</th>
-            <th class="border">Amount</th>
+            <th style="text-align: center" class="border">Date</th>
+            <th style="text-align: center" class="border">Transaction Code
+            <th style="text-align: center" class="border">Order No.</th>
+            <th style="text-align: center" class="border">Client</th>
+            <th style="text-align: center" class="border">Amount</th>
         </tr>
     </thead>
     <tbody>

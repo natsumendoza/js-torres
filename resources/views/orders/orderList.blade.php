@@ -28,6 +28,7 @@
             <th style="text-align: center">Order Images</th>
             <th style="text-align: center">Type of Fabric</th>
             <th style="text-align: center">Type of Print</th>
+            <th style="text-align: center">Type of Order</th>
             <th style="text-align: center">Quantity</th>
             <th style="text-align: center">Total Price</th>
             <th style="text-align: center">Current Status</th>
@@ -58,6 +59,7 @@
                         N/A
                     @endif
                 </td>
+                <td style="text-align: center;">{{$order['order_type']}}</td>
                 <td style="text-align: center;">{{$order['quantity']}}</td>
                 <td style="text-align: right;">{{$order['total_price']}}</td>
                 <td style="text-align: center;">{{$order['status']}}</td>
@@ -89,13 +91,13 @@
         @endforeach
         @else
             <tr>
-                <td style="text-align: center;" colspan="10">
+                <td style="text-align: center;" colspan="11">
                     There is no order
                 </td>
             </tr>
         @endif
         <tr>
-            <td style="text-align: right;" colspan="10">
+            <td style="text-align: right;" colspan="11">
                 <a href="{{url('')}}" class="btn btn-default">Close</a>
             </td>
         </tr>

@@ -36,7 +36,8 @@ return [
     'MALE'                      => 'Male',
     'FEMALE'                    => 'Female',
 
-
+    'ORDER_TYPE_PICKUP'         => 'Pickup',
+    'ORDER_TYPE_DELIVER'        => 'Deliver',
 
 
 ];

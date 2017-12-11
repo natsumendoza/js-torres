@@ -340,6 +340,7 @@ class OrderController extends Controller
 
         $data = array(
             'status' => config('constants.ORDER_STATUS_OPEN'),
+            'order_type' => $request['order_type'],
         );
 
         Order::where('transaction_code', $transactionCode)
