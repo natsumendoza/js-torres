@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('month') ? ' has-error' : '' }}">
-                                <label for="month" class="col-md-4 control-label">Year</label>
+                                <label for="month" class="col-md-4 control-label">Month</label>
 
                                 <div class="col-md-6">
                                     <select name="month" id="month" required>
