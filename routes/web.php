@@ -25,6 +25,10 @@ Route::group(['middleware' => 'web'], function () {
 });
 Auth::routes();
 
+Route::get('/faqs', function () {
+    return view('faqs');
+});
+
 Route::get('/customize', 'HomeController@index');
 
 Route::get('/bags', 'BagController@index');

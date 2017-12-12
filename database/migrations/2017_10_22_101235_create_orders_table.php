@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total_price', 10,2);
             $table->string('status');
             $table->string('order_type')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

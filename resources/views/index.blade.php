@@ -272,8 +272,58 @@
                             <input id="backImage" type="hidden" class="hidden" name="backImage" value="backImage">
                             <input id="leftImage" type="hidden" class="hidden" name="leftImage" value="leftImage">
                             <input id="rightImage" type="hidden" class="hidden" name="rightImage" value="rightImage">
+                            <input id="description" type="hidden" class="hidden" name="description" value="description">
 
                             <div class="span3">
+                                <div class="well">
+                                    <h4>Jersey Size</h4>
+                                    <label for="gender-type">Size</label>
+                                    <select id="size-type" disabled>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="2XL">2XL</option>
+                                        <option value="3XL">3XL</option>
+                                        <option value="4XL">4XL</option>
+                                        <option value="customize">Customize</option>
+                                    </select>
+                                    <p>
+                                    <table class="table">
+                                        <tr>
+                                            <td>Chest</td>
+                                            <td><input id="chest" value="" type="text" class="form-control sizeClass" name="chest" style="width:91px" readonly required autofocus></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Front Length</td>
+                                            <td><input id="backLength" type="text" class="form-control sizeClass" name="backLength" value="" style="width:91px" required autofocus readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Back Length</td>
+                                            <td><input id="frontLength" type="text" class="form-control sizeClass" name="frontLength" value="" style="width:91px" required autofocus readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Short Waist</td>
+                                            <td><input id="shortWaist" type="text" class="form-control sizeClass" name="shortWaist" value="" style="width:91px" required autofocus readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Short Length</td>
+                                            <td><input id="shortLength" type="text" class="form-control sizeClass" name="shortLength" value="" style="width:91px" required autofocus readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Leg Opening</td>
+                                            <td><input id="legOpening" type="text" class="form-control sizeClass" name="legOpening" value="" style="width:91px" required autofocus readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Corch Length</td>
+                                            <td><input id="corchLength" type="text" class="form-control sizeClass" name="corchLength" value="" style="width:91px" required autofocus readonly></td>
+                                        </tr>
+
+                                    </table>
+                                    </p>
+                                    <button type="button" class="btn btn-large btn-block btn-success" name="saveSize" id="saveSize">Save Size</button>
+                                </div>
                                 <div class="well">
                                     <h4>Types of Fabrics</h4>
                                     <p>

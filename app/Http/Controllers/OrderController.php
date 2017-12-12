@@ -38,6 +38,8 @@ class OrderController extends Controller
             $order  = (array) $order;
             $orderList[$order['id']] = $order;
         }
+//        echo '<pre>';
+//        print_r($orderList);
 
         return view('orders.orderList', compact('orderList'));
     }
@@ -192,6 +194,7 @@ class OrderController extends Controller
         $order['right_image']      = $rightFileName;
         $order['quantity']         = $validated_order['quantity'];
         $order['total_price']      = $validated_order['totalPrice'];
+        $order['description']      = $request['description'];
         $order['status']           = config('constants.ORDER_STATUS_PENDING');
 
         if($orderType == 'jersey')

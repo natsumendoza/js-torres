@@ -16,6 +16,7 @@ class Order extends Model
         'fabric_type',
         'print_type',
         'quantity',
+        'description',
         'total_price',
         'status'
     ];

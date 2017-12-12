@@ -260,6 +260,22 @@
         $('.soccer-female').hide();
     }
 
+    function fillSizes(size, chest, frontLength, backLength, shortWaist, shortLength, legOpening, corchLength) {
+        $('#chest').val(chest);
+        $('#backLength').val(frontLength + "\"");
+        $('#frontLength').val(backLength + "\"");
+        $('#shortWaist').val(shortWaist + "\"");
+        $('#shortLength').val(shortLength + "\"");
+        $('#legOpening').val(legOpening + "\"");
+        $('#corchLength').val(corchLength + "\"");
+
+        if(size === undefined) {
+            size = '';
+        }
+
+        $('#description').val(size + ',' + chest + ',' + frontLength + ',' + backLength + ',' + shortWaist + ',' + shortLength + ',' + legOpening + ',' + corchLength);
+    }
+
 
     $(document).ready(function() {
         var totalPrice = 0;
@@ -268,6 +284,7 @@
 
         var currentProductObj;
 
+        fillSizes('XL', '42', '29.5', '31.25', '25-28', '11.5-16.5', '13', '12.5');
         $('.fabricType').attr('disabled', 'disabled');
         $('input[name=printType]').attr('disabled', 'disabled');
 
@@ -278,7 +295,11 @@
         var jerseyType = $('#jersey-type').val();
         var genderType = $('#gender-type').val();
 
-
+        $('#saveSize').hide();
+        
+        $('#saveSize').click(function () {
+            $('#description').val('' + ',' + $('#chest').val() + ',' + $('#backLength').val() + ',' + $('#frontLength').val() + ',' + $('#shortWaist').val() + ',' + $('#shortLength').val() + ',' + $('#legOpening').val() + ',' + $('#corchLength').val());
+        });
 
         changeType(jerseyType, genderType);
         var price;
@@ -286,6 +307,55 @@
         $('input[name=printType]').change(function () {
             price = atob($(this).attr('class'));
             $('#totalPrice').val(price * quantity);
+        });
+
+        $('#size-type').change(function () {
+            if($(this).val() === 'customize') {
+                $('.sizeClass').removeAttr('readonly');
+                $('.sizeClass').val('0');
+                $('#saveSize').show();
+            } else {
+                $('.sizeClass').attr('readonly', 'readonly');
+                $('.sizeClass').val('');
+                $('#saveSize').hide();
+
+                var size = $(this).val();
+                switch(size) {
+                    case 'XS':
+                        fillSizes(size, '42', '29.5', '31.25', '25-28', '11.5-16.5', '13', '12.5');
+                        break;
+
+                    case 'S':
+                        fillSizes(size, '44', '30.75', '32.25', '28-31', '12.5-17.5', '13.5', '13');
+                        break;
+
+                    case 'M':
+                        fillSizes(size, '46', '31.75', '33.25', '31-34', '13.5-19', '14', '13.5');
+                        break;
+
+                    case 'L':
+                        fillSizes(size, '48', '32.75', '34.25', '34-37', '14.5-20', '14.5', '14');
+                        break;
+
+                    case 'XL':
+                        fillSizes(size, '50', '33.75', '35.25', '37-40', '15.5-21', '15', '14.5');
+                        break;
+
+                    case '2XL':
+                        fillSizes(size, '52', '34.75', '36.25', '40-43', '16.5-22', '15.5', '15');
+                        break;
+
+                    case '3XL':
+                        fillSizes(size, '54', '35.75', '37.25', '43-46', '17.5-23', '16', '15.5');
+                        break;
+
+                    case '4XL':
+                        fillSizes(size, '56', '36.75', '38.25', '46-49', '18.5-24', '16.5', '16');
+                        break;
+
+                }
+
+            }
         });
 
         $('#jersey-type').change(function () {
@@ -352,7 +422,7 @@
             $('.fabricType').prop('disabled', false);
             $('input[name=printType]').attr('disabled', false);
 
-
+            $('#size-type').removeAttr('disabled');
 
             var productData;
 

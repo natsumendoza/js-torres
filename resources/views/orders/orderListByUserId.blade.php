@@ -3,6 +3,7 @@
 
 @section('content')
 @include('modals.orderImageModal')
+@include('modals.orderSizeModal')
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,7 @@
             <th style="text-align: center">Type of Fabric</th>
             <th style="text-align: center">Type of Print</th>
             <th style="text-align: center">Type of Order</th>
+            <th style="text-align: center">Size</th>
             <th style="text-align: center">Quantity</th>
             <th style="text-align: center">Total Price</th>
             <th style="text-align: center">Status</th>
@@ -57,6 +59,12 @@
                     @endif
                 </td>
                 <td style="text-align: center;">{{$order['order_type']}}</td>
+                <td style="text-align: center;">
+                    <a class="viewSizeModal" id="{{$order['id']}}" data-toggle="modal" data-target="#orderSizeModal">
+                        {{explode(',', $order['description'])[0]}}
+                    </a>
+
+                </td>
                 <td style="text-align: center;">{{$order['quantity']}}</td>
                 <td style="text-align: right;">{{$order['total_price']}}</td>
                 <td style="text-align: center;">{{$order['status']}}</td>
@@ -81,7 +89,6 @@
     $(document).ready(function() {
         var orders = <?php echo json_encode(@$orderList); ?>;
         var orderImagePath = <?php echo json_encode(URL::asset('/orderimages/')); ?>;
-
         $('.viewOrderImage').on('click',function (e) {
             var id = e.target.id;
             // FOR ANCHOR <a> TAG
@@ -94,6 +101,29 @@
             $('#backImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['back_image']);
             $('#leftImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['left_image']);
             $('#rightImgSrcOrder').attr("src", orderImagePath + '/' + orders[id]['right_image']);
+        });
+
+        $('.viewSizeModal').on('click', function (e) {
+            var id = e.target.id;
+            var sizes = (orders[id]['description']).split(',');
+
+            var size = sizes[0];
+            var chest = sizes[1];
+            var frontLength = sizes[2];
+            var backLength = sizes[3];
+            var shortWaist = sizes[4];
+            var shortLength = sizes[5];
+            var legOpening = sizes[6];
+            var corchLength = sizes[7];
+
+            $('#size').text(size);
+            $('#chest').text(chest + "\"");
+            $('#frontLength').text(frontLength + "\"");
+            $('#backLength').text(backLength + "\"");
+            $('#shortWaist').text(shortWaist + "\"");
+            $('#shortLength').text(shortLength + "\"");
+            $('#legOpening').text(legOpening + "\"");
+            $('#corchLength').text(corchLength + "\"");
         });
     });
 </script>
